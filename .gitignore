@@ -1,4 +1,6 @@
 node_modules
+*.mp4
+*.png
 *.pt
 *.pkl
 hack.v*.yolov11/
