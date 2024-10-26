@@ -1,13 +1,16 @@
 # Sample code to track objects in a video using YOLO11
+# NOTE: movie_detector.py is a more complete version of this code
 import cv2
 import logging
+
 
 from ultralytics import YOLO
 
 logger = logging.getLogger(__name__)
 
 # Load the YOLO11 model
-model = YOLO("yolo11n.pt")
+# model = YOLO("yolo11n.pt")
+model = YOLO("../hackv3i.pt")
 
 # Open the video file
 video_path = "../Whiplash.mp4"
