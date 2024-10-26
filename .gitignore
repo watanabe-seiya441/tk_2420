@@ -1,3 +1,6 @@
 node_modules
 *.pt
 *.pkl
+hack.v*.yolov11/
+runs/
+runs_old/
