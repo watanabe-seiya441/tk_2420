@@ -3,3 +3,6 @@ node_modules
 *.png
 *.pt
 *.pkl
+hack.v*.yolov11/
+runs/
+runs_old/
