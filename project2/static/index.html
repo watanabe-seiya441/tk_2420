@@ -4,6 +4,61 @@
     <meta charset="UTF-8">
     <title>Where is your chugyeog?</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .button-container {
+            display: flex; /* ボタンを横に並べる */
+            justify-content: center; /* 中央に配置 */
+            margin-top: 20px; /* 上にマージンを追加 */
+        }
+
+        .button-wrapper {
+            display: flex; /* ボタンと名前を縦に配置 */
+            flex-direction: column; /* 縦に並べる */
+            align-items: center; /* 中央揃え */
+            margin: 0 40px; /* 横の間隔を広げる */
+        }
+
+        .round-button {
+            width: 100px; /* ボタンの幅 */
+            height: 100px; /* ボタンの高さ */
+            border-radius: 50%; /* 丸くする */
+            overflow: hidden; /* 画像がボタンの外にはみ出さないようにする */
+            display: flex; /* 中の画像を中央に配置 */
+            align-items: center; /* 垂直方向の中央に配置 */
+            justify-content: center; /* 水平方向の中央に配置 */
+            cursor: pointer; /* ポインタを変更 */
+            border: 2px solid transparent; /* デフォルトのボーダーを透明に */
+        }
+
+        /* 各ボタンの色を指定 */
+        .button-1 {
+            border-color: #FF5733; /* ボタン1の淵の色 */
+        }
+
+        .button-2 {
+            border-color: #33FF57; /* ボタン2の淵の色 */
+        }
+
+        .button-3 {
+            border-color: #3357FF; /* ボタン3の淵の色 */
+        }
+
+        .button-4 {
+            border-color: #FF33A1; /* ボタン4の淵の色 */
+        }
+
+        .round-button img {
+            width: 100%; /* 画像の幅をボタンに合わせる */
+            height: auto; /* 高さは自動調整 */
+        }
+
+        .member-name {
+            margin-top: 5px; /* 名前とボタンの間にマージンを追加 */
+            text-align: center; /* 名前を中央揃え */
+            font-size: 14px; /* フォントサイズ */
+            color: white; /* フォントカラー */
+        }
+    </style>
 </head>
 <body>
     <div class="background-image"></div> <!-- 新しい背景画像用の要素 -->
@@ -15,6 +70,34 @@
         </form>
         <div id="message"></div>
         <video id="output-video" controls style="display:none;"></video>
+
+        <!-- ボタンのコンテナ -->
+        <div class="button-container">
+            <div class="button-wrapper">
+                <div class="round-button button-1" onclick="alert('Member 1')">
+                    <img src="giselle4.jpg" alt="Member 1">
+                </div>
+                <span class="member-name">Giselle</span> <!-- メンバー名 -->
+            </div>
+            <div class="button-wrapper">
+                <div class="round-button button-2" onclick="alert('Member 2')">
+                    <img src="karina2.jpg" alt="Member 2">
+                </div>
+                <span class="member-name">Karina</span> <!-- メンバー名 -->
+            </div>
+            <div class="button-wrapper">
+                <div class="round-button button-3" onclick="alert('Member 3')">
+                    <img src="ningning8.jpg" alt="Member 3">
+                </div>
+                <span class="member-name">NingNing</span> <!-- メンバー名 -->
+            </div>
+            <div class="button-wrapper">
+                <div class="round-button button-4" onclick="alert('Member 4')">
+                    <img src="winter03.jpg" alt="Member 4">
+                </div>
+                <span class="member-name">Winter</span> <!-- メンバー名 -->
+            </div>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>
