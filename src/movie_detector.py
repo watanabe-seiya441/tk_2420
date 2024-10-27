@@ -104,7 +104,6 @@ def annotate_video(input_video_path: str, output_path: str) -> None:
                     y2_smooth = int(sum(b[3] for b in past_info[tracking_id]['bboxes']) / num_bboxes)
 
                     if past_info[tracking_id]['fixed_class_name'] is None and confidence < confidence_threshold:
-                        print("Confidence is low!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                         confidence_low_flag = True
 
                     if past_info[tracking_id]['fixed_class_name'] is not None:
