@@ -3,12 +3,22 @@ import cv2
 from ultralytics import YOLO
 import subprocess
 import os
+import sys
+import logging
+
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder="static")
 app.config["UPLOAD_FOLDER"] = "./uploads"
 app.config["OUTPUT_FOLDER"] = "./public"
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 os.makedirs(app.config["OUTPUT_FOLDER"], exist_ok=True)
+
+# import ../src/movie_detector.py
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+from src.movie_detector import annotate_video
 
 @app.route("/")
 def index():
@@ -23,45 +33,14 @@ def upload_video():
     video_path = os.path.join(app.config["UPLOAD_FOLDER"], "input.mp4")
     file.save(video_path)
     
-    output_path = os.path.join(app.config["UPLOAD_FOLDER"], "tmp.mp4")
+    # output_path = os.path.join(app.config["UPLOAD_FOLDER"], "tmp.mp4")
     final_output_path = os.path.join(app.config["OUTPUT_FOLDER"], "output.mp4")
-    
-    # YOLO モデルの初期化と処理
+
     try:
-        model = YOLO("./hackv4i.pt")
-        cap = cv2.VideoCapture(video_path)
-        fps = cap.get(cv2.CAP_PROP_FPS)
-        frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        
-        fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-        out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
-        
-        while cap.isOpened():
-            ret, frame = cap.read()
-            if ret:
-                results = model.track(frame, persist=True)
-                annotated_frame = results[0].plot()
-                out.write(annotated_frame)
-            else:
-                break
-        
-        cap.release()
-        out.release()
-        
-        # FFmpeg を使用して音声を結合
-        subprocess.run(
-            [
-                "ffmpeg", "-i", output_path, "-i", video_path,
-                "-c:v", "libx264", "-c:a", "copy",
-                "-map", "0:v:0", "-map", "1:a:0",
-                "-y", final_output_path,
-            ]
-        )
-        
-        os.remove(output_path)
+        annotate_video(video_path, final_output_path)
         
     except Exception as e:
+        logger.warning(f"An error occurred: {str(e)}")
         return jsonify({"message": f"エラーが発生しました: {str(e)}"}), 500
     
     return jsonify({
