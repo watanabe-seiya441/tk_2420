@@ -6,13 +6,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>動画アップロードと処理</h1>
-    <form id="upload-form">
-        <input type="file" name="video" accept="video/*" required>
-        <button type="submit">アップロード</button>
-    </form>
-    <div id="message"></div>
-    <video id="output-video" controls style="display:none;"></video>
+    <div class="container">
+        <h1>動画アップロードと処理</h1>
+        <form id="upload-form">
+            <input type="file" name="video" accept="video/*" required>
+            <button type="submit">アップロード</button>
+        </form>
+        <div id="message"></div>
+        <video id="output-video" controls style="display:none;"></video>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>
