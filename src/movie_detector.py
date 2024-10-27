@@ -2,14 +2,20 @@ import cv2
 from ultralytics import YOLO
 import subprocess
 import os
+import logging
 import numpy as np
 
-input_video_path = "Whiplash.mp4"
-output_path = "output.mp4"
+input_video_path = "../Whiplash.mp4"
+output_path = "../output.mp4"
+display_window_while_processing = False
 
-def annotate_video(input_video_path: str, output_path: str) -> None:
-    model = YOLO("project2/hackv4i.pt")
+logger = logging.getLogger(__name__)
+
+def annotate_video(input_video_path:str, output_path:str, model_path: str = "../models/hackv4i.pt") -> None:
+    model = YOLO(model_path)
     cap = cv2.VideoCapture(input_video_path)
+
+    display_window_while_processing = False
 
     fps = cap.get(cv2.CAP_PROP_FPS)
     frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -129,8 +135,10 @@ def annotate_video(input_video_path: str, output_path: str) -> None:
                 )
 
         out.write(frame)
-        # 表示が不要であれば、以下の2行をコメントアウトしてください
-        cv2.imshow("Frame", frame)
+
+        if display_window_while_processing:
+            cv2.imshow("Frame", frame)
+
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
 
