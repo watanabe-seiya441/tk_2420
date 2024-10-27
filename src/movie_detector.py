@@ -10,7 +10,7 @@ output_path = "../output.mp4"
 
 logger = logging.getLogger(__name__)
 
-def annotate_video(input_video_path:str, output_path:str, model_path: str = "../models/hackv4i.pt") -> None:
+def annotate_video(input_video_path:str, output_path:str, model_path: str = "../models/hackv4i_yolo11x.pt") -> None:
     model = YOLO(model_path)
     cap = cv2.VideoCapture(input_video_path)
 
