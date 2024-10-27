@@ -132,7 +132,8 @@ def annotate_video(input_video_path:str, output_path:str, model_path: str = "../
                         cv2.line(frame, (x1_smooth, y1_smooth), (x2_smooth, y1_smooth), color, 2)
 
                         # ラベルを描画
-                        label_text = f"{class_name} training_id:{tracking_id}"
+                        # label_text = f"{class_name} training_id:{tracking_id}"
+                        label_text = f"{class_name}"
                         cv2.putText(
                             frame,
                             label_text,
