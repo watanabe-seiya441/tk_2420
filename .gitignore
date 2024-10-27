@@ -6,3 +6,4 @@ node_modules
 hack.v*.yolov11/
 runs/
 runs_old/
+*.pyc
