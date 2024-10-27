@@ -7,7 +7,6 @@ import numpy as np
 
 input_video_path = "../Whiplash.mp4"
 output_path = "../output.mp4"
-display_window_while_processing = False
 
 logger = logging.getLogger(__name__)
 
