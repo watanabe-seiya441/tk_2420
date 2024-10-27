@@ -2,13 +2,17 @@ import cv2
 from ultralytics import YOLO
 import subprocess
 import os
+import logging
 
 input_video_path = "../Whiplash.mp4"
-output_path = "output.mp4"
+output_path = "../output.mp4"
+display_window_while_processing = False
+
+logger = logging.getLogger(__name__)
 
 def annotate_video(input_video_path:str, output_path:str) -> None:
-    # model = YOLO("yolo8n.pt")
-    model = YOLO("../hackv4i.pt")
+    model = YOLO("yolo11x-seg.pt")
+    # model = YOLO("../hackv4i.pt")
     cap = cv2.VideoCapture(input_video_path)
 
     fps = cap.get(cv2.CAP_PROP_FPS)
@@ -25,7 +29,9 @@ def annotate_video(input_video_path:str, output_path:str) -> None:
             results = model.track(frame, persist=True) 
             annotated_frame = results[0].plot()
             out.write(annotated_frame)
-            cv2.imshow("Frame", annotated_frame)
+            if display_window_while_processing:
+                cv2.imshow("Frame", frame)
+            # cv2.imshow("Frame", annotated_frame)
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
         else:
@@ -56,7 +62,7 @@ def annotate_video(input_video_path:str, output_path:str) -> None:
         ]
     )
 
-    os.remove(output_path)
+    os.remove(tmp_output_path)
 
 
 if __name__ == "__main__":
