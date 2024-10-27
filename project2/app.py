@@ -37,7 +37,7 @@ def upload_video():
     final_output_path = os.path.join(app.config["OUTPUT_FOLDER"], "output.mp4")
 
     try:
-        annotate_video(video_path, final_output_path)
+        annotate_video(video_path, final_output_path, "../models/hackv4i.pt")
         
     except Exception as e:
         logger.warning(f"An error occurred: {str(e)}")
