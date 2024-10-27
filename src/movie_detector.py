@@ -4,6 +4,7 @@ import subprocess
 import os
 import logging
 import numpy as np
+from collections import Counter
 
 input_video_path = "../Whiplash.mp4"
 output_path = "../output.mp4"
@@ -29,11 +30,12 @@ def annotate_video(input_video_path:str, output_path:str, model_path: str = "../
     # 前のフレームを保存する変数を初期化（シーン切り替え検出用）
     prev_frame_gray = None
     # シーン切り替えのしきい値
-    scene_change_threshold = 30.0
+    scene_change_threshold = 20.0
     # Confidenceスコアのしきい値
-    confidence_threshold = 0.5
+    confidence_threshold = 0.40
     # 平滑化に使用するフレーム数
     smoothing_frames = 30
+    fix_threshold = 0.85
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -61,6 +63,7 @@ def annotate_video(input_video_path:str, output_path:str, model_path: str = "../
                 x1, y1, x2, y2 = map(int, box.xyxy[0])
                 class_id = int(box.cls.cpu().item())
                 class_name = result.names[class_id]
+                confidence_low_flag = False
 
                 # トラッキングIDを取得
                 tracking_id = int(box.id.cpu().item()) if box.id is not None else None
@@ -83,7 +86,8 @@ def annotate_video(input_video_path:str, output_path:str, model_path: str = "../
                         past_info[tracking_id] = {
                             'bboxes': [],
                             'class_names': [],
-                            'confidences': []
+                            'confidences': [],
+                            'fixed_class_name': None  # 追加
                         }
 
                     # 現在の情報を保存
@@ -104,34 +108,41 @@ def annotate_video(input_video_path:str, output_path:str, model_path: str = "../
                     x2_smooth = int(sum(b[2] for b in past_info[tracking_id]['bboxes']) / num_bboxes)
                     y2_smooth = int(sum(b[3] for b in past_info[tracking_id]['bboxes']) / num_bboxes)
 
-                    # 現在のConfidenceが低い場合、過去の高いConfidenceのクラス名を使用
-                    if confidence < confidence_threshold:
-                        # 過去のConfidenceが高いクラス名を取得
-                        max_confidence = max(past_info[tracking_id]['confidences'])
-                        max_index = past_info[tracking_id]['confidences'].index(max_confidence)
-                        class_name = past_info[tracking_id]['class_names'][max_index]
-                else:
-                    # トラッキングIDがない場合は現在の座標とクラス名を使用
-                    x1_smooth, y1_smooth, x2_smooth, y2_smooth = x1, y1, x2, y2
+                    if past_info[tracking_id]['fixed_class_name'] is None and confidence < confidence_threshold:
+                        confidence_low_flag = True
 
-                if y1_smooth - 5 < 0:
-                    y1_smooth += 15
+                    if past_info[tracking_id]['fixed_class_name'] is not None:
+                        # 固定されたクラス名を使用
+                        class_name = past_info[tracking_id]['fixed_class_name']
 
-                # バウンディングボックスを描画
-                cv2.line(frame, (x1_smooth, y1_smooth), (x2_smooth, y1_smooth), color, 2)
+                    # 一度Confidenceが0.9を超えた場合、固定されたクラス名を使用
+                    if confidence >= fix_threshold and past_info[tracking_id]['fixed_class_name'] is None:
+                        past_info[tracking_id]['fixed_class_name'] = class_name
 
-                # ラベルを描画
-                label_text = f"{class_name} cofidence:{confidence:.2f}"
-                cv2.putText(
-                    frame,
-                    label_text,
-                    (x1_smooth, y1_smooth - 5),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.5,
-                    color,
-                    1,
-                    cv2.LINE_AA
-                )
+                    else:
+                        class_counter = Counter(past_info[tracking_id]['class_names'])
+                        most_common_class_name, _ = class_counter.most_common(1)[0]
+                        class_name = most_common_class_name
+
+                if not confidence_low_flag and tracking_id is not None:
+                        if y1_smooth - 5 < 0:
+                            y1_smooth += 15
+
+                        # バウンディングボックスを描画
+                        cv2.line(frame, (x1_smooth, y1_smooth), (x2_smooth, y1_smooth), color, 2)
+
+                        # ラベルを描画
+                        label_text = f"{class_name} training_id:{tracking_id}"
+                        cv2.putText(
+                            frame,
+                            label_text,
+                            (x1_smooth, y1_smooth - 5),
+                            cv2.FONT_HERSHEY_SIMPLEX,
+                            0.5,
+                            color,
+                            1,
+                            cv2.LINE_AA
+                        )
 
         out.write(frame)
 
@@ -171,3 +182,5 @@ def annotate_video(input_video_path:str, output_path:str, model_path: str = "../
 
 if __name__ == "__main__":
     annotate_video(input_video_path, output_path)
+
+
