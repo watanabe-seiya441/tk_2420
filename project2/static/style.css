@@ -3,9 +3,6 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-image: url('whisplash.png');
-    background-size: cover;
-    background-position: center;
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -14,7 +11,25 @@ body {
     height: 100vh;
     margin: 0;
     padding: 20px;
+    position: relative; /* 追加 */
+}
+
+.background-image {
+    background-image: url('whisplash.png'); /* 追加する背景画像 */
+    background-size: cover;
+    background-position: center;
+    position: absolute; /* 追加 */
+    top: 0; /* 追加 */
+    left: 0; /* 追加 */
+    width: 100%; /* 追加 */
+    height: 100%; /* 追加 */
+    z-index: -1; /* コンテナの背面に配置 */
+}
+
+.container {
     background-color: rgba(0, 0, 0, 0.6); /* 透明な黒背景を追加 */
+    padding: 20px;
+    border-radius: 15px; /* コンテナの角を丸める */
 }
 
 h1 {
