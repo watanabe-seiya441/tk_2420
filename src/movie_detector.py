@@ -10,9 +10,7 @@ display_window_while_processing = False
 
 logger = logging.getLogger(__name__)
 
-def annotate_video(input_video_path:str, output_path:str, model_path: str = "./hackv4i.pt") -> None:
-    # model = YOLO("yolo11x-seg.pt")
-    # model = YOLO("../hackv4i.pt")
+def annotate_video(input_video_path:str, output_path:str, model_path: str = "../models/hackv4i.pt") -> None:
     model = YOLO(model_path)
     cap = cv2.VideoCapture(input_video_path)
 
