@@ -6,6 +6,9 @@ interface Position {
     time: number;
     x: number;
     y: number;
+    width: number;
+    height: number;
+    visible: boolean;
 }
 
 interface Overlay {
@@ -18,7 +21,7 @@ interface Overlay {
 
 interface EnhancedVideoPlayerProps {
     src: string;
-    overlayConfigUrl: string; // URL for JSON configuration file
+    overlayConfigUrl: string;
 }
 
 const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayConfigUrl }) => {
@@ -32,7 +35,6 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
     };
 
     useEffect(() => {
-        // Fetch overlay configuration from JSON file
         fetch(overlayConfigUrl)
             .then((response) => response.json())
             .then((data) => setOverlays(data.overlays));
@@ -70,10 +72,10 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
                 Your browser does not support the video tag.
             </video>
 
-            {/* Overlay Texts with Dynamic Positions */}
+            {/* Overlay Texts with Dynamic Positions, Size, and Visibility */}
             {isOverlayVisible && overlays.map((overlay) => {
                 const position = currentPositions[overlay.id];
-                if (!position) return null;
+                if (!position || !position.visible) return null;  // Hide overlay if not visible
 
                 return (
                     <div
@@ -84,7 +86,10 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
                             fontSize: overlay.fontSize,
                             top: `${position.y}%`,
                             left: `${position.x}%`,
-                            transform: 'translate(-50%, -50%)'
+                            width: `${position.width}px`,
+                            height: `${position.height}px`,
+                            transform: 'translate(-50%, -50%)',
+                            display: position.visible ? 'block' : 'none'
                         }}
                     >
                         {overlay.content}
