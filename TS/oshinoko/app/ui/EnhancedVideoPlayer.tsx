@@ -28,6 +28,7 @@ interface EnhancedVideoPlayerProps {
 
 const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayConfigUrl, originalVideoWidth, originalVideoHeight }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const [overlays, setOverlays] = useState<Overlay[]>([]);
     const [currentPositions, setCurrentPositions] = useState<{ [key: string]: Position }>({});
     const [isOverlayVisible, setOverlayVisible] = useState<boolean>(true);
@@ -70,7 +71,7 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
         };
     }, [overlays]);
 
-    // Calculate scaling factors whenever the video size changes
+    // Calculate scaling factors whenever the video or container size changes
     useEffect(() => {
         const updateScale = () => {
             if (!videoRef.current) return;
@@ -95,12 +96,35 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
         };
     }, [originalVideoWidth, originalVideoHeight]);
 
+    // Handle custom fullscreen toggle
+    const handleFullscreenToggle = () => {
+        if (!containerRef.current) return;
+
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        } else {
+            containerRef.current.requestFullscreen();
+        }
+    };
+
     return (
-        <div className="relative w-full max-w-3xl mx-auto">
-            {/* Video Player */}
-            <video ref={videoRef} controls src={src} className="w-full rounded-lg">
+        <div ref={containerRef} className="relative w-full max-w-3xl mx-auto">
+            {/* Video Player with Custom Fullscreen Button */}
+            <video
+                ref={videoRef}
+                controls
+                src={src}
+                className="w-full rounded-lg"
+                onDoubleClick={handleFullscreenToggle} // Optional: Double-click to fullscreen
+            >
                 Your browser does not support the video tag.
             </video>
+            <button
+                onClick={handleFullscreenToggle}
+                className="absolute top-2 right-2 px-4 py-2 bg-blue-500 text-white rounded"
+            >
+                Fullscreen
+            </button>
 
             {/* Overlay Texts with Dynamic Position, Size, and Visibility */}
             {isOverlayVisible && overlays.map((overlay) => {
