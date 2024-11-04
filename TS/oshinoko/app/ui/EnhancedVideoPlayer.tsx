@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 interface Position {
     time: number;
-    x: number;
+    x: number; // Original video pixel coordinates
     y: number;
     width: number;
     height: number;
@@ -21,10 +21,12 @@ interface Overlay {
 
 interface EnhancedVideoPlayerProps {
     src: string;
-    overlayConfigUrl: string;
+    overlayConfigUrl: string; // URL for JSON configuration file
+    originalVideoWidth: number; // Original video width in pixels
+    originalVideoHeight: number; // Original video height in pixels
 }
 
-const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayConfigUrl }) => {
+const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayConfigUrl, originalVideoWidth, originalVideoHeight }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [overlays, setOverlays] = useState<Overlay[]>([]);
     const [currentPositions, setCurrentPositions] = useState<{ [key: string]: Position }>({});
@@ -34,7 +36,10 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
         setOverlayVisible((prev) => !prev);
     };
 
+    const [scale, setScale] = useState({ x: 1, y: 1 });
+
     useEffect(() => {
+        // Fetch overlay configuration from JSON file
         fetch(overlayConfigUrl)
             .then((response) => response.json())
             .then((data) => setOverlays(data.overlays));
@@ -65,6 +70,31 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
         };
     }, [overlays]);
 
+    // Calculate scaling factors whenever the video size changes
+    useEffect(() => {
+        const updateScale = () => {
+            if (!videoRef.current) return;
+            const { videoWidth, videoHeight, clientWidth, clientHeight } = videoRef.current;
+
+            const scaleX = clientWidth / originalVideoWidth;
+            const scaleY = clientHeight / originalVideoHeight;
+
+            setScale({ x: scaleX, y: scaleY });
+        };
+
+        // Initial scale calculation
+        updateScale();
+
+        // Recalculate on resize or fullscreen change
+        window.addEventListener('resize', updateScale);
+        document.addEventListener('fullscreenchange', updateScale);
+
+        return () => {
+            window.removeEventListener('resize', updateScale);
+            document.removeEventListener('fullscreenchange', updateScale);
+        };
+    }, [originalVideoWidth, originalVideoHeight]);
+
     return (
         <div className="relative w-full max-w-3xl mx-auto">
             {/* Video Player */}
@@ -72,10 +102,16 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
                 Your browser does not support the video tag.
             </video>
 
-            {/* Overlay Texts with Dynamic Positions, Size, and Visibility */}
+            {/* Overlay Texts with Dynamic Position, Size, and Visibility */}
             {isOverlayVisible && overlays.map((overlay) => {
                 const position = currentPositions[overlay.id];
                 if (!position || !position.visible) return null;  // Hide overlay if not visible
+
+                // Calculate scaled position and size
+                const scaledX = position.x * scale.x;
+                const scaledY = position.y * scale.y;
+                const scaledWidth = position.width * scale.x;
+                const scaledHeight = position.height * scale.y;
 
                 return (
                     <div
@@ -84,10 +120,10 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
                         style={{
                             color: overlay.color,
                             fontSize: overlay.fontSize,
-                            top: `${position.y}%`,
-                            left: `${position.x}%`,
-                            width: `${position.width}px`,
-                            height: `${position.height}px`,
+                            top: `${scaledY}px`,
+                            left: `${scaledX}px`,
+                            width: `${scaledWidth}px`,
+                            height: `${scaledHeight}px`,
                             transform: 'translate(-50%, -50%)',
                             display: position.visible ? 'block' : 'none'
                         }}
