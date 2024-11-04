@@ -5,10 +5,10 @@ import OverlayBox from '@/app/ui/OverlayBox';
 
 interface Position {
     time: number;
-    x: number; // Original video pixel coordinates
-    y: number;
-    width: number;
-    height: number;
+    startX: number;
+    startY: number;
+    endX: number;
+    endY: number;
     visible: boolean;
 }
 
@@ -17,6 +17,8 @@ interface Overlay {
     content: string;
     color: string;
     fontSize: string;
+    lineColor: string;
+    lineWidth: number;
     positions: Position[];
 }
 
@@ -131,10 +133,10 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
                 const position = currentPositions[overlay.id];
                 if (!position || !position.visible) return null;
 
-                const scaledX = position.x * scale.x;
-                const scaledY = position.y * scale.y;
-                const scaledWidth = position.width * scale.x;
-                const scaledHeight = position.height * scale.y;
+                const scaledStartX = position.startX * scale.x;
+                const scaledStartY = position.startY * scale.y;
+                const scaledEndX = position.endX * scale.x;
+                const scaledEndY = position.endY * scale.y;
 
                 return (
                     <OverlayBox
@@ -142,16 +144,19 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
                         content={overlay.content}
                         color={overlay.color}
                         fontSize={overlay.fontSize}
-                        top={scaledY}
-                        left={scaledX}
-                        width={scaledWidth}
-                        height={scaledHeight}
+                        lineColor={overlay.lineColor}
+                        lineWidth={overlay.lineWidth}
+                        startX={scaledStartX}
+                        startY={scaledStartY}
+                        endX={scaledEndX}
+                        endY={scaledEndY}
                         visible={position.visible}
                     />
                 );
             })}
             <button
                 onClick={toggleOverlay}
+                // className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
                 className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
             >
                 {isOverlayVisible ? 'Hide' : 'Show'} Overlay
