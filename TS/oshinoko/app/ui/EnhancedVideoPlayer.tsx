@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react';
+import OverlayBox from '@/app/ui/OverlayBox';
 
 interface Position {
     time: number;
@@ -96,7 +97,6 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
         };
     }, [originalVideoWidth, originalVideoHeight]);
 
-    // Handle custom fullscreen toggle
     const handleFullscreenToggle = () => {
         if (!containerRef.current) return;
 
@@ -115,7 +115,7 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
                 controls
                 src={src}
                 className="w-full rounded-lg"
-                onDoubleClick={handleFullscreenToggle} // Optional: Double-click to fullscreen
+                onDoubleClick={handleFullscreenToggle}
             >
                 Your browser does not support the video tag.
             </video>
@@ -129,31 +129,25 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
             {/* Overlay Texts with Dynamic Position, Size, and Visibility */}
             {isOverlayVisible && overlays.map((overlay) => {
                 const position = currentPositions[overlay.id];
-                if (!position || !position.visible) return null;  // Hide overlay if not visible
+                if (!position || !position.visible) return null;
 
-                // Calculate scaled position and size
                 const scaledX = position.x * scale.x;
                 const scaledY = position.y * scale.y;
                 const scaledWidth = position.width * scale.x;
                 const scaledHeight = position.height * scale.y;
 
                 return (
-                    <div
+                    <OverlayBox
                         key={overlay.id}
-                        className="absolute pointer-events-none"
-                        style={{
-                            color: overlay.color,
-                            fontSize: overlay.fontSize,
-                            top: `${scaledY}px`,
-                            left: `${scaledX}px`,
-                            width: `${scaledWidth}px`,
-                            height: `${scaledHeight}px`,
-                            transform: 'translate(-50%, -50%)',
-                            display: position.visible ? 'block' : 'none'
-                        }}
-                    >
-                        {overlay.content}
-                    </div>
+                        content={overlay.content}
+                        color={overlay.color}
+                        fontSize={overlay.fontSize}
+                        top={scaledY}
+                        left={scaledX}
+                        width={scaledWidth}
+                        height={scaledHeight}
+                        visible={position.visible}
+                    />
                 );
             })}
             <button
