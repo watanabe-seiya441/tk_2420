@@ -1,0 +1,27 @@
+{
+  "overlays": [
+    {
+      "id": "text1",
+      "content": "winter",
+      "color": "#FF5733",
+      "fontSize": "24px",
+      "positions": [
+        { "time": 0.0, "x": 10, "y": 50 },
+        { "time": 1.0, "x": 15, "y": 55 },
+        { "time": 2.0, "x": 20, "y": 60 },
+        { "time": 3.0, "x": 25, "y": 65 }
+      ]
+    },
+    {
+      "id": "text2",
+      "content": "giselle",
+      "color": "#33C4FF",
+      "fontSize": "18px",
+      "positions": [
+        { "time": 0.0, "x": 50, "y": 100 },
+        { "time": 1.5, "x": 55, "y": 105 },
+        { "time": 3.0, "x": 60, "y": 110 }
+      ]
+    }
+  ]
+}
