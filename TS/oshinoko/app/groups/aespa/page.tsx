@@ -15,7 +15,7 @@ const AespaPage = () => {
         {/* Enhanced Video Player */}
         <div className="mt-8">
           <h2 className="text-2xl font-semibold">Watch Aespa’s Latest Video</h2>
-          <EnhancedVideoPlayer src="/dev/test.mp4" overlayConfigUrl="/dev/overlays.json" originalVideoWidth={640} originalVideoHeight={360} />
+          <EnhancedVideoPlayer src="/dev/test.mp4" overlayConfigUrl="/dev/nameplates.json" originalVideoWidth={640} originalVideoHeight={360} />
         </div>
       </div>
     </main>
