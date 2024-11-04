@@ -1,0 +1,30 @@
+{
+  "overlays": [
+    {
+      "id": "text1",
+      "content": "Person A",
+      "color": "#FF5733",
+      "fontSize": "16px",
+      "lineColor": "#FF5733",
+      "lineWidth": 2,
+      "positions": [
+        {
+          "time": 0.0,
+          "startX": 10,
+          "startY": 50,
+          "endX": 100,
+          "endY": 50,
+          "visible": true
+        },
+        {
+          "time": 2.0,
+          "startX": 50,
+          "startY": 70,
+          "endX": 200,
+          "endY": 70,
+          "visible": true
+        }
+      ]
+    }
+  ]
+}
