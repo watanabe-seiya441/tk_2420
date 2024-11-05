@@ -19,7 +19,7 @@ VIDEOS = [
     {
         "id": "video1",
         "title": "Supernova",
-        "group": "aespa",
+        "group_name": "aespa",
         "video_url": "/videos/Supernova.mp4",
         "overlay_url": "/overlays/Supernova_overlay.json",
         "original_video_width": 640,
@@ -28,7 +28,7 @@ VIDEOS = [
     {
         "id": "video2",
         "title": "Whiplash",
-        "group": "aespa",
+        "group_name": "aespa",
         "video_url": "/videos/Whiplash.mp4",
         "overlay_url": "/overlays/Whiplash_overlay.json",
         "original_video_width": 640,
@@ -37,7 +37,7 @@ VIDEOS = [
     {
         "id": "video3",
         "title": "裸足でSummer",
-        "group": "nokizaka",
+        "group_name": "nokizaka",
         "video_url": "/videos/hadashidesummer_nise.mp4",
         "overlay_url": "/overlays/hadashidesummer_nise_overlay.json",
         "original_video_width": 640,
@@ -59,10 +59,10 @@ def serve_overlay(filename):
 
 @app.route("/api/videos", methods=["GET"])
 def get_videos():
-    """Get list of videos, optionally filtered by group"""
-    group = request.args.get("group")
-    if group:
-        filtered_videos = [video for video in VIDEOS if video["group"] == group]
+    """Get list of videos, optionally filtered by group_name"""
+    group_name = request.args.get("group_name")
+    if group_name:
+        filtered_videos = [video for video in VIDEOS if video["group_name"] == group_name]
         return jsonify(filtered_videos)
     return jsonify(VIDEOS)
 
@@ -102,12 +102,12 @@ def create_overlay(video_file)-> str:
 def upload_video():
     """Upload a new video and generate its overlay as JSON"""
     title = request.form.get("title")
-    group = request.form.get("group")
+    group_name = request.form.get("group_name")
     video_file = request.files.get("video")
 
-    print(title, group, video_file)
+    print(title, group_name, video_file)
 
-    if not title or not group or not video_file:
+    if not title or not group_name or not video_file:
         return jsonify({"error": "Missing required fields"}), 400
 
     # Save the uploaded video file
@@ -121,7 +121,7 @@ def upload_video():
     new_video = {
         "id": video_filename.split(".")[0],
         "title": title,
-        "group": group,
+        "group_name": group_name,
         "video_url": f"/videos/{video_filename}",
         "overlay_url": overlay_path,
     }
