@@ -15,6 +15,8 @@ VIDEOS = [
         "group": "aespa",
         "video_url": "/videos/Supernova.mp4",
         "overlay_url": "/overlays/Supernova_overlay.json",
+        "original_video_width": 640,
+        "original_video_height": 360
     },
     {
         "id": "video2",
@@ -22,6 +24,8 @@ VIDEOS = [
         "group": "aespa",
         "video_url": "/videos/Whiplash.mp4",
         "overlay_url": "/overlays/Whiplash_overlay.json",
+        "original_video_width": 640,
+        "original_video_height": 360
     },
     {
         "id": "video3",
@@ -29,6 +33,8 @@ VIDEOS = [
         "group": "nokizaka",
         "video_url": "/videos/hadashidesummer_nise.mp4",
         "overlay_url": "/overlays/hadashidesummer_nise_overlay.json",
+        "original_video_width": 640,
+        "original_video_height": 360
     },
 ]
 
