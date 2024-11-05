@@ -1,0 +1,56 @@
+{
+  "overlays": [
+    {
+      "id": "text1",
+      "content": "Person A",
+      "color": "#FF5733",
+      "fontSize": "16px",
+      "lineColor": "#FF5733",
+      "lineWidth": 2,
+      "positions": [
+        {
+          "time": 0.0,
+          "startX": 10,
+          "startY": 50,
+          "endX": 100,
+          "endY": 50,
+          "visible": true
+        },
+        {
+          "time": 2.0,
+          "startX": 50,
+          "startY": 70,
+          "endX": 200,
+          "endY": 70,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "id": "text2",
+      "content": "Person B",
+      "color": "#33FF57",
+      "fontSize": "18px",
+      "lineColor": "#33FF57",
+      "lineWidth": 2,
+      "positions": [
+        {
+          "time": 0.0,
+          "startX": 153.43,
+          "startY": 123.26,
+          "endX": 369.02,
+          "endY": 123.26,
+          "visible": true
+        },
+        {
+          "time": 0.25,
+          "startX": 1.08,
+          "startY": 226.81,
+          "endX": 76.42,
+          "endY": 226.81,
+          "visible": true
+        }
+      ]
+    }
+  ]
+}
