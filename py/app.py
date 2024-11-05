@@ -9,47 +9,18 @@ from models import db, VideoInfo  # models からインポート
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///video_info.db"
-CORS(app, origins=["http://localhost:3000"]) # Allow requests from React app.
+CORS(app, origins=["http://localhost:3000"])  # Allow requests from React app.
 
 # dbの初期化
 db.init_app(app)
 
-# Dummy in-memory storage for video data
-VIDEOS = [
-    {
-        "id": "video1",
-        "title": "Supernova",
-        "group_name": "aespa",
-        "video_url": "/videos/Supernova.mp4",
-        "overlay_url": "/overlays/Supernova_overlay.json",
-        "original_video_width": 640,
-        "original_video_height": 360
-    },
-    {
-        "id": "video2",
-        "title": "Whiplash",
-        "group_name": "aespa",
-        "video_url": "/videos/Whiplash.mp4",
-        "overlay_url": "/overlays/Whiplash_overlay.json",
-        "original_video_width": 640,
-        "original_video_height": 360
-    },
-    {
-        "id": "video3",
-        "title": "裸足でSummer",
-        "group_name": "nokizaka",
-        "video_url": "/videos/hadashidesummer_nise.mp4",
-        "overlay_url": "/overlays/hadashidesummer_nise_overlay.json",
-        "original_video_width": 640,
-        "original_video_height": 350
-    },
-]
 
 # Serve static files.
 # Route to serve video files
 @app.route("/videos/<path:filename>")
 def serve_video(filename):
     return send_from_directory("videos", filename)
+
 
 # Route to serve overlay JSON files
 @app.route("/overlays/<path:filename>")
@@ -65,23 +36,29 @@ def get_videos():
     if group_name:
         query = query.filter(VideoInfo.group_name == group_name)
     videos = db.session.execute(query).scalars().all()
-    
-    return jsonify([{
-        "id": video.id,
-        "title": video.title,
-        "group_name": video.group_name,
-        "video_url": video.video_url,
-        "overlay_url": video.overlay_url,
-        "original_video_width": video.original_video_width,
-        "original_video_height": video.original_video_height
-    } for video in videos])
+
+    return jsonify(
+        [
+            {
+                "id": video.id,
+                "title": video.title,
+                "group_name": video.group_name,
+                "video_url": video.video_url,
+                "overlay_url": video.overlay_url,
+                "original_video_width": video.original_video_width,
+                "original_video_height": video.original_video_height,
+            }
+            for video in videos
+        ]
+    )
+
 
 # NOTE: This is not used by the frontend now. Consider removing this endpoint.
 @app.route("/api/videos/<video_id>", methods=["GET"])
 def get_video_data(video_id: str):
     """Get specific video data including overlay"""
     video = db.get_or_404(VideoInfo, video_id)
-    
+
     video_data = {
         "id": video.id,
         "title": video.title,
@@ -89,9 +66,10 @@ def get_video_data(video_id: str):
         "video_url": video.video_url,
         "overlay_url": video.overlay_url,
         "original_video_width": video.original_video_width,
-        "original_video_height": video.original_video_height
+        "original_video_height": video.original_video_height,
     }
     return jsonify(video_data)
+
 
 # TODO: This should be implemented in a separate module
 # TODO: This is sitll a dummy implementation. Implement the actual overlay creation logic.
@@ -116,12 +94,11 @@ def upload_video():
         return jsonify({"error": "Missing required fields"}), 400
 
     video_id = str(uuid.uuid4())
-
     # Save the uploaded video file
     clean_title = secure_filename(title)
     if not clean_title:
         clean_title = "video"
-    
+
     video_filename = f"{clean_title}_{video_id}.mp4"
     video_file.save(os.path.join("videos", video_filename))
 
@@ -132,18 +109,20 @@ def upload_video():
         title=title,
         group_name=group_name,
         video_url=f"/videos/{video_filename}",
-        overlay_url=overlay_path
+        overlay_url=overlay_path,
     )
     db.session.add(new_video)
     db.session.commit()
 
-    return jsonify({
-        "id": new_video.id,
-        "title": new_video.title,
-        "group_name": new_video.group_name,
-        "video_url": new_video.video_url,
-        "overlay_url": new_video.overlay_url
-    }), 201
+    return jsonify(
+        {
+            "id": new_video.id,
+            "title": new_video.title,
+            "group_name": new_video.group_name,
+            "video_url": new_video.video_url,
+            "overlay_url": new_video.overlay_url,
+        }
+    ), 201
 
 
 if __name__ == "__main__":
