@@ -12,6 +12,8 @@ import { backendUrl } from '@/app/lib/config';
 const AespaPage = () => {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   console.log('selectedVideo:', selectedVideo);
+  console.log('originalVideoWidth:', selectedVideo?.original_video_width);
+  console.log('originalVideoHeight:', selectedVideo?.original_video_height);
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -29,17 +31,17 @@ const AespaPage = () => {
               <EnhancedVideoPlayer
                 src={`${backendUrl}${selectedVideo.video_url}`}
                 overlayConfigUrl={`${backendUrl}${selectedVideo.overlay_url}`}
-                originalVideoWidth={640}
-                originalVideoHeight={360}
+                originalVideoWidth={selectedVideo.original_video_width}
+                originalVideoHeight={selectedVideo.original_video_height}
               />
             ) : (
-              // <p className="mt-4">Select a video from the list to play.</p>
-              <EnhancedVideoPlayer
-                src={`${backendUrl}/videos/Supernova.mp4`}
-                overlayConfigUrl={`${backendUrl}/overlays/Supernova_overlay.json`}
-                originalVideoWidth={640}
-                originalVideoHeight={360}
-              />
+              <p className="mt-4">Select a video from the list to play.</p>
+              // <EnhancedVideoPlayer
+              //   src={`${backendUrl}/videos/Supernova.mp4`}
+              //   overlayConfigUrl={`${backendUrl}/overlays/Supernova_overlay.json`}
+              //   originalVideoWidth={640}
+              //   originalVideoHeight={360}
+              // />
             )}
           </div>
         </div>
