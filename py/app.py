@@ -1,9 +1,11 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
+from flask_cors import CORS
 import os
 import json
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000"]) # Allow requests from React app.
 
 # Dummy in-memory storage for video data
 VIDEOS = [
@@ -29,6 +31,17 @@ VIDEOS = [
         "overlay_url": "/overlays/hadashidesummer_nise_overlay.json",
     },
 ]
+
+# Serve static files.
+# Route to serve video files
+@app.route("/videos/<path:filename>")
+def serve_video(filename):
+    return send_from_directory("videos", filename)
+
+# Route to serve overlay JSON files
+@app.route("/overlays/<path:filename>")
+def serve_overlay(filename):
+    return send_from_directory("overlays", filename)
 
 
 @app.route("/api/videos", methods=["GET"])
