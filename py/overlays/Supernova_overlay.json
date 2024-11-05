@@ -1,0 +1,3916 @@
+{
+  "overlays": [
+    {
+      "id": "text1",
+      "content": "Person A",
+      "color": "#FF5733",
+      "fontSize": "16px",
+      "lineColor": "#FF5733",
+      "lineWidth": 2,
+      "positions": [
+        {
+          "time": 0.0,
+          "startX": 176.02,
+          "startY": 8.0,
+          "endX": 191.83,
+          "endY": 8.0,
+          "visible": true
+        },
+        {
+          "time": 0.25,
+          "startX": 66.96,
+          "startY": 235.67,
+          "endX": 433.09,
+          "endY": 235.67,
+          "visible": true
+        },
+        {
+          "time": 0.5,
+          "startX": 267.65,
+          "startY": 27.82,
+          "endX": 270.03,
+          "endY": 27.82,
+          "visible": true
+        },
+        {
+          "time": 0.75,
+          "startX": 8.94,
+          "startY": 69.96,
+          "endX": 323.43,
+          "endY": 69.96,
+          "visible": true
+        },
+        {
+          "time": 1.0,
+          "startX": 7.96,
+          "startY": 63.63,
+          "endX": 415.93,
+          "endY": 63.63,
+          "visible": true
+        },
+        {
+          "time": 1.25,
+          "startX": 163.48,
+          "startY": 70.54,
+          "endX": 377.13,
+          "endY": 70.54,
+          "visible": true
+        },
+        {
+          "time": 1.5,
+          "startX": 242.83,
+          "startY": 2.08,
+          "endX": 515.72,
+          "endY": 2.08,
+          "visible": true
+        },
+        {
+          "time": 1.75,
+          "startX": 99.51,
+          "startY": 108.88,
+          "endX": 209.44,
+          "endY": 108.88,
+          "visible": true
+        },
+        {
+          "time": 2.0,
+          "startX": 59.36,
+          "startY": 107.71,
+          "endX": 287.16,
+          "endY": 107.71,
+          "visible": true
+        },
+        {
+          "time": 2.25,
+          "startX": 29.01,
+          "startY": 271.2,
+          "endX": 386.38,
+          "endY": 271.2,
+          "visible": true
+        },
+        {
+          "time": 2.5,
+          "startX": 242.14,
+          "startY": 233.51,
+          "endX": 343.19,
+          "endY": 233.51,
+          "visible": true
+        },
+        {
+          "time": 2.75,
+          "startX": 291.93,
+          "startY": 121.13,
+          "endX": 353.31,
+          "endY": 121.13,
+          "visible": true
+        },
+        {
+          "time": 3.0,
+          "startX": 248.82,
+          "startY": 197.93,
+          "endX": 551.49,
+          "endY": 197.93,
+          "visible": true
+        },
+        {
+          "time": 3.25,
+          "startX": 29.33,
+          "startY": 225.46,
+          "endX": 173.21,
+          "endY": 225.46,
+          "visible": true
+        },
+        {
+          "time": 3.5,
+          "startX": 51.07,
+          "startY": 92.6,
+          "endX": 68.37,
+          "endY": 92.6,
+          "visible": true
+        },
+        {
+          "time": 3.75,
+          "startX": 69.84,
+          "startY": 32.32,
+          "endX": 177.9,
+          "endY": 32.32,
+          "visible": true
+        },
+        {
+          "time": 4.0,
+          "startX": 190.71,
+          "startY": 116.75,
+          "endX": 236.92,
+          "endY": 116.75,
+          "visible": true
+        },
+        {
+          "time": 4.25,
+          "startX": 62.85,
+          "startY": 85.43,
+          "endX": 599.46,
+          "endY": 85.43,
+          "visible": true
+        },
+        {
+          "time": 4.5,
+          "startX": 109.53,
+          "startY": 194.92,
+          "endX": 194.41,
+          "endY": 194.92,
+          "visible": true
+        },
+        {
+          "time": 4.75,
+          "startX": 218.74,
+          "startY": 52.29,
+          "endX": 242.85,
+          "endY": 52.29,
+          "visible": true
+        },
+        {
+          "time": 5.0,
+          "startX": 296.86,
+          "startY": 204.8,
+          "endX": 356.45,
+          "endY": 204.8,
+          "visible": true
+        },
+        {
+          "time": 5.25,
+          "startX": 205.38,
+          "startY": 269.71,
+          "endX": 496.64,
+          "endY": 269.71,
+          "visible": true
+        },
+        {
+          "time": 5.5,
+          "startX": 68.71,
+          "startY": 10.27,
+          "endX": 201.89,
+          "endY": 10.27,
+          "visible": true
+        },
+        {
+          "time": 5.75,
+          "startX": 80.32,
+          "startY": 67.51,
+          "endX": 603.46,
+          "endY": 67.51,
+          "visible": true
+        },
+        {
+          "time": 6.0,
+          "startX": 262.91,
+          "startY": 100.7,
+          "endX": 419.48,
+          "endY": 100.7,
+          "visible": true
+        },
+        {
+          "time": 6.25,
+          "startX": 118.69,
+          "startY": 292.66,
+          "endX": 293.67,
+          "endY": 292.66,
+          "visible": true
+        },
+        {
+          "time": 6.5,
+          "startX": 79.46,
+          "startY": 78.92,
+          "endX": 359.28,
+          "endY": 78.92,
+          "visible": true
+        },
+        {
+          "time": 6.75,
+          "startX": 78.82,
+          "startY": 187.07,
+          "endX": 574.61,
+          "endY": 187.07,
+          "visible": true
+        },
+        {
+          "time": 7.0,
+          "startX": 119.82,
+          "startY": 70.18,
+          "endX": 638.42,
+          "endY": 70.18,
+          "visible": true
+        },
+        {
+          "time": 7.25,
+          "startX": 30.15,
+          "startY": 29.09,
+          "endX": 152.86,
+          "endY": 29.09,
+          "visible": true
+        },
+        {
+          "time": 7.5,
+          "startX": 32.89,
+          "startY": 200.78,
+          "endX": 506.93,
+          "endY": 200.78,
+          "visible": true
+        },
+        {
+          "time": 7.75,
+          "startX": 126.65,
+          "startY": 20.33,
+          "endX": 244.24,
+          "endY": 20.33,
+          "visible": true
+        },
+        {
+          "time": 8.0,
+          "startX": 298.84,
+          "startY": 169.32,
+          "endX": 621.49,
+          "endY": 169.32,
+          "visible": true
+        },
+        {
+          "time": 8.25,
+          "startX": 258.23,
+          "startY": 3.67,
+          "endX": 461.26,
+          "endY": 3.67,
+          "visible": true
+        },
+        {
+          "time": 8.5,
+          "startX": 170.77,
+          "startY": 171.83,
+          "endX": 204.51,
+          "endY": 171.83,
+          "visible": true
+        },
+        {
+          "time": 8.75,
+          "startX": 192.29,
+          "startY": 35.7,
+          "endX": 278.25,
+          "endY": 35.7,
+          "visible": true
+        },
+        {
+          "time": 9.0,
+          "startX": 136.12,
+          "startY": 305.22,
+          "endX": 560.55,
+          "endY": 305.22,
+          "visible": true
+        },
+        {
+          "time": 9.25,
+          "startX": 79.02,
+          "startY": 160.19,
+          "endX": 114.34,
+          "endY": 160.19,
+          "visible": true
+        },
+        {
+          "time": 9.5,
+          "startX": 191.0,
+          "startY": 278.57,
+          "endX": 273.79,
+          "endY": 278.57,
+          "visible": true
+        },
+        {
+          "time": 9.75,
+          "startX": 97.82,
+          "startY": 194.87,
+          "endX": 191.68,
+          "endY": 194.87,
+          "visible": true
+        },
+        {
+          "time": 10.0,
+          "startX": 228.75,
+          "startY": 172.6,
+          "endX": 498.32,
+          "endY": 172.6,
+          "visible": true
+        },
+        {
+          "time": 10.25,
+          "startX": 159.11,
+          "startY": 0.18,
+          "endX": 207.46,
+          "endY": 0.18,
+          "visible": true
+        },
+        {
+          "time": 10.5,
+          "startX": 5.84,
+          "startY": 297.31,
+          "endX": 562.38,
+          "endY": 297.31,
+          "visible": true
+        },
+        {
+          "time": 10.75,
+          "startX": 37.07,
+          "startY": 98.4,
+          "endX": 249.5,
+          "endY": 98.4,
+          "visible": true
+        },
+        {
+          "time": 11.0,
+          "startX": 54.82,
+          "startY": 303.02,
+          "endX": 263.4,
+          "endY": 303.02,
+          "visible": true
+        },
+        {
+          "time": 11.25,
+          "startX": 145.8,
+          "startY": 22.15,
+          "endX": 486.79,
+          "endY": 22.15,
+          "visible": true
+        },
+        {
+          "time": 11.5,
+          "startX": 229.75,
+          "startY": 41.09,
+          "endX": 304.18,
+          "endY": 41.09,
+          "visible": true
+        },
+        {
+          "time": 11.75,
+          "startX": 164.94,
+          "startY": 84.82,
+          "endX": 558.36,
+          "endY": 84.82,
+          "visible": true
+        },
+        {
+          "time": 12.0,
+          "startX": 126.94,
+          "startY": 67.78,
+          "endX": 345.15,
+          "endY": 67.78,
+          "visible": true
+        },
+        {
+          "time": 12.25,
+          "startX": 199.5,
+          "startY": 64.37,
+          "endX": 218.98,
+          "endY": 64.37,
+          "visible": true
+        },
+        {
+          "time": 12.5,
+          "startX": 280.38,
+          "startY": 207.96,
+          "endX": 298.54,
+          "endY": 207.96,
+          "visible": true
+        },
+        {
+          "time": 12.75,
+          "startX": 143.81,
+          "startY": 38.72,
+          "endX": 155.27,
+          "endY": 38.72,
+          "visible": true
+        },
+        {
+          "time": 13.0,
+          "startX": 101.43,
+          "startY": 188.26,
+          "endX": 147.27,
+          "endY": 188.26,
+          "visible": true
+        },
+        {
+          "time": 13.25,
+          "startX": 66.07,
+          "startY": 22.72,
+          "endX": 403.91,
+          "endY": 22.72,
+          "visible": true
+        },
+        {
+          "time": 13.5,
+          "startX": 68.68,
+          "startY": 289.73,
+          "endX": 550.17,
+          "endY": 289.73,
+          "visible": true
+        },
+        {
+          "time": 13.75,
+          "startX": 21.26,
+          "startY": 76.16,
+          "endX": 428.15,
+          "endY": 76.16,
+          "visible": true
+        },
+        {
+          "time": 14.0,
+          "startX": 64.27,
+          "startY": 42.34,
+          "endX": 598.73,
+          "endY": 42.34,
+          "visible": true
+        },
+        {
+          "time": 14.25,
+          "startX": 171.31,
+          "startY": 151.25,
+          "endX": 502.16,
+          "endY": 151.25,
+          "visible": true
+        },
+        {
+          "time": 14.5,
+          "startX": 62.04,
+          "startY": 60.93,
+          "endX": 242.25,
+          "endY": 60.93,
+          "visible": true
+        },
+        {
+          "time": 14.75,
+          "startX": 129.32,
+          "startY": 135.55,
+          "endX": 298.9,
+          "endY": 135.55,
+          "visible": true
+        },
+        {
+          "time": 15.0,
+          "startX": 218.72,
+          "startY": 215.48,
+          "endX": 629.87,
+          "endY": 215.48,
+          "visible": true
+        },
+        {
+          "time": 15.25,
+          "startX": 29.53,
+          "startY": 128.84,
+          "endX": 217.15,
+          "endY": 128.84,
+          "visible": true
+        },
+        {
+          "time": 15.5,
+          "startX": 121.73,
+          "startY": 79.57,
+          "endX": 258.5,
+          "endY": 79.57,
+          "visible": true
+        },
+        {
+          "time": 15.75,
+          "startX": 134.58,
+          "startY": 135.0,
+          "endX": 178.27,
+          "endY": 135.0,
+          "visible": true
+        },
+        {
+          "time": 16.0,
+          "startX": 74.94,
+          "startY": 295.44,
+          "endX": 283.6,
+          "endY": 295.44,
+          "visible": true
+        },
+        {
+          "time": 16.25,
+          "startX": 32.38,
+          "startY": 176.1,
+          "endX": 258.4,
+          "endY": 176.1,
+          "visible": true
+        },
+        {
+          "time": 16.5,
+          "startX": 299.78,
+          "startY": 267.53,
+          "endX": 620.16,
+          "endY": 267.53,
+          "visible": true
+        },
+        {
+          "time": 16.75,
+          "startX": 106.44,
+          "startY": 271.58,
+          "endX": 277.91,
+          "endY": 271.58,
+          "visible": true
+        },
+        {
+          "time": 17.0,
+          "startX": 145.69,
+          "startY": 68.4,
+          "endX": 256.67,
+          "endY": 68.4,
+          "visible": true
+        },
+        {
+          "time": 17.25,
+          "startX": 17.59,
+          "startY": 121.27,
+          "endX": 630.6,
+          "endY": 121.27,
+          "visible": true
+        },
+        {
+          "time": 17.5,
+          "startX": 79.56,
+          "startY": 250.9,
+          "endX": 291.21,
+          "endY": 250.9,
+          "visible": true
+        },
+        {
+          "time": 17.75,
+          "startX": 126.9,
+          "startY": 306.34,
+          "endX": 637.07,
+          "endY": 306.34,
+          "visible": true
+        },
+        {
+          "time": 18.0,
+          "startX": 99.07,
+          "startY": 229.89,
+          "endX": 166.73,
+          "endY": 229.89,
+          "visible": true
+        },
+        {
+          "time": 18.25,
+          "startX": 89.01,
+          "startY": 309.99,
+          "endX": 370.68,
+          "endY": 309.99,
+          "visible": true
+        },
+        {
+          "time": 18.5,
+          "startX": 36.59,
+          "startY": 239.35,
+          "endX": 162.66,
+          "endY": 239.35,
+          "visible": true
+        },
+        {
+          "time": 18.75,
+          "startX": 175.25,
+          "startY": 160.91,
+          "endX": 545.74,
+          "endY": 160.91,
+          "visible": true
+        },
+        {
+          "time": 19.0,
+          "startX": 47.23,
+          "startY": 307.45,
+          "endX": 51.27,
+          "endY": 307.45,
+          "visible": true
+        },
+        {
+          "time": 19.25,
+          "startX": 55.75,
+          "startY": 190.41,
+          "endX": 432.14,
+          "endY": 190.41,
+          "visible": true
+        },
+        {
+          "time": 19.5,
+          "startX": 70.56,
+          "startY": 38.36,
+          "endX": 569.78,
+          "endY": 38.36,
+          "visible": true
+        },
+        {
+          "time": 19.75,
+          "startX": 73.86,
+          "startY": 190.25,
+          "endX": 396.4,
+          "endY": 190.25,
+          "visible": true
+        },
+        {
+          "time": 20.0,
+          "startX": 125.77,
+          "startY": 186.78,
+          "endX": 334.58,
+          "endY": 186.78,
+          "visible": true
+        },
+        {
+          "time": 20.25,
+          "startX": 280.41,
+          "startY": 65.36,
+          "endX": 458.36,
+          "endY": 65.36,
+          "visible": true
+        },
+        {
+          "time": 20.5,
+          "startX": 71.61,
+          "startY": 126.65,
+          "endX": 429.88,
+          "endY": 126.65,
+          "visible": true
+        },
+        {
+          "time": 20.75,
+          "startX": 90.0,
+          "startY": 101.18,
+          "endX": 481.19,
+          "endY": 101.18,
+          "visible": true
+        },
+        {
+          "time": 21.0,
+          "startX": 21.76,
+          "startY": 146.65,
+          "endX": 639.01,
+          "endY": 146.65,
+          "visible": true
+        },
+        {
+          "time": 21.25,
+          "startX": 136.42,
+          "startY": 23.44,
+          "endX": 298.83,
+          "endY": 23.44,
+          "visible": true
+        },
+        {
+          "time": 21.5,
+          "startX": 79.56,
+          "startY": 298.64,
+          "endX": 563.75,
+          "endY": 298.64,
+          "visible": true
+        },
+        {
+          "time": 21.75,
+          "startX": 100.96,
+          "startY": 118.25,
+          "endX": 263.78,
+          "endY": 118.25,
+          "visible": true
+        },
+        {
+          "time": 22.0,
+          "startX": 250.12,
+          "startY": 225.13,
+          "endX": 391.47,
+          "endY": 225.13,
+          "visible": true
+        },
+        {
+          "time": 22.25,
+          "startX": 5.01,
+          "startY": 209.27,
+          "endX": 296.17,
+          "endY": 209.27,
+          "visible": true
+        },
+        {
+          "time": 22.5,
+          "startX": 245.13,
+          "startY": 95.8,
+          "endX": 424.57,
+          "endY": 95.8,
+          "visible": true
+        },
+        {
+          "time": 22.75,
+          "startX": 73.87,
+          "startY": 42.97,
+          "endX": 281.68,
+          "endY": 42.97,
+          "visible": true
+        },
+        {
+          "time": 23.0,
+          "startX": 32.11,
+          "startY": 177.03,
+          "endX": 174.3,
+          "endY": 177.03,
+          "visible": true
+        },
+        {
+          "time": 23.25,
+          "startX": 130.3,
+          "startY": 229.64,
+          "endX": 181.45,
+          "endY": 229.64,
+          "visible": true
+        },
+        {
+          "time": 23.5,
+          "startX": 190.27,
+          "startY": 84.47,
+          "endX": 312.66,
+          "endY": 84.47,
+          "visible": true
+        },
+        {
+          "time": 23.75,
+          "startX": 59.07,
+          "startY": 270.75,
+          "endX": 271.6,
+          "endY": 270.75,
+          "visible": true
+        },
+        {
+          "time": 24.0,
+          "startX": 2.27,
+          "startY": 88.54,
+          "endX": 127.07,
+          "endY": 88.54,
+          "visible": true
+        },
+        {
+          "time": 24.25,
+          "startX": 167.65,
+          "startY": 203.88,
+          "endX": 231.34,
+          "endY": 203.88,
+          "visible": true
+        },
+        {
+          "time": 24.5,
+          "startX": 222.37,
+          "startY": 176.54,
+          "endX": 273.72,
+          "endY": 176.54,
+          "visible": true
+        },
+        {
+          "time": 24.75,
+          "startX": 2.9,
+          "startY": 24.08,
+          "endX": 565.19,
+          "endY": 24.08,
+          "visible": true
+        },
+        {
+          "time": 25.0,
+          "startX": 271.18,
+          "startY": 174.59,
+          "endX": 534.14,
+          "endY": 174.59,
+          "visible": true
+        },
+        {
+          "time": 25.25,
+          "startX": 81.57,
+          "startY": 47.39,
+          "endX": 174.75,
+          "endY": 47.39,
+          "visible": true
+        },
+        {
+          "time": 25.5,
+          "startX": 92.48,
+          "startY": 287.67,
+          "endX": 509.52,
+          "endY": 287.67,
+          "visible": true
+        },
+        {
+          "time": 25.75,
+          "startX": 134.45,
+          "startY": 287.66,
+          "endX": 258.21,
+          "endY": 287.66,
+          "visible": true
+        },
+        {
+          "time": 26.0,
+          "startX": 74.86,
+          "startY": 32.89,
+          "endX": 499.27,
+          "endY": 32.89,
+          "visible": true
+        },
+        {
+          "time": 26.25,
+          "startX": 265.24,
+          "startY": 130.04,
+          "endX": 397.22,
+          "endY": 130.04,
+          "visible": true
+        },
+        {
+          "time": 26.5,
+          "startX": 46.37,
+          "startY": 297.56,
+          "endX": 553.35,
+          "endY": 297.56,
+          "visible": true
+        },
+        {
+          "time": 26.75,
+          "startX": 292.86,
+          "startY": 259.45,
+          "endX": 564.11,
+          "endY": 259.45,
+          "visible": true
+        },
+        {
+          "time": 27.0,
+          "startX": 7.44,
+          "startY": 235.7,
+          "endX": 212.6,
+          "endY": 235.7,
+          "visible": true
+        },
+        {
+          "time": 27.25,
+          "startX": 279.24,
+          "startY": 256.72,
+          "endX": 553.0,
+          "endY": 256.72,
+          "visible": true
+        },
+        {
+          "time": 27.5,
+          "startX": 243.22,
+          "startY": 85.38,
+          "endX": 503.92,
+          "endY": 85.38,
+          "visible": true
+        },
+        {
+          "time": 27.75,
+          "startX": 32.43,
+          "startY": 279.09,
+          "endX": 549.5,
+          "endY": 279.09,
+          "visible": true
+        },
+        {
+          "time": 28.0,
+          "startX": 66.73,
+          "startY": 261.31,
+          "endX": 294.59,
+          "endY": 261.31,
+          "visible": true
+        },
+        {
+          "time": 28.25,
+          "startX": 91.56,
+          "startY": 254.51,
+          "endX": 145.66,
+          "endY": 254.51,
+          "visible": true
+        },
+        {
+          "time": 28.5,
+          "startX": 7.1,
+          "startY": 61.8,
+          "endX": 210.09,
+          "endY": 61.8,
+          "visible": true
+        },
+        {
+          "time": 28.75,
+          "startX": 178.64,
+          "startY": 309.4,
+          "endX": 259.31,
+          "endY": 309.4,
+          "visible": true
+        },
+        {
+          "time": 29.0,
+          "startX": 192.44,
+          "startY": 127.9,
+          "endX": 627.94,
+          "endY": 127.9,
+          "visible": true
+        },
+        {
+          "time": 29.25,
+          "startX": 73.82,
+          "startY": 300.56,
+          "endX": 160.86,
+          "endY": 300.56,
+          "visible": true
+        },
+        {
+          "time": 29.5,
+          "startX": 291.12,
+          "startY": 57.14,
+          "endX": 616.02,
+          "endY": 57.14,
+          "visible": true
+        },
+        {
+          "time": 29.75,
+          "startX": 79.64,
+          "startY": 34.69,
+          "endX": 278.12,
+          "endY": 34.69,
+          "visible": true
+        },
+        {
+          "time": 30.0,
+          "startX": 218.56,
+          "startY": 100.38,
+          "endX": 387.97,
+          "endY": 100.38,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "id": "text2",
+      "content": "Person B",
+      "color": "#33FF57",
+      "fontSize": "18px",
+      "lineColor": "#33FF57",
+      "lineWidth": 2,
+      "positions": [
+        {
+          "time": 0.0,
+          "startX": 153.43,
+          "startY": 123.26,
+          "endX": 369.02,
+          "endY": 123.26,
+          "visible": true
+        },
+        {
+          "time": 0.25,
+          "startX": 1.08,
+          "startY": 226.81,
+          "endX": 76.42,
+          "endY": 226.81,
+          "visible": true
+        },
+        {
+          "time": 0.5,
+          "startX": 277.67,
+          "startY": 172.3,
+          "endX": 460.44,
+          "endY": 172.3,
+          "visible": true
+        },
+        {
+          "time": 0.75,
+          "startX": 222.59,
+          "startY": 214.6,
+          "endX": 233.1,
+          "endY": 214.6,
+          "visible": true
+        },
+        {
+          "time": 1.0,
+          "startX": 20.99,
+          "startY": 212.56,
+          "endX": 211.33,
+          "endY": 212.56,
+          "visible": true
+        },
+        {
+          "time": 1.25,
+          "startX": 94.17,
+          "startY": 271.36,
+          "endX": 460.64,
+          "endY": 271.36,
+          "visible": true
+        },
+        {
+          "time": 1.5,
+          "startX": 90.1,
+          "startY": 98.97,
+          "endX": 261.37,
+          "endY": 98.97,
+          "visible": true
+        },
+        {
+          "time": 1.75,
+          "startX": 81.46,
+          "startY": 94.61,
+          "endX": 120.72,
+          "endY": 94.61,
+          "visible": true
+        },
+        {
+          "time": 2.0,
+          "startX": 126.13,
+          "startY": 300.92,
+          "endX": 433.48,
+          "endY": 300.92,
+          "visible": true
+        },
+        {
+          "time": 2.25,
+          "startX": 192.61,
+          "startY": 196.96,
+          "endX": 270.84,
+          "endY": 196.96,
+          "visible": true
+        },
+        {
+          "time": 2.5,
+          "startX": 164.38,
+          "startY": 0.13,
+          "endX": 183.62,
+          "endY": 0.13,
+          "visible": true
+        },
+        {
+          "time": 2.75,
+          "startX": 128.97,
+          "startY": 185.6,
+          "endX": 419.01,
+          "endY": 185.6,
+          "visible": true
+        },
+        {
+          "time": 3.0,
+          "startX": 136.77,
+          "startY": 141.49,
+          "endX": 139.5,
+          "endY": 141.49,
+          "visible": true
+        },
+        {
+          "time": 3.25,
+          "startX": 141.96,
+          "startY": 288.38,
+          "endX": 509.46,
+          "endY": 288.38,
+          "visible": true
+        },
+        {
+          "time": 3.5,
+          "startX": 50.91,
+          "startY": 27.13,
+          "endX": 329.89,
+          "endY": 27.13,
+          "visible": true
+        },
+        {
+          "time": 3.75,
+          "startX": 189.88,
+          "startY": 107.26,
+          "endX": 523.79,
+          "endY": 107.26,
+          "visible": true
+        },
+        {
+          "time": 4.0,
+          "startX": 143.77,
+          "startY": 215.29,
+          "endX": 225.34,
+          "endY": 215.29,
+          "visible": true
+        },
+        {
+          "time": 4.25,
+          "startX": 59.74,
+          "startY": 7.82,
+          "endX": 156.7,
+          "endY": 7.82,
+          "visible": true
+        },
+        {
+          "time": 4.5,
+          "startX": 46.61,
+          "startY": 271.92,
+          "endX": 142.54,
+          "endY": 271.92,
+          "visible": true
+        },
+        {
+          "time": 4.75,
+          "startX": 124.33,
+          "startY": 201.52,
+          "endX": 124.44,
+          "endY": 201.52,
+          "visible": true
+        },
+        {
+          "time": 5.0,
+          "startX": 156.15,
+          "startY": 158.2,
+          "endX": 208.91,
+          "endY": 158.2,
+          "visible": true
+        },
+        {
+          "time": 5.25,
+          "startX": 196.82,
+          "startY": 1.77,
+          "endX": 480.62,
+          "endY": 1.77,
+          "visible": true
+        },
+        {
+          "time": 5.5,
+          "startX": 231.01,
+          "startY": 34.11,
+          "endX": 272.09,
+          "endY": 34.11,
+          "visible": true
+        },
+        {
+          "time": 5.75,
+          "startX": 52.77,
+          "startY": 306.55,
+          "endX": 331.49,
+          "endY": 306.55,
+          "visible": true
+        },
+        {
+          "time": 6.0,
+          "startX": 15.07,
+          "startY": 79.74,
+          "endX": 542.94,
+          "endY": 79.74,
+          "visible": true
+        },
+        {
+          "time": 6.25,
+          "startX": 136.94,
+          "startY": 256.45,
+          "endX": 427.25,
+          "endY": 256.45,
+          "visible": true
+        },
+        {
+          "time": 6.5,
+          "startX": 296.37,
+          "startY": 190.54,
+          "endX": 608.03,
+          "endY": 190.54,
+          "visible": true
+        },
+        {
+          "time": 6.75,
+          "startX": 267.43,
+          "startY": 196.05,
+          "endX": 460.34,
+          "endY": 196.05,
+          "visible": true
+        },
+        {
+          "time": 7.0,
+          "startX": 151.43,
+          "startY": 265.78,
+          "endX": 350.64,
+          "endY": 265.78,
+          "visible": true
+        },
+        {
+          "time": 7.25,
+          "startX": 269.16,
+          "startY": 237.97,
+          "endX": 303.79,
+          "endY": 237.97,
+          "visible": true
+        },
+        {
+          "time": 7.5,
+          "startX": 77.76,
+          "startY": 79.12,
+          "endX": 408.1,
+          "endY": 79.12,
+          "visible": true
+        },
+        {
+          "time": 7.75,
+          "startX": 229.74,
+          "startY": 166.82,
+          "endX": 401.12,
+          "endY": 166.82,
+          "visible": true
+        },
+        {
+          "time": 8.0,
+          "startX": 82.38,
+          "startY": 24.79,
+          "endX": 182.87,
+          "endY": 24.79,
+          "visible": true
+        },
+        {
+          "time": 8.25,
+          "startX": 81.51,
+          "startY": 102.31,
+          "endX": 345.7,
+          "endY": 102.31,
+          "visible": true
+        },
+        {
+          "time": 8.5,
+          "startX": 41.51,
+          "startY": 74.0,
+          "endX": 444.13,
+          "endY": 74.0,
+          "visible": true
+        },
+        {
+          "time": 8.75,
+          "startX": 211.93,
+          "startY": 20.55,
+          "endX": 260.86,
+          "endY": 20.55,
+          "visible": true
+        },
+        {
+          "time": 9.0,
+          "startX": 132.37,
+          "startY": 133.05,
+          "endX": 162.78,
+          "endY": 133.05,
+          "visible": true
+        },
+        {
+          "time": 9.25,
+          "startX": 126.04,
+          "startY": 289.55,
+          "endX": 373.81,
+          "endY": 289.55,
+          "visible": true
+        },
+        {
+          "time": 9.5,
+          "startX": 208.66,
+          "startY": 274.15,
+          "endX": 489.98,
+          "endY": 274.15,
+          "visible": true
+        },
+        {
+          "time": 9.75,
+          "startX": 114.11,
+          "startY": 1.89,
+          "endX": 225.13,
+          "endY": 1.89,
+          "visible": true
+        },
+        {
+          "time": 10.0,
+          "startX": 226.04,
+          "startY": 273.1,
+          "endX": 610.2,
+          "endY": 273.1,
+          "visible": true
+        },
+        {
+          "time": 10.25,
+          "startX": 125.71,
+          "startY": 239.21,
+          "endX": 349.52,
+          "endY": 239.21,
+          "visible": true
+        },
+        {
+          "time": 10.5,
+          "startX": 140.43,
+          "startY": 70.57,
+          "endX": 180.98,
+          "endY": 70.57,
+          "visible": true
+        },
+        {
+          "time": 10.75,
+          "startX": 130.75,
+          "startY": 9.29,
+          "endX": 215.12,
+          "endY": 9.29,
+          "visible": true
+        },
+        {
+          "time": 11.0,
+          "startX": 105.63,
+          "startY": 129.38,
+          "endX": 203.74,
+          "endY": 129.38,
+          "visible": true
+        },
+        {
+          "time": 11.25,
+          "startX": 140.22,
+          "startY": 40.84,
+          "endX": 398.24,
+          "endY": 40.84,
+          "visible": true
+        },
+        {
+          "time": 11.5,
+          "startX": 8.09,
+          "startY": 126.09,
+          "endX": 361.21,
+          "endY": 126.09,
+          "visible": true
+        },
+        {
+          "time": 11.75,
+          "startX": 8.13,
+          "startY": 205.68,
+          "endX": 86.85,
+          "endY": 205.68,
+          "visible": true
+        },
+        {
+          "time": 12.0,
+          "startX": 138.51,
+          "startY": 16.09,
+          "endX": 242.63,
+          "endY": 16.09,
+          "visible": true
+        },
+        {
+          "time": 12.25,
+          "startX": 63.5,
+          "startY": 104.59,
+          "endX": 487.19,
+          "endY": 104.59,
+          "visible": true
+        },
+        {
+          "time": 12.5,
+          "startX": 113.74,
+          "startY": 240.64,
+          "endX": 532.43,
+          "endY": 240.64,
+          "visible": true
+        },
+        {
+          "time": 12.75,
+          "startX": 12.41,
+          "startY": 26.21,
+          "endX": 75.68,
+          "endY": 26.21,
+          "visible": true
+        },
+        {
+          "time": 13.0,
+          "startX": 161.83,
+          "startY": 319.97,
+          "endX": 223.97,
+          "endY": 319.97,
+          "visible": true
+        },
+        {
+          "time": 13.25,
+          "startX": 195.04,
+          "startY": 249.99,
+          "endX": 417.12,
+          "endY": 249.99,
+          "visible": true
+        },
+        {
+          "time": 13.5,
+          "startX": 127.59,
+          "startY": 303.88,
+          "endX": 226.27,
+          "endY": 303.88,
+          "visible": true
+        },
+        {
+          "time": 13.75,
+          "startX": 6.11,
+          "startY": 48.76,
+          "endX": 80.78,
+          "endY": 48.76,
+          "visible": true
+        },
+        {
+          "time": 14.0,
+          "startX": 139.5,
+          "startY": 180.47,
+          "endX": 200.84,
+          "endY": 180.47,
+          "visible": true
+        },
+        {
+          "time": 14.25,
+          "startX": 107.39,
+          "startY": 245.41,
+          "endX": 209.84,
+          "endY": 245.41,
+          "visible": true
+        },
+        {
+          "time": 14.5,
+          "startX": 73.3,
+          "startY": 239.34,
+          "endX": 182.17,
+          "endY": 239.34,
+          "visible": true
+        },
+        {
+          "time": 14.75,
+          "startX": 69.18,
+          "startY": 308.71,
+          "endX": 245.79,
+          "endY": 308.71,
+          "visible": true
+        },
+        {
+          "time": 15.0,
+          "startX": 7.7,
+          "startY": 99.83,
+          "endX": 433.5,
+          "endY": 99.83,
+          "visible": true
+        },
+        {
+          "time": 15.25,
+          "startX": 287.45,
+          "startY": 126.93,
+          "endX": 457.61,
+          "endY": 126.93,
+          "visible": true
+        },
+        {
+          "time": 15.5,
+          "startX": 22.8,
+          "startY": 221.0,
+          "endX": 401.44,
+          "endY": 221.0,
+          "visible": true
+        },
+        {
+          "time": 15.75,
+          "startX": 30.57,
+          "startY": 247.19,
+          "endX": 544.19,
+          "endY": 247.19,
+          "visible": true
+        },
+        {
+          "time": 16.0,
+          "startX": 180.12,
+          "startY": 38.74,
+          "endX": 629.66,
+          "endY": 38.74,
+          "visible": true
+        },
+        {
+          "time": 16.25,
+          "startX": 234.79,
+          "startY": 111.11,
+          "endX": 274.16,
+          "endY": 111.11,
+          "visible": true
+        },
+        {
+          "time": 16.5,
+          "startX": 111.17,
+          "startY": 161.91,
+          "endX": 218.39,
+          "endY": 161.91,
+          "visible": true
+        },
+        {
+          "time": 16.75,
+          "startX": 67.54,
+          "startY": 263.15,
+          "endX": 254.87,
+          "endY": 263.15,
+          "visible": true
+        },
+        {
+          "time": 17.0,
+          "startX": 288.24,
+          "startY": 203.39,
+          "endX": 530.37,
+          "endY": 203.39,
+          "visible": true
+        },
+        {
+          "time": 17.25,
+          "startX": 212.19,
+          "startY": 139.36,
+          "endX": 469.63,
+          "endY": 139.36,
+          "visible": true
+        },
+        {
+          "time": 17.5,
+          "startX": 289.64,
+          "startY": 86.43,
+          "endX": 517.25,
+          "endY": 86.43,
+          "visible": true
+        },
+        {
+          "time": 17.75,
+          "startX": 161.45,
+          "startY": 154.72,
+          "endX": 278.77,
+          "endY": 154.72,
+          "visible": true
+        },
+        {
+          "time": 18.0,
+          "startX": 219.31,
+          "startY": 85.89,
+          "endX": 545.1,
+          "endY": 85.89,
+          "visible": true
+        },
+        {
+          "time": 18.25,
+          "startX": 249.22,
+          "startY": 27.73,
+          "endX": 564.24,
+          "endY": 27.73,
+          "visible": true
+        },
+        {
+          "time": 18.5,
+          "startX": 73.16,
+          "startY": 148.71,
+          "endX": 390.61,
+          "endY": 148.71,
+          "visible": true
+        },
+        {
+          "time": 18.75,
+          "startX": 113.7,
+          "startY": 9.18,
+          "endX": 544.61,
+          "endY": 9.18,
+          "visible": true
+        },
+        {
+          "time": 19.0,
+          "startX": 54.55,
+          "startY": 67.88,
+          "endX": 510.61,
+          "endY": 67.88,
+          "visible": true
+        },
+        {
+          "time": 19.25,
+          "startX": 102.1,
+          "startY": 281.7,
+          "endX": 448.76,
+          "endY": 281.7,
+          "visible": true
+        },
+        {
+          "time": 19.5,
+          "startX": 82.88,
+          "startY": 3.25,
+          "endX": 606.76,
+          "endY": 3.25,
+          "visible": true
+        },
+        {
+          "time": 19.75,
+          "startX": 25.68,
+          "startY": 230.42,
+          "endX": 312.69,
+          "endY": 230.42,
+          "visible": true
+        },
+        {
+          "time": 20.0,
+          "startX": 227.45,
+          "startY": 220.99,
+          "endX": 413.38,
+          "endY": 220.99,
+          "visible": true
+        },
+        {
+          "time": 20.25,
+          "startX": 59.55,
+          "startY": 253.74,
+          "endX": 147.25,
+          "endY": 253.74,
+          "visible": true
+        },
+        {
+          "time": 20.5,
+          "startX": 66.48,
+          "startY": 221.37,
+          "endX": 195.97,
+          "endY": 221.37,
+          "visible": true
+        },
+        {
+          "time": 20.75,
+          "startX": 174.47,
+          "startY": 151.44,
+          "endX": 339.79,
+          "endY": 151.44,
+          "visible": true
+        },
+        {
+          "time": 21.0,
+          "startX": 127.65,
+          "startY": 238.7,
+          "endX": 211.71,
+          "endY": 238.7,
+          "visible": true
+        },
+        {
+          "time": 21.25,
+          "startX": 160.9,
+          "startY": 86.69,
+          "endX": 210.86,
+          "endY": 86.69,
+          "visible": true
+        },
+        {
+          "time": 21.5,
+          "startX": 36.2,
+          "startY": 61.63,
+          "endX": 76.52,
+          "endY": 61.63,
+          "visible": true
+        },
+        {
+          "time": 21.75,
+          "startX": 118.5,
+          "startY": 243.9,
+          "endX": 160.76,
+          "endY": 243.9,
+          "visible": true
+        },
+        {
+          "time": 22.0,
+          "startX": 64.92,
+          "startY": 154.94,
+          "endX": 463.73,
+          "endY": 154.94,
+          "visible": true
+        },
+        {
+          "time": 22.25,
+          "startX": 181.12,
+          "startY": 167.88,
+          "endX": 292.98,
+          "endY": 167.88,
+          "visible": true
+        },
+        {
+          "time": 22.5,
+          "startX": 30.16,
+          "startY": 62.12,
+          "endX": 145.59,
+          "endY": 62.12,
+          "visible": true
+        },
+        {
+          "time": 22.75,
+          "startX": 53.83,
+          "startY": 4.53,
+          "endX": 341.85,
+          "endY": 4.53,
+          "visible": true
+        },
+        {
+          "time": 23.0,
+          "startX": 82.29,
+          "startY": 311.77,
+          "endX": 354.15,
+          "endY": 311.77,
+          "visible": true
+        },
+        {
+          "time": 23.25,
+          "startX": 209.23,
+          "startY": 40.41,
+          "endX": 555.82,
+          "endY": 40.41,
+          "visible": true
+        },
+        {
+          "time": 23.5,
+          "startX": 147.26,
+          "startY": 279.27,
+          "endX": 367.4,
+          "endY": 279.27,
+          "visible": true
+        },
+        {
+          "time": 23.75,
+          "startX": 117.99,
+          "startY": 140.95,
+          "endX": 140.82,
+          "endY": 140.95,
+          "visible": true
+        },
+        {
+          "time": 24.0,
+          "startX": 15.41,
+          "startY": 301.14,
+          "endX": 305.75,
+          "endY": 301.14,
+          "visible": true
+        },
+        {
+          "time": 24.25,
+          "startX": 47.41,
+          "startY": 128.23,
+          "endX": 246.63,
+          "endY": 128.23,
+          "visible": true
+        },
+        {
+          "time": 24.5,
+          "startX": 95.49,
+          "startY": 17.15,
+          "endX": 188.83,
+          "endY": 17.15,
+          "visible": true
+        },
+        {
+          "time": 24.75,
+          "startX": 168.85,
+          "startY": 97.23,
+          "endX": 636.11,
+          "endY": 97.23,
+          "visible": true
+        },
+        {
+          "time": 25.0,
+          "startX": 35.54,
+          "startY": 244.62,
+          "endX": 388.04,
+          "endY": 244.62,
+          "visible": true
+        },
+        {
+          "time": 25.25,
+          "startX": 237.22,
+          "startY": 72.22,
+          "endX": 334.45,
+          "endY": 72.22,
+          "visible": true
+        },
+        {
+          "time": 25.5,
+          "startX": 135.15,
+          "startY": 141.67,
+          "endX": 550.51,
+          "endY": 141.67,
+          "visible": true
+        },
+        {
+          "time": 25.75,
+          "startX": 297.01,
+          "startY": 97.72,
+          "endX": 397.46,
+          "endY": 97.72,
+          "visible": true
+        },
+        {
+          "time": 26.0,
+          "startX": 182.89,
+          "startY": 236.83,
+          "endX": 606.46,
+          "endY": 236.83,
+          "visible": true
+        },
+        {
+          "time": 26.25,
+          "startX": 62.34,
+          "startY": 67.53,
+          "endX": 422.67,
+          "endY": 67.53,
+          "visible": true
+        },
+        {
+          "time": 26.5,
+          "startX": 47.12,
+          "startY": 55.62,
+          "endX": 48.04,
+          "endY": 55.62,
+          "visible": true
+        },
+        {
+          "time": 26.75,
+          "startX": 0.8,
+          "startY": 144.16,
+          "endX": 380.04,
+          "endY": 144.16,
+          "visible": true
+        },
+        {
+          "time": 27.0,
+          "startX": 87.38,
+          "startY": 74.07,
+          "endX": 452.45,
+          "endY": 74.07,
+          "visible": true
+        },
+        {
+          "time": 27.25,
+          "startX": 210.9,
+          "startY": 145.29,
+          "endX": 439.93,
+          "endY": 145.29,
+          "visible": true
+        },
+        {
+          "time": 27.5,
+          "startX": 277.17,
+          "startY": 252.1,
+          "endX": 400.04,
+          "endY": 252.1,
+          "visible": true
+        },
+        {
+          "time": 27.75,
+          "startX": 198.35,
+          "startY": 298.77,
+          "endX": 272.09,
+          "endY": 298.77,
+          "visible": true
+        },
+        {
+          "time": 28.0,
+          "startX": 163.37,
+          "startY": 207.24,
+          "endX": 581.38,
+          "endY": 207.24,
+          "visible": true
+        },
+        {
+          "time": 28.25,
+          "startX": 106.19,
+          "startY": 22.85,
+          "endX": 247.99,
+          "endY": 22.85,
+          "visible": true
+        },
+        {
+          "time": 28.5,
+          "startX": 92.28,
+          "startY": 239.67,
+          "endX": 364.29,
+          "endY": 239.67,
+          "visible": true
+        },
+        {
+          "time": 28.75,
+          "startX": 86.58,
+          "startY": 39.79,
+          "endX": 440.75,
+          "endY": 39.79,
+          "visible": true
+        },
+        {
+          "time": 29.0,
+          "startX": 209.92,
+          "startY": 301.66,
+          "endX": 320.3,
+          "endY": 301.66,
+          "visible": true
+        },
+        {
+          "time": 29.25,
+          "startX": 25.51,
+          "startY": 25.74,
+          "endX": 148.14,
+          "endY": 25.74,
+          "visible": true
+        },
+        {
+          "time": 29.5,
+          "startX": 129.61,
+          "startY": 103.14,
+          "endX": 160.24,
+          "endY": 103.14,
+          "visible": true
+        },
+        {
+          "time": 29.75,
+          "startX": 27.4,
+          "startY": 307.81,
+          "endX": 535.01,
+          "endY": 307.81,
+          "visible": true
+        },
+        {
+          "time": 30.0,
+          "startX": 172.56,
+          "startY": 304.25,
+          "endX": 639.73,
+          "endY": 304.25,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "id": "text3",
+      "content": "Person C",
+      "color": "#3357FF",
+      "fontSize": "20px",
+      "lineColor": "#3357FF",
+      "lineWidth": 2,
+      "positions": [
+        {
+          "time": 0.0,
+          "startX": 25.75,
+          "startY": 86.24,
+          "endX": 201.68,
+          "endY": 86.24,
+          "visible": true
+        },
+        {
+          "time": 0.25,
+          "startX": 226.88,
+          "startY": 150.56,
+          "endX": 416.97,
+          "endY": 150.56,
+          "visible": true
+        },
+        {
+          "time": 0.5,
+          "startX": 274.82,
+          "startY": 58.08,
+          "endX": 374.61,
+          "endY": 58.08,
+          "visible": true
+        },
+        {
+          "time": 0.75,
+          "startX": 58.4,
+          "startY": 157.35,
+          "endX": 190.44,
+          "endY": 157.35,
+          "visible": true
+        },
+        {
+          "time": 1.0,
+          "startX": 104.39,
+          "startY": 106.66,
+          "endX": 428.89,
+          "endY": 106.66,
+          "visible": true
+        },
+        {
+          "time": 1.25,
+          "startX": 257.32,
+          "startY": 105.54,
+          "endX": 443.95,
+          "endY": 105.54,
+          "visible": true
+        },
+        {
+          "time": 1.5,
+          "startX": 86.47,
+          "startY": 302.46,
+          "endX": 520.68,
+          "endY": 302.46,
+          "visible": true
+        },
+        {
+          "time": 1.75,
+          "startX": 165.03,
+          "startY": 145.54,
+          "endX": 201.29,
+          "endY": 145.54,
+          "visible": true
+        },
+        {
+          "time": 2.0,
+          "startX": 96.98,
+          "startY": 310.46,
+          "endX": 258.67,
+          "endY": 310.46,
+          "visible": true
+        },
+        {
+          "time": 2.25,
+          "startX": 154.38,
+          "startY": 316.2,
+          "endX": 420.9,
+          "endY": 316.2,
+          "visible": true
+        },
+        {
+          "time": 2.5,
+          "startX": 120.05,
+          "startY": 132.24,
+          "endX": 162.78,
+          "endY": 132.24,
+          "visible": true
+        },
+        {
+          "time": 2.75,
+          "startX": 108.53,
+          "startY": 242.06,
+          "endX": 400.26,
+          "endY": 242.06,
+          "visible": true
+        },
+        {
+          "time": 3.0,
+          "startX": 228.0,
+          "startY": 65.14,
+          "endX": 351.5,
+          "endY": 65.14,
+          "visible": true
+        },
+        {
+          "time": 3.25,
+          "startX": 278.3,
+          "startY": 140.2,
+          "endX": 446.88,
+          "endY": 140.2,
+          "visible": true
+        },
+        {
+          "time": 3.5,
+          "startX": 36.43,
+          "startY": 311.41,
+          "endX": 389.68,
+          "endY": 311.41,
+          "visible": true
+        },
+        {
+          "time": 3.75,
+          "startX": 71.79,
+          "startY": 50.68,
+          "endX": 352.54,
+          "endY": 50.68,
+          "visible": true
+        },
+        {
+          "time": 4.0,
+          "startX": 165.68,
+          "startY": 29.83,
+          "endX": 635.04,
+          "endY": 29.83,
+          "visible": true
+        },
+        {
+          "time": 4.25,
+          "startX": 75.18,
+          "startY": 147.66,
+          "endX": 273.88,
+          "endY": 147.66,
+          "visible": true
+        },
+        {
+          "time": 4.5,
+          "startX": 249.64,
+          "startY": 159.48,
+          "endX": 458.63,
+          "endY": 159.48,
+          "visible": true
+        },
+        {
+          "time": 4.75,
+          "startX": 152.66,
+          "startY": 87.5,
+          "endX": 534.22,
+          "endY": 87.5,
+          "visible": true
+        },
+        {
+          "time": 5.0,
+          "startX": 294.07,
+          "startY": 77.99,
+          "endX": 352.81,
+          "endY": 77.99,
+          "visible": true
+        },
+        {
+          "time": 5.25,
+          "startX": 115.08,
+          "startY": 295.0,
+          "endX": 325.27,
+          "endY": 295.0,
+          "visible": true
+        },
+        {
+          "time": 5.5,
+          "startX": 176.8,
+          "startY": 276.49,
+          "endX": 263.8,
+          "endY": 276.49,
+          "visible": true
+        },
+        {
+          "time": 5.75,
+          "startX": 237.0,
+          "startY": 132.78,
+          "endX": 597.92,
+          "endY": 132.78,
+          "visible": true
+        },
+        {
+          "time": 6.0,
+          "startX": 152.32,
+          "startY": 262.58,
+          "endX": 181.02,
+          "endY": 262.58,
+          "visible": true
+        },
+        {
+          "time": 6.25,
+          "startX": 89.57,
+          "startY": 187.82,
+          "endX": 639.3,
+          "endY": 187.82,
+          "visible": true
+        },
+        {
+          "time": 6.5,
+          "startX": 146.89,
+          "startY": 47.55,
+          "endX": 344.69,
+          "endY": 47.55,
+          "visible": true
+        },
+        {
+          "time": 6.75,
+          "startX": 103.54,
+          "startY": 176.61,
+          "endX": 347.8,
+          "endY": 176.61,
+          "visible": true
+        },
+        {
+          "time": 7.0,
+          "startX": 120.74,
+          "startY": 102.97,
+          "endX": 136.6,
+          "endY": 102.97,
+          "visible": true
+        },
+        {
+          "time": 7.25,
+          "startX": 149.48,
+          "startY": 182.98,
+          "endX": 209.25,
+          "endY": 182.98,
+          "visible": true
+        },
+        {
+          "time": 7.5,
+          "startX": 232.66,
+          "startY": 13.97,
+          "endX": 476.61,
+          "endY": 13.97,
+          "visible": true
+        },
+        {
+          "time": 7.75,
+          "startX": 211.57,
+          "startY": 259.65,
+          "endX": 247.09,
+          "endY": 259.65,
+          "visible": true
+        },
+        {
+          "time": 8.0,
+          "startX": 199.11,
+          "startY": 262.64,
+          "endX": 627.72,
+          "endY": 262.64,
+          "visible": true
+        },
+        {
+          "time": 8.25,
+          "startX": 148.6,
+          "startY": 11.85,
+          "endX": 321.47,
+          "endY": 11.85,
+          "visible": true
+        },
+        {
+          "time": 8.5,
+          "startX": 177.05,
+          "startY": 278.3,
+          "endX": 559.48,
+          "endY": 278.3,
+          "visible": true
+        },
+        {
+          "time": 8.75,
+          "startX": 132.09,
+          "startY": 168.3,
+          "endX": 292.43,
+          "endY": 168.3,
+          "visible": true
+        },
+        {
+          "time": 9.0,
+          "startX": 216.73,
+          "startY": 131.19,
+          "endX": 419.06,
+          "endY": 131.19,
+          "visible": true
+        },
+        {
+          "time": 9.25,
+          "startX": 46.31,
+          "startY": 150.24,
+          "endX": 620.29,
+          "endY": 150.24,
+          "visible": true
+        },
+        {
+          "time": 9.5,
+          "startX": 101.57,
+          "startY": 221.67,
+          "endX": 415.9,
+          "endY": 221.67,
+          "visible": true
+        },
+        {
+          "time": 9.75,
+          "startX": 255.53,
+          "startY": 272.75,
+          "endX": 549.98,
+          "endY": 272.75,
+          "visible": true
+        },
+        {
+          "time": 10.0,
+          "startX": 114.0,
+          "startY": 101.33,
+          "endX": 459.98,
+          "endY": 101.33,
+          "visible": true
+        },
+        {
+          "time": 10.25,
+          "startX": 22.98,
+          "startY": 279.16,
+          "endX": 227.82,
+          "endY": 279.16,
+          "visible": true
+        },
+        {
+          "time": 10.5,
+          "startX": 20.53,
+          "startY": 201.97,
+          "endX": 589.39,
+          "endY": 201.97,
+          "visible": true
+        },
+        {
+          "time": 10.75,
+          "startX": 277.74,
+          "startY": 238.97,
+          "endX": 299.23,
+          "endY": 238.97,
+          "visible": true
+        },
+        {
+          "time": 11.0,
+          "startX": 29.53,
+          "startY": 202.8,
+          "endX": 558.45,
+          "endY": 202.8,
+          "visible": true
+        },
+        {
+          "time": 11.25,
+          "startX": 133.1,
+          "startY": 222.08,
+          "endX": 578.19,
+          "endY": 222.08,
+          "visible": true
+        },
+        {
+          "time": 11.5,
+          "startX": 13.8,
+          "startY": 254.77,
+          "endX": 187.76,
+          "endY": 254.77,
+          "visible": true
+        },
+        {
+          "time": 11.75,
+          "startX": 112.45,
+          "startY": 46.58,
+          "endX": 339.95,
+          "endY": 46.58,
+          "visible": true
+        },
+        {
+          "time": 12.0,
+          "startX": 108.79,
+          "startY": 253.61,
+          "endX": 169.78,
+          "endY": 253.61,
+          "visible": true
+        },
+        {
+          "time": 12.25,
+          "startX": 23.69,
+          "startY": 278.67,
+          "endX": 396.61,
+          "endY": 278.67,
+          "visible": true
+        },
+        {
+          "time": 12.5,
+          "startX": 72.25,
+          "startY": 292.11,
+          "endX": 91.6,
+          "endY": 292.11,
+          "visible": true
+        },
+        {
+          "time": 12.75,
+          "startX": 138.34,
+          "startY": 81.27,
+          "endX": 163.41,
+          "endY": 81.27,
+          "visible": true
+        },
+        {
+          "time": 13.0,
+          "startX": 2.82,
+          "startY": 257.48,
+          "endX": 576.77,
+          "endY": 257.48,
+          "visible": true
+        },
+        {
+          "time": 13.25,
+          "startX": 203.28,
+          "startY": 50.55,
+          "endX": 282.71,
+          "endY": 50.55,
+          "visible": true
+        },
+        {
+          "time": 13.5,
+          "startX": 103.67,
+          "startY": 188.02,
+          "endX": 408.92,
+          "endY": 188.02,
+          "visible": true
+        },
+        {
+          "time": 13.75,
+          "startX": 127.29,
+          "startY": 80.03,
+          "endX": 540.99,
+          "endY": 80.03,
+          "visible": true
+        },
+        {
+          "time": 14.0,
+          "startX": 59.77,
+          "startY": 123.1,
+          "endX": 309.25,
+          "endY": 123.1,
+          "visible": true
+        },
+        {
+          "time": 14.25,
+          "startX": 71.16,
+          "startY": 183.02,
+          "endX": 367.88,
+          "endY": 183.02,
+          "visible": true
+        },
+        {
+          "time": 14.5,
+          "startX": 297.81,
+          "startY": 94.47,
+          "endX": 625.88,
+          "endY": 94.47,
+          "visible": true
+        },
+        {
+          "time": 14.75,
+          "startX": 197.47,
+          "startY": 87.83,
+          "endX": 362.19,
+          "endY": 87.83,
+          "visible": true
+        },
+        {
+          "time": 15.0,
+          "startX": 31.39,
+          "startY": 238.29,
+          "endX": 205.74,
+          "endY": 238.29,
+          "visible": true
+        },
+        {
+          "time": 15.25,
+          "startX": 181.92,
+          "startY": 158.95,
+          "endX": 578.66,
+          "endY": 158.95,
+          "visible": true
+        },
+        {
+          "time": 15.5,
+          "startX": 85.86,
+          "startY": 255.64,
+          "endX": 388.52,
+          "endY": 255.64,
+          "visible": true
+        },
+        {
+          "time": 15.75,
+          "startX": 105.7,
+          "startY": 203.72,
+          "endX": 397.37,
+          "endY": 203.72,
+          "visible": true
+        },
+        {
+          "time": 16.0,
+          "startX": 203.33,
+          "startY": 230.7,
+          "endX": 421.88,
+          "endY": 230.7,
+          "visible": true
+        },
+        {
+          "time": 16.25,
+          "startX": 251.5,
+          "startY": 201.04,
+          "endX": 578.18,
+          "endY": 201.04,
+          "visible": true
+        },
+        {
+          "time": 16.5,
+          "startX": 193.9,
+          "startY": 98.86,
+          "endX": 282.13,
+          "endY": 98.86,
+          "visible": true
+        },
+        {
+          "time": 16.75,
+          "startX": 57.69,
+          "startY": 234.36,
+          "endX": 173.87,
+          "endY": 234.36,
+          "visible": true
+        },
+        {
+          "time": 17.0,
+          "startX": 88.53,
+          "startY": 239.19,
+          "endX": 112.41,
+          "endY": 239.19,
+          "visible": true
+        },
+        {
+          "time": 17.25,
+          "startX": 39.65,
+          "startY": 172.61,
+          "endX": 621.75,
+          "endY": 172.61,
+          "visible": true
+        },
+        {
+          "time": 17.5,
+          "startX": 159.26,
+          "startY": 292.32,
+          "endX": 531.5,
+          "endY": 292.32,
+          "visible": true
+        },
+        {
+          "time": 17.75,
+          "startX": 77.09,
+          "startY": 263.9,
+          "endX": 308.38,
+          "endY": 263.9,
+          "visible": true
+        },
+        {
+          "time": 18.0,
+          "startX": 216.78,
+          "startY": 238.9,
+          "endX": 241.95,
+          "endY": 238.9,
+          "visible": true
+        },
+        {
+          "time": 18.25,
+          "startX": 34.55,
+          "startY": 308.13,
+          "endX": 90.08,
+          "endY": 308.13,
+          "visible": true
+        },
+        {
+          "time": 18.5,
+          "startX": 289.95,
+          "startY": 275.24,
+          "endX": 463.5,
+          "endY": 275.24,
+          "visible": true
+        },
+        {
+          "time": 18.75,
+          "startX": 293.98,
+          "startY": 309.53,
+          "endX": 514.94,
+          "endY": 309.53,
+          "visible": true
+        },
+        {
+          "time": 19.0,
+          "startX": 8.91,
+          "startY": 253.02,
+          "endX": 109.73,
+          "endY": 253.02,
+          "visible": true
+        },
+        {
+          "time": 19.25,
+          "startX": 160.97,
+          "startY": 145.53,
+          "endX": 430.61,
+          "endY": 145.53,
+          "visible": true
+        },
+        {
+          "time": 19.5,
+          "startX": 201.7,
+          "startY": 187.06,
+          "endX": 526.35,
+          "endY": 187.06,
+          "visible": true
+        },
+        {
+          "time": 19.75,
+          "startX": 149.65,
+          "startY": 34.67,
+          "endX": 282.09,
+          "endY": 34.67,
+          "visible": true
+        },
+        {
+          "time": 20.0,
+          "startX": 7.51,
+          "startY": 282.96,
+          "endX": 359.3,
+          "endY": 282.96,
+          "visible": true
+        },
+        {
+          "time": 20.25,
+          "startX": 40.46,
+          "startY": 70.84,
+          "endX": 274.58,
+          "endY": 70.84,
+          "visible": true
+        },
+        {
+          "time": 20.5,
+          "startX": 193.4,
+          "startY": 291.0,
+          "endX": 247.16,
+          "endY": 291.0,
+          "visible": true
+        },
+        {
+          "time": 20.75,
+          "startX": 122.49,
+          "startY": 44.73,
+          "endX": 605.61,
+          "endY": 44.73,
+          "visible": true
+        },
+        {
+          "time": 21.0,
+          "startX": 62.2,
+          "startY": 157.64,
+          "endX": 91.31,
+          "endY": 157.64,
+          "visible": true
+        },
+        {
+          "time": 21.25,
+          "startX": 266.18,
+          "startY": 43.41,
+          "endX": 290.33,
+          "endY": 43.41,
+          "visible": true
+        },
+        {
+          "time": 21.5,
+          "startX": 201.15,
+          "startY": 237.8,
+          "endX": 605.42,
+          "endY": 237.8,
+          "visible": true
+        },
+        {
+          "time": 21.75,
+          "startX": 98.89,
+          "startY": 237.53,
+          "endX": 125.74,
+          "endY": 237.53,
+          "visible": true
+        },
+        {
+          "time": 22.0,
+          "startX": 124.47,
+          "startY": 31.69,
+          "endX": 313.18,
+          "endY": 31.69,
+          "visible": true
+        },
+        {
+          "time": 22.25,
+          "startX": 20.94,
+          "startY": 304.49,
+          "endX": 122.43,
+          "endY": 304.49,
+          "visible": true
+        },
+        {
+          "time": 22.5,
+          "startX": 111.16,
+          "startY": 141.88,
+          "endX": 608.36,
+          "endY": 141.88,
+          "visible": true
+        },
+        {
+          "time": 22.75,
+          "startX": 256.64,
+          "startY": 31.79,
+          "endX": 438.84,
+          "endY": 31.79,
+          "visible": true
+        },
+        {
+          "time": 23.0,
+          "startX": 163.34,
+          "startY": 312.91,
+          "endX": 229.55,
+          "endY": 312.91,
+          "visible": true
+        },
+        {
+          "time": 23.25,
+          "startX": 78.18,
+          "startY": 60.74,
+          "endX": 119.44,
+          "endY": 60.74,
+          "visible": true
+        },
+        {
+          "time": 23.5,
+          "startX": 254.41,
+          "startY": 145.51,
+          "endX": 424.17,
+          "endY": 145.51,
+          "visible": true
+        },
+        {
+          "time": 23.75,
+          "startX": 13.67,
+          "startY": 191.09,
+          "endX": 192.51,
+          "endY": 191.09,
+          "visible": true
+        },
+        {
+          "time": 24.0,
+          "startX": 80.59,
+          "startY": 77.94,
+          "endX": 236.04,
+          "endY": 77.94,
+          "visible": true
+        },
+        {
+          "time": 24.25,
+          "startX": 169.37,
+          "startY": 21.96,
+          "endX": 489.7,
+          "endY": 21.96,
+          "visible": true
+        },
+        {
+          "time": 24.5,
+          "startX": 62.15,
+          "startY": 69.1,
+          "endX": 556.61,
+          "endY": 69.1,
+          "visible": true
+        },
+        {
+          "time": 24.75,
+          "startX": 98.57,
+          "startY": 47.22,
+          "endX": 576.34,
+          "endY": 47.22,
+          "visible": true
+        },
+        {
+          "time": 25.0,
+          "startX": 0.85,
+          "startY": 274.69,
+          "endX": 92.6,
+          "endY": 274.69,
+          "visible": true
+        },
+        {
+          "time": 25.25,
+          "startX": 39.0,
+          "startY": 80.21,
+          "endX": 111.68,
+          "endY": 80.21,
+          "visible": true
+        },
+        {
+          "time": 25.5,
+          "startX": 9.51,
+          "startY": 8.25,
+          "endX": 198.32,
+          "endY": 8.25,
+          "visible": true
+        },
+        {
+          "time": 25.75,
+          "startX": 207.21,
+          "startY": 76.14,
+          "endX": 237.0,
+          "endY": 76.14,
+          "visible": true
+        },
+        {
+          "time": 26.0,
+          "startX": 52.27,
+          "startY": 16.77,
+          "endX": 474.7,
+          "endY": 16.77,
+          "visible": true
+        },
+        {
+          "time": 26.25,
+          "startX": 157.83,
+          "startY": 238.61,
+          "endX": 304.8,
+          "endY": 238.61,
+          "visible": true
+        },
+        {
+          "time": 26.5,
+          "startX": 69.79,
+          "startY": 164.24,
+          "endX": 233.41,
+          "endY": 164.24,
+          "visible": true
+        },
+        {
+          "time": 26.75,
+          "startX": 27.75,
+          "startY": 302.53,
+          "endX": 151.15,
+          "endY": 302.53,
+          "visible": true
+        },
+        {
+          "time": 27.0,
+          "startX": 234.97,
+          "startY": 277.43,
+          "endX": 333.73,
+          "endY": 277.43,
+          "visible": true
+        },
+        {
+          "time": 27.25,
+          "startX": 38.93,
+          "startY": 308.49,
+          "endX": 137.41,
+          "endY": 308.49,
+          "visible": true
+        },
+        {
+          "time": 27.5,
+          "startX": 143.69,
+          "startY": 128.52,
+          "endX": 439.1,
+          "endY": 128.52,
+          "visible": true
+        },
+        {
+          "time": 27.75,
+          "startX": 47.03,
+          "startY": 291.1,
+          "endX": 147.08,
+          "endY": 291.1,
+          "visible": true
+        },
+        {
+          "time": 28.0,
+          "startX": 24.24,
+          "startY": 194.66,
+          "endX": 42.04,
+          "endY": 194.66,
+          "visible": true
+        },
+        {
+          "time": 28.25,
+          "startX": 82.5,
+          "startY": 202.58,
+          "endX": 350.95,
+          "endY": 202.58,
+          "visible": true
+        },
+        {
+          "time": 28.5,
+          "startX": 97.56,
+          "startY": 318.28,
+          "endX": 339.56,
+          "endY": 318.28,
+          "visible": true
+        },
+        {
+          "time": 28.75,
+          "startX": 63.47,
+          "startY": 193.74,
+          "endX": 136.11,
+          "endY": 193.74,
+          "visible": true
+        },
+        {
+          "time": 29.0,
+          "startX": 210.53,
+          "startY": 272.89,
+          "endX": 416.59,
+          "endY": 272.89,
+          "visible": true
+        },
+        {
+          "time": 29.25,
+          "startX": 137.61,
+          "startY": 230.67,
+          "endX": 230.69,
+          "endY": 230.67,
+          "visible": true
+        },
+        {
+          "time": 29.5,
+          "startX": 135.47,
+          "startY": 73.12,
+          "endX": 216.92,
+          "endY": 73.12,
+          "visible": true
+        },
+        {
+          "time": 29.75,
+          "startX": 60.85,
+          "startY": 133.12,
+          "endX": 136.05,
+          "endY": 133.12,
+          "visible": true
+        },
+        {
+          "time": 30.0,
+          "startX": 128.03,
+          "startY": 212.83,
+          "endX": 239.55,
+          "endY": 212.83,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "id": "text4",
+      "content": "Person D",
+      "color": "#FF33A1",
+      "fontSize": "22px",
+      "lineColor": "#FF33A1",
+      "lineWidth": 2,
+      "positions": [
+        {
+          "time": 0.0,
+          "startX": 42.97,
+          "startY": 295.36,
+          "endX": 45.79,
+          "endY": 295.36,
+          "visible": true
+        },
+        {
+          "time": 0.25,
+          "startX": 61.8,
+          "startY": 29.83,
+          "endX": 249.53,
+          "endY": 29.83,
+          "visible": true
+        },
+        {
+          "time": 0.5,
+          "startX": 221.64,
+          "startY": 259.77,
+          "endX": 356.08,
+          "endY": 259.77,
+          "visible": true
+        },
+        {
+          "time": 0.75,
+          "startX": 175.94,
+          "startY": 179.71,
+          "endX": 210.97,
+          "endY": 179.71,
+          "visible": true
+        },
+        {
+          "time": 1.0,
+          "startX": 36.67,
+          "startY": 113.15,
+          "endX": 425.82,
+          "endY": 113.15,
+          "visible": true
+        },
+        {
+          "time": 1.25,
+          "startX": 225.09,
+          "startY": 277.79,
+          "endX": 461.48,
+          "endY": 277.79,
+          "visible": true
+        },
+        {
+          "time": 1.5,
+          "startX": 225.05,
+          "startY": 192.13,
+          "endX": 290.52,
+          "endY": 192.13,
+          "visible": true
+        },
+        {
+          "time": 1.75,
+          "startX": 173.38,
+          "startY": 68.08,
+          "endX": 420.31,
+          "endY": 68.08,
+          "visible": true
+        },
+        {
+          "time": 2.0,
+          "startX": 67.27,
+          "startY": 34.63,
+          "endX": 541.04,
+          "endY": 34.63,
+          "visible": true
+        },
+        {
+          "time": 2.25,
+          "startX": 110.27,
+          "startY": 244.03,
+          "endX": 367.42,
+          "endY": 244.03,
+          "visible": true
+        },
+        {
+          "time": 2.5,
+          "startX": 242.17,
+          "startY": 270.45,
+          "endX": 623.71,
+          "endY": 270.45,
+          "visible": true
+        },
+        {
+          "time": 2.75,
+          "startX": 245.53,
+          "startY": 196.34,
+          "endX": 411.33,
+          "endY": 196.34,
+          "visible": true
+        },
+        {
+          "time": 3.0,
+          "startX": 7.88,
+          "startY": 297.31,
+          "endX": 530.85,
+          "endY": 297.31,
+          "visible": true
+        },
+        {
+          "time": 3.25,
+          "startX": 80.23,
+          "startY": 57.73,
+          "endX": 449.73,
+          "endY": 57.73,
+          "visible": true
+        },
+        {
+          "time": 3.5,
+          "startX": 3.91,
+          "startY": 108.74,
+          "endX": 92.7,
+          "endY": 108.74,
+          "visible": true
+        },
+        {
+          "time": 3.75,
+          "startX": 256.5,
+          "startY": 181.22,
+          "endX": 260.96,
+          "endY": 181.22,
+          "visible": true
+        },
+        {
+          "time": 4.0,
+          "startX": 19.62,
+          "startY": 202.62,
+          "endX": 42.56,
+          "endY": 202.62,
+          "visible": true
+        },
+        {
+          "time": 4.25,
+          "startX": 223.83,
+          "startY": 68.84,
+          "endX": 268.69,
+          "endY": 68.84,
+          "visible": true
+        },
+        {
+          "time": 4.5,
+          "startX": 102.27,
+          "startY": 118.42,
+          "endX": 461.82,
+          "endY": 118.42,
+          "visible": true
+        },
+        {
+          "time": 4.75,
+          "startX": 54.37,
+          "startY": 181.63,
+          "endX": 233.05,
+          "endY": 181.63,
+          "visible": true
+        },
+        {
+          "time": 5.0,
+          "startX": 15.78,
+          "startY": 50.37,
+          "endX": 395.42,
+          "endY": 50.37,
+          "visible": true
+        },
+        {
+          "time": 5.25,
+          "startX": 202.19,
+          "startY": 87.07,
+          "endX": 423.64,
+          "endY": 87.07,
+          "visible": true
+        },
+        {
+          "time": 5.5,
+          "startX": 145.7,
+          "startY": 141.45,
+          "endX": 174.83,
+          "endY": 141.45,
+          "visible": true
+        },
+        {
+          "time": 5.75,
+          "startX": 226.48,
+          "startY": 36.42,
+          "endX": 275.14,
+          "endY": 36.42,
+          "visible": true
+        },
+        {
+          "time": 6.0,
+          "startX": 84.97,
+          "startY": 217.12,
+          "endX": 311.44,
+          "endY": 217.12,
+          "visible": true
+        },
+        {
+          "time": 6.25,
+          "startX": 200.14,
+          "startY": 14.53,
+          "endX": 252.97,
+          "endY": 14.53,
+          "visible": true
+        },
+        {
+          "time": 6.5,
+          "startX": 179.8,
+          "startY": 2.46,
+          "endX": 192.91,
+          "endY": 2.46,
+          "visible": true
+        },
+        {
+          "time": 6.75,
+          "startX": 63.37,
+          "startY": 43.92,
+          "endX": 163.53,
+          "endY": 43.92,
+          "visible": true
+        },
+        {
+          "time": 7.0,
+          "startX": 98.44,
+          "startY": 2.47,
+          "endX": 478.09,
+          "endY": 2.47,
+          "visible": true
+        },
+        {
+          "time": 7.25,
+          "startX": 52.71,
+          "startY": 121.67,
+          "endX": 450.35,
+          "endY": 121.67,
+          "visible": true
+        },
+        {
+          "time": 7.5,
+          "startX": 150.08,
+          "startY": 266.67,
+          "endX": 515.97,
+          "endY": 266.67,
+          "visible": true
+        },
+        {
+          "time": 7.75,
+          "startX": 21.62,
+          "startY": 275.76,
+          "endX": 27.07,
+          "endY": 275.76,
+          "visible": true
+        },
+        {
+          "time": 8.0,
+          "startX": 5.62,
+          "startY": 294.77,
+          "endX": 551.75,
+          "endY": 294.77,
+          "visible": true
+        },
+        {
+          "time": 8.25,
+          "startX": 172.73,
+          "startY": 183.49,
+          "endX": 454.08,
+          "endY": 183.49,
+          "visible": true
+        },
+        {
+          "time": 8.5,
+          "startX": 13.35,
+          "startY": 36.86,
+          "endX": 125.31,
+          "endY": 36.86,
+          "visible": true
+        },
+        {
+          "time": 8.75,
+          "startX": 97.43,
+          "startY": 256.42,
+          "endX": 395.6,
+          "endY": 256.42,
+          "visible": true
+        },
+        {
+          "time": 9.0,
+          "startX": 56.4,
+          "startY": 294.33,
+          "endX": 249.61,
+          "endY": 294.33,
+          "visible": true
+        },
+        {
+          "time": 9.25,
+          "startX": 253.35,
+          "startY": 77.86,
+          "endX": 376.88,
+          "endY": 77.86,
+          "visible": true
+        },
+        {
+          "time": 9.5,
+          "startX": 157.19,
+          "startY": 126.65,
+          "endX": 198.58,
+          "endY": 126.65,
+          "visible": true
+        },
+        {
+          "time": 9.75,
+          "startX": 101.85,
+          "startY": 106.58,
+          "endX": 107.6,
+          "endY": 106.58,
+          "visible": true
+        },
+        {
+          "time": 10.0,
+          "startX": 153.14,
+          "startY": 36.49,
+          "endX": 326.37,
+          "endY": 36.49,
+          "visible": true
+        },
+        {
+          "time": 10.25,
+          "startX": 271.78,
+          "startY": 111.8,
+          "endX": 465.52,
+          "endY": 111.8,
+          "visible": true
+        },
+        {
+          "time": 10.5,
+          "startX": 151.21,
+          "startY": 260.81,
+          "endX": 245.68,
+          "endY": 260.81,
+          "visible": true
+        },
+        {
+          "time": 10.75,
+          "startX": 43.93,
+          "startY": 63.13,
+          "endX": 385.54,
+          "endY": 63.13,
+          "visible": true
+        },
+        {
+          "time": 11.0,
+          "startX": 113.37,
+          "startY": 209.76,
+          "endX": 228.06,
+          "endY": 209.76,
+          "visible": true
+        },
+        {
+          "time": 11.25,
+          "startX": 231.85,
+          "startY": 158.12,
+          "endX": 482.85,
+          "endY": 158.12,
+          "visible": true
+        },
+        {
+          "time": 11.5,
+          "startX": 227.96,
+          "startY": 143.65,
+          "endX": 591.46,
+          "endY": 143.65,
+          "visible": true
+        },
+        {
+          "time": 11.75,
+          "startX": 169.35,
+          "startY": 203.3,
+          "endX": 399.69,
+          "endY": 203.3,
+          "visible": true
+        },
+        {
+          "time": 12.0,
+          "startX": 96.61,
+          "startY": 200.71,
+          "endX": 259.27,
+          "endY": 200.71,
+          "visible": true
+        },
+        {
+          "time": 12.25,
+          "startX": 20.49,
+          "startY": 141.51,
+          "endX": 193.81,
+          "endY": 141.51,
+          "visible": true
+        },
+        {
+          "time": 12.5,
+          "startX": 82.4,
+          "startY": 17.98,
+          "endX": 324.7,
+          "endY": 17.98,
+          "visible": true
+        },
+        {
+          "time": 12.75,
+          "startX": 36.41,
+          "startY": 144.61,
+          "endX": 93.12,
+          "endY": 144.61,
+          "visible": true
+        },
+        {
+          "time": 13.0,
+          "startX": 249.51,
+          "startY": 24.55,
+          "endX": 553.12,
+          "endY": 24.55,
+          "visible": true
+        },
+        {
+          "time": 13.25,
+          "startX": 256.59,
+          "startY": 196.8,
+          "endX": 324.52,
+          "endY": 196.8,
+          "visible": true
+        },
+        {
+          "time": 13.5,
+          "startX": 138.81,
+          "startY": 177.38,
+          "endX": 506.76,
+          "endY": 177.38,
+          "visible": true
+        },
+        {
+          "time": 13.75,
+          "startX": 268.76,
+          "startY": 143.91,
+          "endX": 518.28,
+          "endY": 143.91,
+          "visible": true
+        },
+        {
+          "time": 14.0,
+          "startX": 195.55,
+          "startY": 102.89,
+          "endX": 304.4,
+          "endY": 102.89,
+          "visible": true
+        },
+        {
+          "time": 14.25,
+          "startX": 45.26,
+          "startY": 19.8,
+          "endX": 66.24,
+          "endY": 19.8,
+          "visible": true
+        },
+        {
+          "time": 14.5,
+          "startX": 269.74,
+          "startY": 109.9,
+          "endX": 457.16,
+          "endY": 109.9,
+          "visible": true
+        },
+        {
+          "time": 14.75,
+          "startX": 151.36,
+          "startY": 55.22,
+          "endX": 158.56,
+          "endY": 55.22,
+          "visible": true
+        },
+        {
+          "time": 15.0,
+          "startX": 131.33,
+          "startY": 140.61,
+          "endX": 334.56,
+          "endY": 140.61,
+          "visible": true
+        },
+        {
+          "time": 15.25,
+          "startX": 47.62,
+          "startY": 119.31,
+          "endX": 181.05,
+          "endY": 119.31,
+          "visible": true
+        },
+        {
+          "time": 15.5,
+          "startX": 122.63,
+          "startY": 108.28,
+          "endX": 382.65,
+          "endY": 108.28,
+          "visible": true
+        },
+        {
+          "time": 15.75,
+          "startX": 42.18,
+          "startY": 207.14,
+          "endX": 236.77,
+          "endY": 207.14,
+          "visible": true
+        },
+        {
+          "time": 16.0,
+          "startX": 28.35,
+          "startY": 217.08,
+          "endX": 181.85,
+          "endY": 217.08,
+          "visible": true
+        },
+        {
+          "time": 16.25,
+          "startX": 217.12,
+          "startY": 210.1,
+          "endX": 580.06,
+          "endY": 210.1,
+          "visible": true
+        },
+        {
+          "time": 16.5,
+          "startX": 261.98,
+          "startY": 106.68,
+          "endX": 372.95,
+          "endY": 106.68,
+          "visible": true
+        },
+        {
+          "time": 16.75,
+          "startX": 42.43,
+          "startY": 111.94,
+          "endX": 619.33,
+          "endY": 111.94,
+          "visible": true
+        },
+        {
+          "time": 17.0,
+          "startX": 209.54,
+          "startY": 125.43,
+          "endX": 380.83,
+          "endY": 125.43,
+          "visible": true
+        },
+        {
+          "time": 17.25,
+          "startX": 241.07,
+          "startY": 99.07,
+          "endX": 281.4,
+          "endY": 99.07,
+          "visible": true
+        },
+        {
+          "time": 17.5,
+          "startX": 237.5,
+          "startY": 260.22,
+          "endX": 428.87,
+          "endY": 260.22,
+          "visible": true
+        },
+        {
+          "time": 17.75,
+          "startX": 248.69,
+          "startY": 236.41,
+          "endX": 438.67,
+          "endY": 236.41,
+          "visible": true
+        },
+        {
+          "time": 18.0,
+          "startX": 157.92,
+          "startY": 206.73,
+          "endX": 270.98,
+          "endY": 206.73,
+          "visible": true
+        },
+        {
+          "time": 18.25,
+          "startX": 108.55,
+          "startY": 116.03,
+          "endX": 115.37,
+          "endY": 116.03,
+          "visible": true
+        },
+        {
+          "time": 18.5,
+          "startX": 64.26,
+          "startY": 303.25,
+          "endX": 311.21,
+          "endY": 303.25,
+          "visible": true
+        },
+        {
+          "time": 18.75,
+          "startX": 49.39,
+          "startY": 44.02,
+          "endX": 67.96,
+          "endY": 44.02,
+          "visible": true
+        },
+        {
+          "time": 19.0,
+          "startX": 253.33,
+          "startY": 32.37,
+          "endX": 493.36,
+          "endY": 32.37,
+          "visible": true
+        },
+        {
+          "time": 19.25,
+          "startX": 24.16,
+          "startY": 282.78,
+          "endX": 250.54,
+          "endY": 282.78,
+          "visible": true
+        },
+        {
+          "time": 19.5,
+          "startX": 83.87,
+          "startY": 245.22,
+          "endX": 101.03,
+          "endY": 245.22,
+          "visible": true
+        },
+        {
+          "time": 19.75,
+          "startX": 113.02,
+          "startY": 51.92,
+          "endX": 532.06,
+          "endY": 51.92,
+          "visible": true
+        },
+        {
+          "time": 20.0,
+          "startX": 105.95,
+          "startY": 258.89,
+          "endX": 231.33,
+          "endY": 258.89,
+          "visible": true
+        },
+        {
+          "time": 20.25,
+          "startX": 131.3,
+          "startY": 131.47,
+          "endX": 432.87,
+          "endY": 131.47,
+          "visible": true
+        },
+        {
+          "time": 20.5,
+          "startX": 71.26,
+          "startY": 142.14,
+          "endX": 182.35,
+          "endY": 142.14,
+          "visible": true
+        },
+        {
+          "time": 20.75,
+          "startX": 224.56,
+          "startY": 143.66,
+          "endX": 341.77,
+          "endY": 143.66,
+          "visible": true
+        },
+        {
+          "time": 21.0,
+          "startX": 92.84,
+          "startY": 258.76,
+          "endX": 300.17,
+          "endY": 258.76,
+          "visible": true
+        },
+        {
+          "time": 21.25,
+          "startX": 250.53,
+          "startY": 117.71,
+          "endX": 606.16,
+          "endY": 117.71,
+          "visible": true
+        },
+        {
+          "time": 21.5,
+          "startX": 180.33,
+          "startY": 147.74,
+          "endX": 295.33,
+          "endY": 147.74,
+          "visible": true
+        },
+        {
+          "time": 21.75,
+          "startX": 114.56,
+          "startY": 168.79,
+          "endX": 618.41,
+          "endY": 168.79,
+          "visible": true
+        },
+        {
+          "time": 22.0,
+          "startX": 88.58,
+          "startY": 256.4,
+          "endX": 245.07,
+          "endY": 256.4,
+          "visible": true
+        },
+        {
+          "time": 22.25,
+          "startX": 75.0,
+          "startY": 205.18,
+          "endX": 559.43,
+          "endY": 205.18,
+          "visible": true
+        },
+        {
+          "time": 22.5,
+          "startX": 166.36,
+          "startY": 32.83,
+          "endX": 541.37,
+          "endY": 32.83,
+          "visible": true
+        },
+        {
+          "time": 22.75,
+          "startX": 255.35,
+          "startY": 91.22,
+          "endX": 488.39,
+          "endY": 91.22,
+          "visible": true
+        },
+        {
+          "time": 23.0,
+          "startX": 81.84,
+          "startY": 289.7,
+          "endX": 94.3,
+          "endY": 289.7,
+          "visible": true
+        },
+        {
+          "time": 23.25,
+          "startX": 131.24,
+          "startY": 302.85,
+          "endX": 142.1,
+          "endY": 302.85,
+          "visible": true
+        },
+        {
+          "time": 23.5,
+          "startX": 17.07,
+          "startY": 111.87,
+          "endX": 135.34,
+          "endY": 111.87,
+          "visible": true
+        },
+        {
+          "time": 23.75,
+          "startX": 15.98,
+          "startY": 160.64,
+          "endX": 150.9,
+          "endY": 160.64,
+          "visible": true
+        },
+        {
+          "time": 24.0,
+          "startX": 18.04,
+          "startY": 119.97,
+          "endX": 298.36,
+          "endY": 119.97,
+          "visible": true
+        },
+        {
+          "time": 24.25,
+          "startX": 279.25,
+          "startY": 268.54,
+          "endX": 415.97,
+          "endY": 268.54,
+          "visible": true
+        },
+        {
+          "time": 24.5,
+          "startX": 183.6,
+          "startY": 44.03,
+          "endX": 237.41,
+          "endY": 44.03,
+          "visible": true
+        },
+        {
+          "time": 24.75,
+          "startX": 88.83,
+          "startY": 222.74,
+          "endX": 248.93,
+          "endY": 222.74,
+          "visible": true
+        },
+        {
+          "time": 25.0,
+          "startX": 3.36,
+          "startY": 143.55,
+          "endX": 211.66,
+          "endY": 143.55,
+          "visible": true
+        },
+        {
+          "time": 25.25,
+          "startX": 23.77,
+          "startY": 81.9,
+          "endX": 534.38,
+          "endY": 81.9,
+          "visible": true
+        },
+        {
+          "time": 25.5,
+          "startX": 164.64,
+          "startY": 232.72,
+          "endX": 337.77,
+          "endY": 232.72,
+          "visible": true
+        },
+        {
+          "time": 25.75,
+          "startX": 33.36,
+          "startY": 92.19,
+          "endX": 192.74,
+          "endY": 92.19,
+          "visible": true
+        },
+        {
+          "time": 26.0,
+          "startX": 14.32,
+          "startY": 134.34,
+          "endX": 508.1,
+          "endY": 134.34,
+          "visible": true
+        },
+        {
+          "time": 26.25,
+          "startX": 137.13,
+          "startY": 35.47,
+          "endX": 579.29,
+          "endY": 35.47,
+          "visible": true
+        },
+        {
+          "time": 26.5,
+          "startX": 179.02,
+          "startY": 5.26,
+          "endX": 329.84,
+          "endY": 5.26,
+          "visible": true
+        },
+        {
+          "time": 26.75,
+          "startX": 72.58,
+          "startY": 45.94,
+          "endX": 274.71,
+          "endY": 45.94,
+          "visible": true
+        },
+        {
+          "time": 27.0,
+          "startX": 184.44,
+          "startY": 76.98,
+          "endX": 266.6,
+          "endY": 76.98,
+          "visible": true
+        },
+        {
+          "time": 27.25,
+          "startX": 199.31,
+          "startY": 27.4,
+          "endX": 623.78,
+          "endY": 27.4,
+          "visible": true
+        },
+        {
+          "time": 27.5,
+          "startX": 20.3,
+          "startY": 168.34,
+          "endX": 324.69,
+          "endY": 168.34,
+          "visible": true
+        },
+        {
+          "time": 27.75,
+          "startX": 249.89,
+          "startY": 177.33,
+          "endX": 296.5,
+          "endY": 177.33,
+          "visible": true
+        },
+        {
+          "time": 28.0,
+          "startX": 141.04,
+          "startY": 203.41,
+          "endX": 627.87,
+          "endY": 203.41,
+          "visible": true
+        },
+        {
+          "time": 28.25,
+          "startX": 76.1,
+          "startY": 5.2,
+          "endX": 504.65,
+          "endY": 5.2,
+          "visible": true
+        },
+        {
+          "time": 28.5,
+          "startX": 103.44,
+          "startY": 234.54,
+          "endX": 402.08,
+          "endY": 234.54,
+          "visible": true
+        },
+        {
+          "time": 28.75,
+          "startX": 212.81,
+          "startY": 235.26,
+          "endX": 231.45,
+          "endY": 235.26,
+          "visible": true
+        },
+        {
+          "time": 29.0,
+          "startX": 13.3,
+          "startY": 174.72,
+          "endX": 520.65,
+          "endY": 174.72,
+          "visible": true
+        },
+        {
+          "time": 29.25,
+          "startX": 52.53,
+          "startY": 249.33,
+          "endX": 297.36,
+          "endY": 249.33,
+          "visible": true
+        },
+        {
+          "time": 29.5,
+          "startX": 208.62,
+          "startY": 202.16,
+          "endX": 519.36,
+          "endY": 202.16,
+          "visible": true
+        },
+        {
+          "time": 29.75,
+          "startX": 18.93,
+          "startY": 248.38,
+          "endX": 292.91,
+          "endY": 248.38,
+          "visible": true
+        },
+        {
+          "time": 30.0,
+          "startX": 88.03,
+          "startY": 14.02,
+          "endX": 127.66,
+          "endY": 14.02,
+          "visible": true
+        }
+      ]
+    }
+  ]
+}

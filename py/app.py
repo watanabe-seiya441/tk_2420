@@ -9,17 +9,24 @@ app = Flask(__name__)
 VIDEOS = [
     {
         "id": "video1",
-        "title": "Song Title 1",
+        "title": "Supernova",
         "group": "aespa",
-        "video_url": "/videos/video1.mp4",
-        "overlay_url": "/overlays/video1_overlay.json",
+        "video_url": "/videos/Supernova.mp4",
+        "overlay_url": "/overlays/Supernova_overlay.json",
     },
     {
         "id": "video2",
-        "title": "Song Title 2",
+        "title": "Whiplash",
+        "group": "aespa",
+        "video_url": "/videos/Whiplash.mp4",
+        "overlay_url": "/overlays/Whiplash_overlay.json",
+    },
+    {
+        "id": "video3",
+        "title": "裸足でSummer",
         "group": "nokizaka",
-        "video_url": "/videos/video2.mp4",
-        "overlay_url": "/overlays/video2_overlay.json",
+        "video_url": "/videos/hadashidesummer_nise.mp4",
+        "overlay_url": "/overlays/hadashidesummer_nise_overlay.json",
     },
 ]
 
@@ -51,6 +58,8 @@ def get_video_data(video_id):
 
     return jsonify(video)
 
+# TODO:　曲名がかぶる可能性があるから曲名ではなくて、idを使うべき
+# TODO: ユニークなIDを生成する関数を作成する
 
 # TODO: this should be implemented in a separate module
 def create_overlay(video_file)-> str:
