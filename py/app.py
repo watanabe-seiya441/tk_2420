@@ -15,16 +15,19 @@ CORS(app, origins=["http://localhost:3000"])  # Allow requests from React app.
 # dbの初期化
 db.init_app(app)
 
+# Base directories for video and overlay files
+VIDEO_DIR = "videos"
+OVERLAY_DIR = "overlays"
 
 # Serve static files.
 # Route to serve video files
-@app.route("/videos/<path:filename>")
+@app.route(f"/{VIDEO_DIR}/<path:filename>")
 def serve_video(filename):
     return send_from_directory("videos", filename)
 
 
 # Route to serve overlay JSON files
-@app.route("/overlays/<path:filename>")
+@app.route(f"/{OVERLAY_DIR}/<path:filename>")
 def serve_overlay(filename):
     return send_from_directory("overlays", filename)
 
@@ -76,7 +79,7 @@ def get_video_data(video_id: str):
 # TODO: This is sitll a dummy implementation. Implement the actual overlay creation logic.
 def create_overlay(video_file, video_id: str) -> str:
     """Creates overlay data in JSON for the given video file using its unique ID."""
-    overlay_path = f"/overlays/overlay_{video_id}.json"
+    overlay_path = f"/{OVERLAY_DIR}/overlay_{video_id}.json"
     # Dummy overlay content for illustration
     overlay_data = {"data": "overlay content"}
     with open(os.path.join("overlays", f"overlay_{video_id}.json"), "w") as f:
@@ -112,7 +115,7 @@ def upload_video():
         clean_title = "video"
 
     video_filename = f"{clean_title}_{video_id}.mp4"
-    video_path = os.path.join("videos", video_filename)
+    video_path = os.path.join(VIDEO_DIR, video_filename)
     video_file.save(video_path)
 
     video_width, video_height = get_video_dimensions(video_path)
