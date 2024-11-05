@@ -20,7 +20,7 @@ const AespaPage = () => {
         <div className="flex-1 text-left">
           <h1 className="text-4xl font-bold">Aespa</h1>
           <p className="mt-4 text-lg text-gray-700">A K-pop girl group from SM Entertainment.</p>
-          <VideoUpload />
+          <VideoUpload /> {/* TODO: THIS IS NOT WORKING YET.*/}
 
           {/* Enhanced Video Player */}
           <div className="mt-8">
