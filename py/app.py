@@ -3,6 +3,7 @@ from flask_cors import CORS
 import os
 import json
 import uuid
+import cv2
 from werkzeug.utils import secure_filename
 
 from models import db, VideoInfo  # models からインポート
@@ -83,6 +84,17 @@ def create_overlay(video_file, video_id: str) -> str:
     return overlay_path
 
 
+def get_video_dimensions(video_path: str):
+    """Get the width and height of the video file in pixels."""
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        return jsonify({"error": "Could not open video file"}), 500
+    video_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    video_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    cap.release()
+    return (video_width, video_height)
+
+
 @app.route("/api/upload", methods=["POST"])
 def upload_video():
     """When new video is uploaded, save the video file and create overlay data."""
@@ -100,15 +112,17 @@ def upload_video():
         clean_title = "video"
 
     video_filename = f"{clean_title}_{video_id}.mp4"
-    video_file.save(os.path.join("videos", video_filename))
+    video_path = os.path.join("videos", video_filename)
+    video_file.save(video_path)
 
+    video_width, video_height = get_video_dimensions(video_path)
     overlay_path = create_overlay(video_file, video_id)
 
     new_video = VideoInfo(
         id=video_id,
         title=title,
         group_name=group_name,
-        video_url=f"/videos/{video_filename}",
+        video_url=video_path,
         overlay_url=overlay_path,
     )
     db.session.add(new_video)
@@ -119,8 +133,10 @@ def upload_video():
             "id": new_video.id,
             "title": new_video.title,
             "group_name": new_video.group_name,
-            "video_url": new_video.video_url,
+            "video_url": f"/{new_video.video_url}",
             "overlay_url": new_video.overlay_url,
+            "original_video_width": video_width,
+            "original_video_height": video_height
         }
     ), 201
 
