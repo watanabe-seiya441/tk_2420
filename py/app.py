@@ -2,10 +2,17 @@ from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import os
 import json
+import uuid
 from werkzeug.utils import secure_filename
 
+from models import db, VideoInfo  # models からインポート
+
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///video_info.db"
 CORS(app, origins=["http://localhost:3000"]) # Allow requests from React app.
+
+# dbの初期化
+db.init_app(app)
 
 # Dummy in-memory storage for video data
 VIDEOS = [
@@ -123,4 +130,6 @@ def upload_video():
 
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
