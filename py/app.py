@@ -127,6 +127,8 @@ def upload_video():
         group_name=group_name,
         video_url=video_path,
         overlay_url=overlay_path,
+        original_video_width=video_width,
+        original_video_height=video_height,
     )
     db.session.add(new_video)
     db.session.commit()
@@ -138,8 +140,8 @@ def upload_video():
             "group_name": new_video.group_name,
             "video_url": f"/{new_video.video_url}",
             "overlay_url": new_video.overlay_url,
-            "original_video_width": video_width,
-            "original_video_height": video_height
+            "original_video_width": new_video.original_video_width,
+            "original_video_height": new_video.original_video_height,
         }
     ), 201
 
