@@ -14,7 +14,7 @@ const VideoList: React.FC<VideoListProps> = ({ onSelectVideo }) => {
     useEffect(() => {
         // TDOO: not limited to aespa group
         // Fetch the list of videos for the aespa group
-        fetch(`${backendUrl}/api/videos?group=aespa`)
+        fetch(`${backendUrl}/api/videos?group_name=aespa`)
             .then((res) => res.json())
             .then((data) => setVideos(data))
             .catch((error) => console.error("Error fetching videos:", error));
