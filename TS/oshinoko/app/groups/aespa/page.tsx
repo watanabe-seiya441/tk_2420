@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import EnhancedVideoPlayer from '@/app/ui/EnhancedVideoPlayer';
 import Header from '@/app/ui/Header';
 import VideoList from '@/app/ui/VideoList';
@@ -23,6 +24,20 @@ const AespaPage = () => {
           <h1 className="text-4xl font-bold">Aespa</h1>
           <p className="mt-4 text-lg text-gray-700">A K-pop girl group from SM Entertainment.</p>
           <VideoUpload /> {/* TODO: THIS IS NOT WORKING YET.*/}
+
+          {/* Annotate Button */}
+          {/* TODO: set currentTime dynamically. */}
+          {/* TODO: ボタンじゃなくてSidebarのほうが良い説? */}
+          {selectedVideo ? (
+            <Link
+              href={`/annotation?videoUrl=${encodeURIComponent(selectedVideo.video_url)}&currentTime=10`}
+              className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Annotate
+            </Link>
+          ) : (
+            <p className="mt-4 text-red-500">動画を選択してください</p>
+          )}
 
           {/* Enhanced Video Player */}
           <div className="mt-8">
