@@ -13,6 +13,7 @@ interface PreviewSnapshotsProps {
 const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }) => {
     return (
         <div className="flex space-x-2 overflow-x-auto">
+            <h1 className="text-lg font-bold">Annotation Preview</h1>
             {snapshots.map((snapshot) => (
                 <div key={snapshot.id} className="relative w-40 h-40 border rounded">
                     <Image
