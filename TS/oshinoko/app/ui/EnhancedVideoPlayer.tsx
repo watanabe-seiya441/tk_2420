@@ -144,9 +144,8 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
                 if (!position || !position.visible) return null;
 
                 // Determine visibility based on content dynamically
-                const shouldRender = individualVisibility[overlay.content];
-
-                if (!shouldRender) return null;
+                const isIndividualOverlayVisible = individualVisibility[overlay.content];
+                if (!isIndividualOverlayVisible) return null;
 
                 const scaledStartX = position.startX * scale.x;
                 const scaledStartY = position.startY * scale.y;
