@@ -37,7 +37,7 @@ const AnnotationPage: React.FC = () => {
 
                     {/* Preview Area */}
                     <div className="h-40">
-                        <PreviewSnapshots snapshots={annotatedSnapshots} />
+                        <PreviewSnapshots snapshots={annotatedSnapshots} labels={labels} />
                     </div>
                 </div>
 
