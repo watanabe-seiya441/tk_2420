@@ -5,12 +5,13 @@ import { backendUrl } from '@/app/lib/config';
 import VideoPlayer from '@/app/ui/VideoPlayer';
 import VideoController from '@/app/ui/VideoController';
 import AnnotationTools from '@/app/ui/AnnotationTools'; // 既に作成済みと仮定
+import { AnnotatedSnapshot } from '@/app/lib/types';
 
 interface AnnotationStudioProps {
-    // 必要なプロパティがあれば追加
+    addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
 }
 
-const AnnotationStudio: React.FC<AnnotationStudioProps> = () => {
+const AnnotationStudio: React.FC<AnnotationStudioProps> = ({addAnnotatedSnapshot}) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isAnnotationMode, setIsAnnotationMode] = useState(false);
 
@@ -50,7 +51,7 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = () => {
                 />
                 {/* Annotationモード時にAnnotationToolsを表示 */}
                 {isAnnotationMode && (
-                    <AnnotationTools videoRef={videoRef} onExit={handleExitAnnotationMode} />
+                    <AnnotationTools videoRef={videoRef} onExit={handleExitAnnotationMode}  addAnnotatedSnapshot={addAnnotatedSnapshot} />
                 )}
             </div>
 

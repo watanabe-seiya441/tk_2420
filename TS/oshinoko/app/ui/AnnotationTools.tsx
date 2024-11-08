@@ -20,13 +20,13 @@ export interface labelInfo {
 
 interface AnnotationToolsProps {
   videoRef: React.RefObject<HTMLVideoElement>;
+  addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
   onExit: () => void;
 }
 
-const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit }) => {
+const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, addAnnotatedSnapshot }) => {
   const [currentBox, setCurrentBox] = useState<BoundingBox | null>(null);
   const [boundingBoxes, setBoundingBoxes] = useState<BoundingBox[]>([]);
-  const [annotatedSnapshots, setAnnotatedSnapshots] = useState<AnnotatedSnapshot[]>([]);
   const [showLabelPopup, setShowLabelPopup] = useState<boolean>(false);
   const [labels, setLabels] = useState<labelInfo[]>([
     { label_id: 0, label_name: "Person", label_color: "red" },
@@ -119,7 +119,7 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit }) =
             imageBlob,
             annotations: yoloAnnotations,
           };
-          setAnnotatedSnapshots((prevSnapshots) => [...prevSnapshots, newSnapshot]);
+          addAnnotatedSnapshot(newSnapshot);
           console.log('newSnapshot:', newSnapshot);
         }
       }
