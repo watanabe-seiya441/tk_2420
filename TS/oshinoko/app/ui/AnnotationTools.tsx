@@ -11,6 +11,7 @@ export interface BoundingBox {
   color: string;
 }
 
+
 interface AnnotationToolsProps {
   videoRef: React.RefObject<HTMLVideoElement>;
   onExit: () => void;
@@ -82,10 +83,11 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit }) =
             annotations: yoloAnnotations,
           };
           setAnnotatedSnapshots((prevSnapshots) => [...prevSnapshots, newSnapshot]);
-          console.log(newSnapshot)
+          console.log(newSnapshot);
         }
       }
     }
+    setBoundingBoxes([]);
   };
 
   return (
@@ -126,7 +128,7 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit }) =
       ))}
       {/* アノテーションモード中止ボタン */}
       <button
-        onClick={onExit}
+        onClick={() => { setBoundingBoxes([]); onExit(); }}
         className="absolute top-4 right-4 px-4 py-2 bg-red-500 text-white rounded"
       >
         Abort
