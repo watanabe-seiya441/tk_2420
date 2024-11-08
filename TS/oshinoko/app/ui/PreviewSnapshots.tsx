@@ -1,6 +1,8 @@
 'use client';
 
 import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
+import { BoundingBox } from '@/app/ui/AnnotationTools';
+import { generateBoundingBoxesFromYOLO } from '@/app/lib/yoloUtils';
 import Image from 'next/image';
 import React from 'react';
 
@@ -20,30 +22,19 @@ const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }
                         layout="fill"
                         objectFit='cover'
                     />
-                    {snapshot.annotations.map((annotation, index) => {
-                        const label = labels.find((l) => l.label_id === annotation.class_id);
-                        if (!label) return null;
-
-                        const { x_center, y_center, width, height } = annotation;
-                        const left = (x_center - width / 2) * 100;
-                        const top = (y_center - height / 2) * 100;
-                        const boxWidth = width * 100;
-                        const boxHeight = height * 100;
-
-                        return (
-                            <div
-                                key={index}
-                                className="absolute border-2"
-                                style={{
-                                    left: `${left}%`,
-                                    top: `${top}%`,
-                                    width: `${boxWidth}%`,
-                                    height: `${boxHeight}%`,
-                                    borderColor: label.label_color,
-                                }}
-                            ></div>
-                        );
-                    })}
+                    {generateBoundingBoxesFromYOLO(snapshot.annotations, labels).map((box, index) => (
+                        <div
+                            key={index}
+                            className="absolute border-2"
+                            style={{
+                                left: `${box.left}%`,
+                                top: `${box.top}%`,
+                                width: `${box.width}%`,
+                                height: `${box.height}%`,
+                                borderColor: box.color,
+                            }}
+                        ></div>
+                    ))}
                 </div>
             ))}
         </div>
