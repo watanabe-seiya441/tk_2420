@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+import { generateYOLOAnnotations } from '@/app/lib/yoloUtils';
+import { AnnotatedSnapshot } from '@/app/lib/types';
 
 export interface BoundingBox {
   x: number; // 左上のX座標
@@ -17,6 +19,7 @@ interface AnnotationToolsProps {
 const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit }) => {
   const [currentBox, setCurrentBox] = useState<BoundingBox | null>(null);
   const [boundingBoxes, setBoundingBoxes] = useState<BoundingBox[]>([]);
+  const [annotatedSnapshots, setAnnotatedSnapshots] = useState<AnnotatedSnapshot[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const startPoint = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
@@ -61,7 +64,7 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit }) =
     }
   };
 
-  const handleFinishAnnotation = () => {
+  const handleFinishAnnotation = async () => {
     if (videoRef.current) {
       const video = videoRef.current;
       const canvas = document.createElement('canvas');
@@ -70,15 +73,17 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit }) =
       const context = canvas.getContext('2d');
       if (context) {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        // YOLO形式に変換（簡略化のため、console.logを使用）
-        const yoloAnnotations = boundingBoxes.map((box) => {
-          const xCenter = (box.x + box.width / 2) / canvas.width;
-          const yCenter = (box.y + box.height / 2) / canvas.height;
-          const width = box.width / canvas.width;
-          const height = box.height / canvas.height;
-          return `${box.label} ${xCenter} ${yCenter} ${width} ${height}`;
-        });
-        console.log('YOLO Annotations:', yoloAnnotations);
+        const imageBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob((blob) => resolve(blob)));
+        if (imageBlob) {
+          const yoloAnnotations = generateYOLOAnnotations(boundingBoxes, canvas.width, canvas.height);
+          const newSnapshot: AnnotatedSnapshot = {
+            id: `snapshot-${Date.now()}`,
+            imageBlob,
+            annotations: yoloAnnotations,
+          };
+          setAnnotatedSnapshots((prevSnapshots) => [...prevSnapshots, newSnapshot]);
+          console.log(newSnapshot)
+        }
       }
     }
   };
