@@ -1,16 +1,16 @@
 'use client';
 import { useState } from 'react';
-import { labelInfo } from '@/app/ui/AnnotationTools';
+import { LabelInfo } from '@/app/lib/types';
 
 
 interface LabelSelectionPopupProps {
-  label_info: labelInfo[];
+  label_info: LabelInfo[];
   onConfirm: (label: string) => void;
   onCancel: () => void;
 }
 
 const LabelSelectionPopup: React.FC<LabelSelectionPopupProps> = ({ label_info, onConfirm, onCancel }) => {
-  const [selectedLabel, setSelectedLabel] = useState<labelInfo | null>(null);
+  const [selectedLabel, setSelectedLabel] = useState<LabelInfo | null>(null);
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
