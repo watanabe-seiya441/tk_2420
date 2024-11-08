@@ -6,3 +6,18 @@ export interface Video {
     original_video_width: number;
     original_video_height: number;
 }
+
+
+export interface YOLOAnnotation {
+    class_id: number;
+    x_center: number;
+    y_center: number;
+    width: number;
+    height: number;
+}
+
+export interface AnnotatedSnapshot {
+    id: string;
+    imageBlob: Blob;
+    annotations: YOLOAnnotation[];
+}
