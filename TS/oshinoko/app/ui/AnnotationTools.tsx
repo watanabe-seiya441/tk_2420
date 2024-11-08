@@ -1,16 +1,8 @@
 import { useState, useRef } from "react";
 import { generateYOLOAnnotations } from "@/app/lib/yoloUtils";
-import { AnnotatedSnapshot, LabelInfo } from "@/app/lib/types";
+import { AnnotatedSnapshot, LabelInfo, BoundingBox } from "@/app/lib/types";
 import LabelSelectionPopup from "@/app/ui/LabelSelectionPopup";
 
-export interface BoundingBox {
-  x: number; // 左上のX座標
-  y: number; // 左上のY座標
-  width: number;
-  height: number;
-  label: string;
-  color: string;
-}
 
 
 interface AnnotationToolsProps {

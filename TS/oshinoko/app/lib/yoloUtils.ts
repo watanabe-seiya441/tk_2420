@@ -1,5 +1,4 @@
-import { BoundingBox } from '@/app/ui/AnnotationTools';
-import { YOLOAnnotation, LabelInfo } from '@/app/lib/types';
+import { YOLOAnnotation, LabelInfo, BoundingBox } from '@/app/lib/types';
 
 export const generateYOLOAnnotations = (boundingBoxes: BoundingBox[], imageWidth: number, imageHeight: number): YOLOAnnotation[] => {
   return boundingBoxes.map((box) => {
