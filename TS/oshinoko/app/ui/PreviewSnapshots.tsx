@@ -1,7 +1,6 @@
 'use client';
 
 import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
-import { BoundingBox } from '@/app/ui/AnnotationTools';
 import { generateBoundingBoxesFromYOLO } from '@/app/lib/yoloUtils';
 import Image from 'next/image';
 import React from 'react';
@@ -27,8 +26,8 @@ const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }
                             key={index}
                             className="absolute border-2"
                             style={{
-                                left: `${box.left}%`,
-                                top: `${box.top}%`,
+                                left: `${box.x}%`,
+                                top: `${box.y}%`,
                                 width: `${box.width}%`,
                                 height: `${box.height}%`,
                                 borderColor: box.color,
