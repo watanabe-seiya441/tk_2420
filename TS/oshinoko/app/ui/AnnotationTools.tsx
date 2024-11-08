@@ -61,6 +61,28 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit }) =
     }
   };
 
+  const handleFinishAnnotation = () => {
+    if (videoRef.current) {
+      const video = videoRef.current;
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const context = canvas.getContext('2d');
+      if (context) {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // YOLO形式に変換（簡略化のため、console.logを使用）
+        const yoloAnnotations = boundingBoxes.map((box) => {
+          const xCenter = (box.x + box.width / 2) / canvas.width;
+          const yCenter = (box.y + box.height / 2) / canvas.height;
+          const width = box.width / canvas.width;
+          const height = box.height / canvas.height;
+          return `${box.label} ${xCenter} ${yCenter} ${width} ${height}`;
+        });
+        console.log('YOLO Annotations:', yoloAnnotations);
+      }
+    }
+  };
+
   return (
     <div
       ref={containerRef}
@@ -97,12 +119,19 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit }) =
           }}
         />
       ))}
-      {/* アノテーションモード終了ボタン */}
+      {/* アノテーションモード中止ボタン */}
       <button
         onClick={onExit}
         className="absolute top-4 right-4 px-4 py-2 bg-red-500 text-white rounded"
       >
-        Exit Annotation Mode
+        Abort
+      </button>
+      {/* アノテーション終了ボタン */}
+      <button
+        onClick={handleFinishAnnotation}
+        className="absolute top-4 right-20 px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        Finish Annotation
       </button>
     </div>
   );
