@@ -21,3 +21,9 @@ export interface AnnotatedSnapshot {
     imageBlob: Blob;
     annotations: YOLOAnnotation[];
 }
+
+export interface LabelInfo {
+    label_id: number;
+    label_name: string;
+    label_color: string;
+}

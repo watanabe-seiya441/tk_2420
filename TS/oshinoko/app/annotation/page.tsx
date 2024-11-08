@@ -6,13 +6,22 @@ import PreviewSnapshots from '@/app/ui/PreviewSnapshots';
 
 import AnnotationStudio from '@/app/ui/AnnotationStudio';
 import VideoList from '@/app/ui/VideoList';
-import { AnnotatedSnapshot } from '@/app/lib/types';
+import { AnnotatedSnapshot, LabelInfo} from '@/app/lib/types';
+
+
+const dummyLabels: LabelInfo[] = [
+    { label_id: 0, label_name: "Person", label_color: "red" },
+    { label_id: 1, label_name: "Car", label_color: "green" },
+    { label_id: 2, label_name: "Bicycle", label_color: "blue" },
+];
+
 
 const AnnotationPage: React.FC = () => {
     const [annotatedSnapshots, setAnnotatedSnapshots] = useState<AnnotatedSnapshot[]>([]);
     const addAnnotatedSnapshot = (snapshot: AnnotatedSnapshot) => {
         setAnnotatedSnapshots((prev) => [...prev, snapshot]);
     };
+    const [labels, setLabels ] = useState<LabelInfo[]>(dummyLabels);
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -24,7 +33,7 @@ const AnnotationPage: React.FC = () => {
                 {/* Left Side: Video Player and Annotation Tools */}
                 <div className="w-3/4 p-4 flex flex-col space-y-4 relative">
 
-                    <AnnotationStudio addAnnotatedSnapshot={addAnnotatedSnapshot} />
+                    <AnnotationStudio addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels} />
 
                     {/* Preview Area */}
                     <div className="h-40">

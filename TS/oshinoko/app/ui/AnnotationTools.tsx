@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { generateYOLOAnnotations } from "@/app/lib/yoloUtils";
-import { AnnotatedSnapshot } from "@/app/lib/types";
+import { AnnotatedSnapshot, LabelInfo } from "@/app/lib/types";
 import LabelSelectionPopup from "@/app/ui/LabelSelectionPopup";
 
 export interface BoundingBox {
@@ -12,27 +12,18 @@ export interface BoundingBox {
   color: string;
 }
 
-export interface labelInfo {
-  label_id: number;
-  label_name: string;
-  label_color: string;
-}
 
 interface AnnotationToolsProps {
   videoRef: React.RefObject<HTMLVideoElement>;
   addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
+  labels: LabelInfo[];
   onExit: () => void;
 }
 
-const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, addAnnotatedSnapshot }) => {
+const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, labels, addAnnotatedSnapshot }) => {
   const [currentBox, setCurrentBox] = useState<BoundingBox | null>(null);
   const [boundingBoxes, setBoundingBoxes] = useState<BoundingBox[]>([]);
   const [showLabelPopup, setShowLabelPopup] = useState<boolean>(false);
-  const [labels, setLabels] = useState<labelInfo[]>([
-    { label_id: 0, label_name: "Person", label_color: "red" },
-    { label_id: 1, label_name: "Car", label_color: "green" },
-    { label_id: 2, label_name: "Bicycle", label_color: "blue" },
-  ]);
   const containerRef = useRef<HTMLDivElement>(null);
   const startPoint = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
