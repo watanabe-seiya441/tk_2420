@@ -45,7 +45,7 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({addAnnotatedSnapshot
                 </div>
             )}
             {/* Video Player */}
-            <div className="relative flex-1 h-80 sm:h-96 md:h-[24rem]">
+            <div className="relative">
                 <VideoPlayer
                     ref={videoRef}
                     src={`${backendUrl}/videos/Supernova.mp4`}
