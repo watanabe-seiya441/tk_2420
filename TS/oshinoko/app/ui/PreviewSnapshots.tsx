@@ -15,12 +15,14 @@ const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }
         <div className="flex space-x-2 overflow-x-auto">
             <h1 className="text-lg font-bold">Annotation Preview</h1>
             {snapshots.map((snapshot) => (
-                <div key={snapshot.id} className="relative w-40 h-40 border rounded">
+                <div key={snapshot.id} className="relative border rounded">
                     <Image
                         src={URL.createObjectURL(snapshot.imageBlob)}
                         alt={`Snapshot ${snapshot.id}`}
-                        layout="fill"
-                        objectFit='cover'
+                        layout="intrinsic"
+                        objectFit="contain"
+                        width={160} // 固定の幅
+                        height={160} // 固定の高さ
                     />
                     {generateBoundingBoxesFromYOLO(snapshot.annotations, labels).map((box, index) => (
                         <div

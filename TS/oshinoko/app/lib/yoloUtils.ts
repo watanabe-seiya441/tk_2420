@@ -1,5 +1,6 @@
 import { YOLOAnnotation, LabelInfo, BoundingBox } from '@/app/lib/types';
 
+// TODO: Implement test and fix these two functions.
 export const generateYOLOAnnotations = (boundingBoxes: BoundingBox[], imageWidth: number, imageHeight: number): YOLOAnnotation[] => {
   return boundingBoxes.map((box) => {
     const xCenter = (box.x + box.width / 2) / imageWidth;
