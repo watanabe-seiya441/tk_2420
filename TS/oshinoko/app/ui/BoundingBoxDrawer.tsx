@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { LabelInfo, BoundingBox } from "@/app/lib/types";
+import { STANDARD_VIDEO_BOX_WIDTH, STANDARD_VIDEO_BOX_HEIGHT } from "@/app/lib/constsnts";
 import LabelSelectionPopup from "@/app/ui/LabelSelectionPopup";
 
 
@@ -20,6 +21,33 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
   const [showLabelPopup, setShowLabelPopup] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const startPoint = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [boxScaleFactor, setBoxScaleFactor] = useState<{ x: number; y: number }>({ x: 1, y: 1 });
+
+  // Update scale factor when the window resizes
+  const updateScaleFactor = () => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const videoBoxWidth = STANDARD_VIDEO_BOX_WIDTH
+      const videoBoxHeight = STANDARD_VIDEO_BOX_HEIGHT
+      setBoxScaleFactor({
+        x: rect.width / videoBoxWidth,
+        y: rect.height / videoBoxHeight,
+      });
+    }
+  };
+
+  useEffect(() => {
+    // Set initial scale factor
+    updateScaleFactor();
+
+    // Add resize event listener
+    window.addEventListener("resize", updateScaleFactor);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("resize", updateScaleFactor);
+    };
+  }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (containerRef.current) {
@@ -28,10 +56,10 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
       const startY = e.clientY - rect.top;
       startPoint.current = { x: startX, y: startY };
       setCurrentBox({
-        x: startX,
-        y: startY,
-        width: 0,
-        height: 0,
+        x: startX / boxScaleFactor.x,
+        y: startY / boxScaleFactor.y,
+        width: 0 / boxScaleFactor.x,
+        height: 0 / boxScaleFactor.y,
         label: "",
         color: "white",
       });
@@ -49,17 +77,19 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
       const newWidth = Math.abs(currentX - startPoint.current.x);
       const newHeight = Math.abs(currentY - startPoint.current.y);
 
+
       setCurrentBox({
         ...currentBox,
-        x: newX,
-        y: newY,
-        width: newWidth,
-        height: newHeight,
+        x: newX / boxScaleFactor.x,
+        y: newY/ boxScaleFactor.y,
+        width: newWidth/ boxScaleFactor.x,
+        height: newHeight/ boxScaleFactor.y,
       });
     }
   };
 
   const handleMouseUp = () => {
+    console.log('boxScaleFactor', boxScaleFactor);
     if (currentBox) {
       setShowLabelPopup(true);
     }
@@ -99,11 +129,11 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
           <div
             style={{
             position: 'absolute',
-              left: currentBox.x,
-              top: currentBox.y,
-              width: currentBox.width,
-              height: currentBox.height,
-              border: `2px dashed ${currentBox.color}`,
+              left: currentBox.x * boxScaleFactor.x,
+              top: currentBox.y * boxScaleFactor.y,
+              width: currentBox.width * boxScaleFactor.x,
+              height: currentBox.height * boxScaleFactor.y,
+              border: `5px dashed ${currentBox.color}`,
             }}
           />
         )}
@@ -113,11 +143,11 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
             key={index}
             style={{
             position: 'absolute',
-              left: box.x,
-              top: box.y,
-              width: box.width,
-              height: box.height,
-              border: `2px solid ${box.color}`,
+              left: box.x * boxScaleFactor.x,
+              top: box.y * boxScaleFactor.y,
+              width: box.width * boxScaleFactor.x,
+              height: box.height * boxScaleFactor.y,
+              border: `5px solid ${box.color}`,
             }}
           />
         ))}
