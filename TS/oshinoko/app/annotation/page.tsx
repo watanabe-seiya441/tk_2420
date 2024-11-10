@@ -72,6 +72,15 @@ const AnnotationPage: React.FC = () => {
             }
     };
 
+    const clearSnapshots = () => {
+        if (annotatedSnapshots.length === 0) {
+            alert('No snapshots to clear.');
+            return;
+        }
+        window.confirm('Are you sure you want to clear all snapshots?');
+        setAnnotatedSnapshots([]);
+    }
+
     const handleVideoSelect = (video: Video) => {
         setVideoUrl(video.video_url);
         console.log('Selected video:', videoUrl);
@@ -103,6 +112,12 @@ const AnnotationPage: React.FC = () => {
                                 className="mt-4 p-2 bg-blue-600 text-white rounded"
                             >
                                 Upload Snapshots
+                            </button>
+                            <button
+                                onClick={clearSnapshots}
+                                className="mt-4 p-2 bg-red-600 text-white rounded"
+                            >
+                                Clear Snapshots
                             </button>
 
                             <PreviewSnapshots snapshots={annotatedSnapshots} labels={labels} />
