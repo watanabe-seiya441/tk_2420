@@ -44,7 +44,7 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapsho
     return (
         <div className="w-full h-full flex flex-col">
             {/* Annotationモード開始ボタン */}
-            {!isAnnotationMode && (
+            {!isAnnotationMode ? (
                 <div className="mb-4">
                     <button
                         onClick={handleEnterAnnotationMode}
@@ -52,6 +52,16 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapsho
                     >
                         Enter Annotation Mode
                     </button>
+                </div>
+            ) : (
+                <div className="mb-4">
+                    <button
+                            onClick={() => { clearAllBoxes(); handleExitAnnotationMode(); }}
+                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    >
+                        Exit Annotation Mode
+                    </button>
+
                 </div>
             )}
             {/* Video Player */}
@@ -62,7 +72,7 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapsho
                 />
                 {/* Annotationモード時にAnnotationToolsを表示 */}
                 {isAnnotationMode && (
-                    <AnnotationTools videoRef={videoRef} onExit={handleExitAnnotationMode} addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels}
+                    <AnnotationTools videoRef={videoRef} addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels}
                         currentBox={currentBox} setCurrentBox={setCurrentBox} clearCurrentBox={clearCurrentBox} boundingBoxes={boundingBoxes}
                         confirmBox={confirmBox} clearAllBoxes={clearAllBoxes}
                     />
