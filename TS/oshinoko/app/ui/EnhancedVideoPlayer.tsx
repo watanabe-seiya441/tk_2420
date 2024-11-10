@@ -40,8 +40,16 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({ src, overlayC
     const [individualVisibility, setIndividualVisibility] = useState<{ [key: string]: boolean }>({});
 
     const toggleOverlay = () => {
-        setOverlayVisible((prev) => !prev);
-    };
+        const unifiedVisibility = !isOverlayVisible;
+        setOverlayVisible(unifiedVisibility);
+        setIndividualVisibility((prev) => {
+            const updatedVisibility = { ...prev };
+            Object.keys(prev).forEach((key) => {
+                updatedVisibility[key] = unifiedVisibility;
+            });
+            return updatedVisibility;
+        });
+    };    
 
     const [scale, setScale] = useState({ x: 1, y: 1 });
 
