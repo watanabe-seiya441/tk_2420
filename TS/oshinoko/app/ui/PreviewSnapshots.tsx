@@ -1,54 +1,82 @@
 'use client';
 
 import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
-import { generateBoundingBoxesFromYOLO } from '@/app/lib/yoloUtils';
 import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 interface PreviewSnapshotsProps {
     snapshots: AnnotatedSnapshot[];
     labels: LabelInfo[];
 }
 
-const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }) => {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const [imageSize, setImageSize] = useState({ width: 30, height: 30 });
+const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots }) => {
+    const imageRef = useRef<HTMLImageElement | null >(null);
+    const [boxStyle, setBoxStyle] = useState<{ width: string; height: string }>({ width: '0px', height: '0px' });
+    const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
 
     useEffect(() => {
-        if (containerRef.current) {
-            const { width, height } = containerRef.current.getBoundingClientRect();
-            setImageSize({ width, height });
+        const updateBoxStyle = () => {
+        if (imageRef.current) {
+            const { width, height } = imageRef.current.getBoundingClientRect();
+            console.log(`Image size: Width = ${width}, Height = ${height}`);
+            setBoxStyle({
+            width: `${width}px`,
+            height: `${height}px`,
+            });
         }
-    }, [snapshots]);
-    console.log(containerRef.current?.getBoundingClientRect());
+        };
+
+        updateBoxStyle();
+
+        // ResizeObserverでリサイズを監視
+        const resizeObserver = new ResizeObserver(() => {
+        updateBoxStyle();
+        });
+
+        if (imageRef.current) {
+        resizeObserver.observe(imageRef.current);
+        }
+
+        return () => {
+        if (imageRef.current) {
+            resizeObserver.unobserve(imageRef.current);
+        }
+        };
+    }, []);
+
+
     return (
-        <div className="grid grid-cols-auto-fit gap-4">
-            <h1 className="text-lg font-bold">Annotation Preview</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
             {snapshots.map((snapshot) => (
-                <div ref={containerRef} key={snapshot.id} className="relative border rounded">
-                    <Image
-                        src={URL.createObjectURL(snapshot.imageBlob)}
-                        alt={`Snapshot ${snapshot.id}`}
-                        layout="responsive"
-                        objectFit="contain"
-                        width={imageSize.width} // 固定の幅
-                        height={imageSize.height} // 固定の高さ
-                    />
-                    {generateBoundingBoxesFromYOLO(snapshot.annotations, labels, imageSize.width, imageSize.height).map((box, index) => (
+                <div key={snapshot.id} className="relative border rounded">
+                    {imageSize && (
+                        <>
+
+                        <Image
+                            src={URL.createObjectURL(snapshot.imageBlob)}
+                            alt={`Snapshot ${snapshot.id}`}
+                            // className='w-full h-auto'
+                            layout="responsive"
+                            objectFit="contain"
+                            width={imageSize.width} // 固定の幅
+                            height={imageSize.height} // 固定の高さ
+                        />
+
                         <div
-                            key={index}
                             className="absolute border-2"
                             style={{
-                                left: `${box.x}%`,
-                                top: `${box.y}%`,
-                                width: `${box.width}%`,
-                                height: `${box.height}%`,
-                                borderColor: box.color,
+                                left: 0,
+                                top: 0,
+                                width: 103,
+                                height: 58,
+                                borderColor: "red",
                             }}
                         ></div>
-                    ))}
+                        </>
+                    )}
                 </div>
-            ))}
+            ))
+            };
         </div>
     );
 };
