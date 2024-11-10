@@ -11,12 +11,13 @@ import { generateYOLOAnnotations } from "@/app/lib/yoloUtils";
 
 interface AnnotationStudioProps {
     addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
+    isAnnotationMode: boolean;
+    setIsAnnotationMode: React.Dispatch<React.SetStateAction<boolean>>;
     labels: LabelInfo[];
 }
 
-const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapshot, labels }) => {
+const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapshot,isAnnotationMode, setIsAnnotationMode, labels }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
-    const [isAnnotationMode, setIsAnnotationMode] = useState(false);
 
     const {
         currentBox,
