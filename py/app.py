@@ -15,9 +15,15 @@ CORS(app, origins=["http://localhost:3000"])  # Allow requests from React app.
 # dbの初期化
 db.init_app(app)
 
-# Base directories for video and overlay files
+# Base directories for video, overlay, and annotation files
 VIDEO_DIR = "videos"
 OVERLAY_DIR = "overlays"
+ANNOTATION_DIR = "additional_dataset"
+
+# Ensure directories exist
+os.makedirs(VIDEO_DIR, exist_ok=True)
+os.makedirs(OVERLAY_DIR, exist_ok=True)
+os.makedirs(ANNOTATION_DIR, exist_ok=True)
 
 # Serve static files.
 # Route to serve video files
@@ -144,6 +150,31 @@ def upload_video():
             "original_video_height": new_video.original_video_height,
         }
     ), 201
+
+
+@app.route("/api/upload_annotation", methods=["POST"])
+def upload_annotation():
+    """Upload new annotation data and save to the specified directory."""
+    annotation_file = request.files.get("annotation")
+    image_file = request.files.get("image")
+
+    if not annotation_file or not image_file:
+        return jsonify({"error": "Missing annotation or image file"}), 400
+
+    annotation_id = str(uuid.uuid4())
+    annotation_filename = secure_filename(f"groupname_{annotation_id}.txt")
+    annotation_path = os.path.join(ANNOTATION_DIR, annotation_filename)
+    annotation_file.save(annotation_path)
+
+    image_filename = secure_filename(f"groupname_{annotation_id}.jpeg")
+    image_path = os.path.join(ANNOTATION_DIR, image_filename)
+    image_file.save(image_path)
+    
+    print(f"Annotation saved to {annotation_path}")
+
+    return jsonify({
+        "message": "Annotation and image uploaded successfully", 
+    }), 201
 
 
 if __name__ == "__main__":
