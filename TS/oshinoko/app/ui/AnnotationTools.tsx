@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { generateYOLOAnnotations } from "@/app/lib/yoloUtils";
 import { AnnotatedSnapshot, LabelInfo, BoundingBox } from "@/app/lib/types";
 import LabelSelectionPopup from "@/app/ui/LabelSelectionPopup";
+import useBoundingBoxManager from "@/app/hooks/useBoundingBoxManager";
 
 
 
@@ -13,8 +14,15 @@ interface AnnotationToolsProps {
 }
 
 const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, labels, addAnnotatedSnapshot }) => {
-  const [currentBox, setCurrentBox] = useState<BoundingBox | null>(null);
-  const [boundingBoxes, setBoundingBoxes] = useState<BoundingBox[]>([]);
+  const {
+    currentBox,
+    setCurrentBox,
+    clearCurrentBox,
+    boundingBoxes,
+    confirmBox,
+    clearAllBoxes,
+  } = useBoundingBoxManager();
+
   const [showLabelPopup, setShowLabelPopup] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const startPoint = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -66,22 +74,18 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, lab
   const handleLabelConfirm = (labelName: string) => {
     const labelInfo = labels.find((label) => label.label_name === labelName);
     if (currentBox && labelInfo) {
-      setBoundingBoxes((prevBoxes) => [
-        ...prevBoxes,
-        {
-          ...currentBox,
-          label: labelInfo.label_name,
-          color: labelInfo.label_color,
-        },
-      ]);
+      confirmBox({
+        ...currentBox,
+        label: labelInfo.label_name,
+        color: labelInfo.label_color,
+      });
     }
-      console.log(boundingBoxes);
-    setCurrentBox(null);
+    console.log(boundingBoxes);
     setShowLabelPopup(false);
   };
 
   const handleLabelCancel = () => {
-    setCurrentBox(null);
+    clearCurrentBox();
     setShowLabelPopup(false);
   };
 
@@ -107,7 +111,7 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, lab
         }
       }
     }
-    setBoundingBoxes([]);
+    clearAllBoxes();
   };
 
   return (
@@ -150,7 +154,7 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, lab
       </div>
         {/* アノテーションモード中止ボタン */}
         <button
-        onClick={() => { setBoundingBoxes([]); onExit(); }}
+        onClick={() => { clearAllBoxes(); onExit(); }}
           className="absolute top-4 right-4 px-4 py-2 bg-red-500 text-white rounded"
         >
           Abort
