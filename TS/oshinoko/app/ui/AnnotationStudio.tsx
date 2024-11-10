@@ -5,12 +5,14 @@ import { backendUrl } from '@/app/lib/config';
 import VideoPlayer from '@/app/ui/VideoPlayer';
 import VideoController from '@/app/ui/VideoController';
 import AnnotationTools from '@/app/ui/AnnotationTools'; // 既に作成済みと仮定
+import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
 
 interface AnnotationStudioProps {
-    // 必要なプロパティがあれば追加
+    addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
+    labels: LabelInfo[];
 }
 
-const AnnotationStudio: React.FC<AnnotationStudioProps> = () => {
+const AnnotationStudio: React.FC<AnnotationStudioProps> = ({addAnnotatedSnapshot, labels }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isAnnotationMode, setIsAnnotationMode] = useState(false);
 
@@ -43,14 +45,14 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = () => {
                 </div>
             )}
             {/* Video Player */}
-            <div className="relative flex-1 h-80 sm:h-96 md:h-[24rem]">
+            <div className="relative">
                 <VideoPlayer
                     ref={videoRef}
                     src={`${backendUrl}/videos/Supernova.mp4`}
                 />
                 {/* Annotationモード時にAnnotationToolsを表示 */}
                 {isAnnotationMode && (
-                    <AnnotationTools videoRef={videoRef} onExit={handleExitAnnotationMode} />
+                    <AnnotationTools videoRef={videoRef} onExit={handleExitAnnotationMode}  addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels}/>
                 )}
             </div>
 

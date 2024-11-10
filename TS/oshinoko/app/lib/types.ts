@@ -21,3 +21,18 @@ export interface AnnotatedSnapshot {
     imageBlob: Blob;
     annotations: YOLOAnnotation[];
 }
+
+export interface LabelInfo {
+    label_id: number;
+    label_name: string;
+    label_color: string;
+}
+
+export interface BoundingBox {
+    x: number; // 左上のX座標
+    y: number; // 左上のY座標
+    width: number;
+    height: number;
+    label: string;
+    color: string;
+}

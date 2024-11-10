@@ -1,10 +1,44 @@
 'use client';
 
-const PreviewSnapshots: React.FC = () => {
+import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
+import { generateBoundingBoxesFromYOLO } from '@/app/lib/yoloUtils';
+import Image from 'next/image';
+import React from 'react';
+
+interface PreviewSnapshotsProps {
+    snapshots: AnnotatedSnapshot[];
+    labels: LabelInfo[];
+}
+
+const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }) => {
     return (
-        <div className="w-full h-full bg-white flex items-center justify-center">
-            {/* Preview Placeholder */}
-            <p>Preview Area</p>
+        <div className="flex space-x-2 overflow-x-auto">
+            <h1 className="text-lg font-bold">Annotation Preview</h1>
+            {snapshots.map((snapshot) => (
+                <div key={snapshot.id} className="relative border rounded">
+                    <Image
+                        src={URL.createObjectURL(snapshot.imageBlob)}
+                        alt={`Snapshot ${snapshot.id}`}
+                        layout="intrinsic"
+                        objectFit="contain"
+                        width={160} // 固定の幅
+                        height={160} // 固定の高さ
+                    />
+                    {generateBoundingBoxesFromYOLO(snapshot.annotations, labels).map((box, index) => (
+                        <div
+                            key={index}
+                            className="absolute border-2"
+                            style={{
+                                left: `${box.x}%`,
+                                top: `${box.y}%`,
+                                width: `${box.width}%`,
+                                height: `${box.height}%`,
+                                borderColor: box.color,
+                            }}
+                        ></div>
+                    ))}
+                </div>
+            ))}
         </div>
     );
 };
