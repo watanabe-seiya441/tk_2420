@@ -1,20 +1,44 @@
-## increment_learning.pyの機能
+# Increment Learning with YOLOv11
 
-元のデータセットは  
-tk_2420/aespa_dataset1/test/  
-tk_2420/aespa_dataset1/train/  
-tk_2420/aespa_dataset1/valid/  
-tk_2420/aespa_dataset1/data.yaml  
-のように入っていることを想定
+## 前提条件
 
 
-追加データは  
-tk_2420/py/additional_dataset/\*.txt  
-tk_2420/py/additional_dataset/\*.jpg  
-のように入っていることを想定
+- 元のデータセット
 
-元のデータセットに追加データを入れて、学習し直す
+読み取り専用の元データセットが以下のようなディレクトリ構造で保存されていることを想定しています。
+```
+py/dataset/aespa/test/  
+py/dataset/aespa/train/  
+py/dataset/aespa/valid/  
+py/dataset/aespa/data.yaml  
+```
 
-学習後のbest.ptを  
-tk_2420/py/train/best.pt  
-に持ってくる
+- 追加データ
+
+追加データは、以下のような構造で保存されている必要があります。
+```
+py/additional_dataset/aespa/\*.txt  
+py/additional_dataset/aespa/\*.jpg  
+```
+
+
+## increment_learning.pyの実行内容
+
+`increment_learning.py` を実行すると、以下の処理が行われます。
+
+1. **元のデータセットをコピー**  
+ 読み取り専用の元データセットを、新たなディレクトリにコピーして「コピーデータセット」として使用します。このディレクトリは追加データの保存や編集が可能です。  
+ - 例: `py/dataset/aespa/` → `py/dataset_copy/aespa/`
+
+2. **追加データをコピーデータセットに追加**  
+ 追加データの `.txt` と `.jpg` ファイルを、それぞれ以下のディレクトリにコピーします。
+ - `.txt` ファイル → `py/dataset_copy/aespa/train/labels/`
+ - `.jpg` ファイル → `py/dataset_copy/aespa/train/images/`
+
+3. **モデルのファインチューニング**  
+ コピーデータセットを用いて、`yolo11n` モデルをファインチューニングします。
+
+4. **学習済みモデルの保存**  
+ 学習後の最良モデル (`best.pt`) を `py/train/best.pt` に保存します。
+
+

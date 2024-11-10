@@ -3,6 +3,9 @@ import shutil
 from ultralytics import YOLO
 import torch
 
+
+GROUP = "aespa"
+
 # GPUが有効かチェック 
 if torch.cuda.is_available():
     device = 'cuda:0'
@@ -12,16 +15,29 @@ else:
     print("CPU を使用します。")
 
 
-# ../additional_dataset/の中身は.txtと.jpgの組み合わせの集合
-# .txtを ../../aespa_dataset1/train/images にコピーする
-# .jpgを ../../aespa_dataset1/train/labels にコピーする
+# ../dataset/{GROUP}/を../dataset_copy/{GROUP}/にコピーする(../dataset/{GROUP}は読み取り専用)
+
+# コピー元とコピー先のパス
+source_dir = f"../dataset/{GROUP}/"
+destination_dir = f"../dataset_copy/{GROUP}/"
+
+# コピー先ディレクトリが存在しない場合は作成
+os.makedirs(destination_dir, exist_ok=True)
+
+# ディレクトリの内容を再帰的にコピー
+shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
+
+
+# ../additional_dataset/{GROUP}の中身は.txtと.jpgの組み合わせの集合
+# .txtを ../dataset_copy/{GROUP}/train/labels にコピーする
+# .jpgを ../dataset_copy/{GROUP}/train/images にコピーする
 
 # コピー元ディレクトリ
-source_dir = os.path.abspath('../additional_dataset/')
+source_dir = os.path.abspath(f'../additional_dataset/{GROUP}/')
 
 # コピー先ディレクトリ
-txt_destination = os.path.abspath('../../aespa_dataset1/train/labels/')
-jpg_destination = os.path.abspath('../../aespa_dataset1/train/images/')
+txt_destination = os.path.abspath(f'../dataset_copy/{GROUP}/train/labels/')
+jpg_destination = os.path.abspath(f'../dataset_copy/{GROUP}/train/images/')
 
 # .txt と .jpg ファイルをそれぞれ対応するディレクトリにコピー
 for filename in os.listdir(source_dir):
@@ -37,7 +53,7 @@ for filename in os.listdir(source_dir):
 
 # 追加されたデータを用いて最初から学習し直す
 model = YOLO("yolo11n.pt") 
-model.train(data=os.path.abspath('../../aespa_dataset1/data.yaml'), epochs=100, imgsz=640) 
+model.train(data=os.path.abspath(f'../dataset_copy/{GROUP}/data.yaml'), epochs=100, imgsz=640)
 
 
 # 最新のトレーニングディレクトリからbest.ptを探してカレントディレクトリにコピー
@@ -47,6 +63,6 @@ best_pt_path = os.path.join("runs", "detect",latest_train_dir, "weights", "best.
 
 if os.path.exists(best_pt_path):
     shutil.copy(best_pt_path, os.getcwd())  # カレントディレクトリにコピー
-    print(f"best.pt を{best_pt_path}からカレントディレクトリにコピーしました。")
+    print(f"best.pt を {best_pt_path} からカレントディレクトリにコピーしました。")
 else:
     print("best.pt ファイルが見つかりませんでした。")
