@@ -39,3 +39,14 @@ for filename in os.listdir(source_dir):
 model = YOLO("yolo11n.pt") 
 model.train(data=os.path.abspath('../../aespa_dataset1/data.yaml'), epochs=100, imgsz=640) 
 
+
+# 最新のトレーニングディレクトリからbest.ptを探してカレントディレクトリにコピー
+runs_dir = os.path.join("runs", "detect")
+latest_train_dir = max([d for d in os.listdir(runs_dir) if d.startswith("train")], key=lambda x: os.path.getctime(os.path.join(runs_dir, x)))
+best_pt_path = os.path.join("runs", "detect",latest_train_dir, "weights", "best.pt")
+
+if os.path.exists(best_pt_path):
+    shutil.copy(best_pt_path, os.getcwd())  # カレントディレクトリにコピー
+    print(f"best.pt を{best_pt_path}からカレントディレクトリにコピーしました。")
+else:
+    print("best.pt ファイルが見つかりませんでした。")
