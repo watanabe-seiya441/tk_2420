@@ -72,7 +72,7 @@ const AnnotationPage: React.FC = () => {
 
                 {/* Right Side: Video List or Snapshot Preview */}
                 <div className="w-1/4 p-4 bg-gray-50">
-                    {isAnnotationMode ? (
+                    {isAnnotationMode || annotatedSnapshots.length !== 0 ? (
                         <>
                             <button
                                 onClick={uploadAnnotatedSnapshots}

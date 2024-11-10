@@ -8,3 +8,4 @@ runs_old/
 *.pyc
 *.db
 *.png
+py/additional_dataset/
