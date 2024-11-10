@@ -8,8 +8,8 @@ import AnnotationStudio from '@/app/ui/AnnotationStudio';
 import VideoList from '@/app/ui/VideoList';
 import { AnnotatedSnapshot, LabelInfo} from '@/app/lib/types';
 import { convertSnapshotToFiles } from '@/app/lib/snapshotUtils';
+import { backendUrl } from '@/app/lib/config';
 import axios from 'axios';
-
 
 const dummyLabels: LabelInfo[] = [
     { label_id: 0, label_name: "Person", label_color: "red" },
@@ -40,15 +40,17 @@ const AnnotationPage: React.FC = () => {
                     formData.append('annotation', annotationFile);
 
                     // Send to backend
-                    await axios.post('/api/upload', formData, {
+                    await axios.post(`${backendUrl}/api/upload_annotation`, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                         },
                     });
                 }
                 console.log('All snapshots uploaded successfully.');
+                setAnnotatedSnapshots([]);
             } catch (error) {
                 console.error('Error uploading snapshots:', error);
+                alert("Failed to upload snapshots. Please try again.");
             }
     };
 
