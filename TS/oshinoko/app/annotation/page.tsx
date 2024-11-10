@@ -7,6 +7,8 @@ import PreviewSnapshots from '@/app/ui/PreviewSnapshots';
 import AnnotationStudio from '@/app/ui/AnnotationStudio';
 import VideoList from '@/app/ui/VideoList';
 import { AnnotatedSnapshot, LabelInfo} from '@/app/lib/types';
+import { convertSnapshotToFiles } from '@/app/lib/snapshotUtils';
+import axios from 'axios';
 
 
 const dummyLabels: LabelInfo[] = [
@@ -23,6 +25,33 @@ const AnnotationPage: React.FC = () => {
     };
     const [labels, setLabels ] = useState<LabelInfo[]>(dummyLabels);
 
+    const uploadAnnotatedSnapshots = async () => {
+        if (annotatedSnapshots.length === 0) {
+            alert('No snapshots to upload.');
+            return;
+        }
+            try {
+                for (const snapshot of annotatedSnapshots) {
+                    const { imageFile, annotationFile } = convertSnapshotToFiles(snapshot);
+
+                    // Prepare FormData
+                    const formData = new FormData();
+                    formData.append('image', imageFile);
+                    formData.append('annotation', annotationFile);
+
+                    // Send to backend
+                    await axios.post('/api/upload', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    });
+                }
+                console.log('All snapshots uploaded successfully.');
+            } catch (error) {
+                console.error('Error uploading snapshots:', error);
+            }
+    };
+
     return (
         <div className="flex flex-col min-h-screen">
             {/* Header */}
@@ -34,6 +63,14 @@ const AnnotationPage: React.FC = () => {
                 <div className="w-3/4 p-4 flex flex-col space-y-4 relative">
 
                     <AnnotationStudio addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels} />
+
+                    {/* Upload Snapshots Button */}
+                    <button
+                        onClick={uploadAnnotatedSnapshots}
+                        className="mt-4 p-2 bg-blue-600 text-white rounded"
+                    >
+                        Upload Snapshots
+                    </button>
 
                     {/* Preview Area */}
                     <div className="h-40">
