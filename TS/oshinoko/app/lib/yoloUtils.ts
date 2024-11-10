@@ -19,17 +19,17 @@ export const generateYOLOAnnotations = (boundingBoxes: BoundingBox[], imageWidth
 
 
 // Implementation of generateBoundingBoxesFromYOLO
-export const generateBoundingBoxesFromYOLO = (annotations: YOLOAnnotation[], labels: LabelInfo[]): BoundingBox[] => {
+export const generateBoundingBoxesFromYOLO = (annotations: YOLOAnnotation[], labels: LabelInfo[], imageWidth: number, imageHeight: number): BoundingBox[] => {
     return annotations.map((annotation) => {
         const label = labels.find((l) => l.label_id === annotation.class_id);
         if (!label) {
             throw new Error(`Label with ID ${annotation.class_id} not found`);
         }
 
-        const x = (annotation.x_center - annotation.width / 2) * 100;
-        const y = (annotation.y_center - annotation.height / 2) * 100;
-        const width = annotation.width * 100;
-        const height = annotation.height * 100;
+        const x = (annotation.x_center - annotation.width / 2) * imageWidth;
+        const y = (annotation.y_center - annotation.height / 2) * imageHeight;
+        const width = annotation.width * imageWidth;
+        const height = annotation.height * imageHeight;
 
         return {
             x,

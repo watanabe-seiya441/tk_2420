@@ -11,6 +11,8 @@ interface PreviewSnapshotsProps {
 }
 
 const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }) => {
+    const imageWidth = 160;
+    const imageHeihgt = 160;
     return (
         <div className="flex space-x-2 overflow-x-auto">
             <h1 className="text-lg font-bold">Annotation Preview</h1>
@@ -21,10 +23,10 @@ const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }
                         alt={`Snapshot ${snapshot.id}`}
                         layout="intrinsic"
                         objectFit="contain"
-                        width={160} // 固定の幅
-                        height={160} // 固定の高さ
+                        width={imageWidth} // 固定の幅
+                        height={imageHeihgt} // 固定の高さ
                     />
-                    {generateBoundingBoxesFromYOLO(snapshot.annotations, labels).map((box, index) => (
+                    {generateBoundingBoxesFromYOLO(snapshot.annotations, labels, imageWidth, imageHeihgt).map((box, index) => (
                         <div
                             key={index}
                             className="absolute border-2"
