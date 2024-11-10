@@ -5,13 +5,14 @@ import os
 import logging
 import numpy as np
 from collections import Counter
+import time
 
-input_video_path = "../Whiplash.mp4"
-output_path = "../output.mp4"
+input_video_path = "Whiplash_short.mp4"
+output_path = "output.mp4"
 
 logger = logging.getLogger(__name__)
 
-def annotate_video(input_video_path:str, output_path:str, model_path: str = "../models/hackv4i_yolo11x.pt") -> None:
+def annotate_video(input_video_path:str, output_path:str, model_path: str = "hackday/models/hackv4i.pt") -> None:
     model = YOLO(model_path)
     cap = cv2.VideoCapture(input_video_path)
 
@@ -30,17 +31,21 @@ def annotate_video(input_video_path:str, output_path:str, model_path: str = "../
     # 前のフレームを保存する変数を初期化（シーン切り替え検出用）
     prev_frame_gray = None
     # シーン切り替えのしきい値
-    scene_change_threshold = 20.0
+    scene_change_threshold = 30.0
     # Confidenceスコアのしきい値
     confidence_threshold = 0.40
     # 平滑化に使用するフレーム数
     smoothing_frames = 30
     fix_threshold = 0.85
+    
+    photo_info_counter = {"giselle": {"count": 0, "time": 0}, "karina": {"count": 0, "time": 0}, "ningning": {"count": 0, "time": 0}, "winter": {"count": 0, "time": 0}}
 
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
             break
+        frame_copy_for_photo = frame.copy()
+
 
         # シーン切り替えの検出
         frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -124,6 +129,9 @@ def annotate_video(input_video_path:str, output_path:str, model_path: str = "../
                         most_common_class_name, _ = class_counter.most_common(1)[0]
                         class_name = most_common_class_name
 
+                ## 画像を保存
+                save_photo(frame_copy_for_photo, frame_width, frame_height, x1, y1, x2, y2, class_name, photo_info_counter)                
+                
                 if not confidence_low_flag and tracking_id is not None:
                         if y1_smooth - 5 < 0:
                             y1_smooth += 15
@@ -180,6 +188,19 @@ def annotate_video(input_video_path:str, output_path:str, model_path: str = "../
 
     os.remove(tmp_output_path)
 
+def save_photo(frame, frame_width, frame_height, x1, y1, x2, y2, class_name, photo_info_counter):
+    os.makedirs("photo", exist_ok=True)
+    os.makedirs(f"photo/{class_name}", exist_ok=True)
+    frame_area = frame_width * frame_height
+    box_area = abs(x2 - x1) * abs(y2 - y1)
+    # 推しがアップの場合 or 中央にいる場合保存する
+    if box_area / frame_area > 0.5 or ((x1 < frame_width / 2 and x2 > frame_width / 2) or (y1 < frame_height / 2 and y2 > frame_height / 2) and box_area / frame_area > 0.1):
+        if time.time() - photo_info_counter[class_name]["time"] < 2:
+            return
+        photo_info_counter[class_name]["count"] += 1
+        photo_info_counter[class_name]["time"] = time.time()
+        output_path = f"photo/{class_name}/{photo_info_counter[class_name]['count']}.png"
+        cv2.imwrite(output_path, frame)
 
 if __name__ == "__main__":
     annotate_video(input_video_path, output_path)
