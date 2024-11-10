@@ -49,7 +49,10 @@ const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }
 
         // ResizeObserver to watch for image size changes
         const resizeObserver = new ResizeObserver(() => {
-            updateBoundingBoxes();
+            // Use requestAnimationFrame to prevent rapid updates causing vibration
+            window.requestAnimationFrame(() => {
+                updateBoundingBoxes();
+            });
         });
 
         if (imageRef.current) {
