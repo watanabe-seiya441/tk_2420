@@ -1,8 +1,5 @@
-'use client';
-
-import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
-import Image from 'next/image';
-import React, { useRef, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { YOLOAnnotation, AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
 
 interface PreviewSnapshotsProps {
     snapshots: AnnotatedSnapshot[];
@@ -10,75 +7,76 @@ interface PreviewSnapshotsProps {
 }
 
 const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots }) => {
-    const imageRef = useRef<HTMLImageElement | null >(null);
-    const [boxStyle, setBoxStyle] = useState<{ width: string; height: string }>({ width: '0px', height: '0px' });
-    const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const [boxStyle, setBoxStyle] = useState<{ width: string; height: string }>({ width: '0px', height: '0px' });
+  const [imageUrls, setImageUrls] = useState<{ id: string; url: string }[]>([]);
 
-    useEffect(() => {
-        const updateBoxStyle = () => {
-        if (imageRef.current) {
-            const { width, height } = imageRef.current.getBoundingClientRect();
-            console.log(`Image size: Width = ${width}, Height = ${height}`);
-            setBoxStyle({
-            width: `${width}px`,
-            height: `${height}px`,
-            });
-        }
-        };
+  useEffect(() => {
+    // BlobからURLを生成
+    const urls = snapshots.map((snapshot) => ({
+      id: snapshot.id,
+      url: URL.createObjectURL(snapshot.imageBlob),
+    }));
+    setImageUrls(urls);
 
-        updateBoxStyle();
+    return () => {
+      // コンポーネントがアンマウントされたらBlob URLを開放
+      urls.forEach(({ url }) => URL.revokeObjectURL(url));
+    };
+  }, [snapshots]);
 
-        // ResizeObserverでリサイズを監視
-        const resizeObserver = new ResizeObserver(() => {
-        updateBoxStyle();
+  useEffect(() => {
+    const updateBoxStyle = () => {
+      if (imageRef.current) {
+        const { width, height } = imageRef.current.getBoundingClientRect();
+        console.log(`Image size: Width = ${width}, Height = ${height}`);
+        setBoxStyle({
+          width: `${width}px`,
+          height: `${height}px`,
         });
+      }
+    };
 
-        if (imageRef.current) {
-        resizeObserver.observe(imageRef.current);
-        }
+    updateBoxStyle();
 
-        return () => {
-        if (imageRef.current) {
-            resizeObserver.unobserve(imageRef.current);
-        }
-        };
-    }, []);
+    // ResizeObserverでリサイズを監視
+    const resizeObserver = new ResizeObserver(() => {
+      updateBoxStyle();
+    });
 
+    if (imageRef.current) {
+      resizeObserver.observe(imageRef.current);
+    }
 
-    return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-            {snapshots.map((snapshot) => (
-                <div key={snapshot.id} className="relative border rounded">
-                    {imageSize && (
-                        <>
+    return () => {
+      if (imageRef.current) {
+        resizeObserver.unobserve(imageRef.current);
+      }
+    };
+  }, [imageUrls]);
 
-                        <Image
-                            src={URL.createObjectURL(snapshot.imageBlob)}
-                            alt={`Snapshot ${snapshot.id}`}
-                            // className='w-full h-auto'
-                            layout="responsive"
-                            objectFit="contain"
-                            width={imageSize.width} // 固定の幅
-                            height={imageSize.height} // 固定の高さ
-                        />
-
-                        <div
-                            className="absolute border-2"
-                            style={{
-                                left: 0,
-                                top: 0,
-                                width: 103,
-                                height: 58,
-                                borderColor: "red",
-                            }}
-                        ></div>
-                        </>
-                    )}
-                </div>
-            ))
-            };
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 p-1">
+      {imageUrls.map(({ id, url }, index) => (
+        <div key={id} className="relative w-full h-full">
+          <img
+            ref={index === 0 ? imageRef : null} // 最初の画像だけrefを設定する
+            src={url}
+            alt={`snapshot-${id}`}
+            className="w-full h-auto"
+          />
+          <div
+            className="absolute top-0 left-0 bg-black bg-opacity-30 pointer-events-none border-2"
+            style={{
+              width: boxStyle.width,
+              height: boxStyle.height,
+              borderColor: 'red',
+            }}
+          />
         </div>
-    );
+      ))}
+    </div>
+  );
 };
 
 export default PreviewSnapshots;
