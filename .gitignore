@@ -7,3 +7,4 @@ runs/
 runs_old/
 *.pyc
 *.db
+*.png
