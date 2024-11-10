@@ -47,7 +47,7 @@ def annotate_video(input_video_path: str, mp4_with_overlay_output_path: str, jso
     frame_count = 0
 
     # オーバーレイデータの初期化
-    overlay_data = {"ocerlays":[]}
+    overlay_data = {"overlays":[]}
     class_colors = {
         "karina": "#0000FF",      # ブルー
         "giselle": "#FF69B4",     # ピンク
@@ -56,7 +56,7 @@ def annotate_video(input_video_path: str, mp4_with_overlay_output_path: str, jso
     }
     class_names_dict = {"karina":0, "giselle":1, "winter":2, "ningning":3}
     for class_name in class_names_dict.keys():
-        overlay_data["ocerlays"].append({
+        overlay_data["overlays"].append({
             "id": class_name,
             "content": class_name,
             "color": class_colors.get(class_name, "#FFFFFF"),
@@ -160,7 +160,7 @@ def annotate_video(input_video_path: str, mp4_with_overlay_output_path: str, jso
 
                 if not confidence_low_flag and tracking_id is not None:
                     # バウンディングボックスを描画
-                    cv2.line(frame, (x1_smooth, adjusted_y1_smooth), (x2_smooth, adjusted_y1_smooth), color, 2)
+                    cv2.line(frame, (x1_smooth, adjusted_y1_smooth), (x2_smooth, y2_smooth), color, 2)
 
                     # ラベルを描画
                     label_text = f"{class_name}"
@@ -182,10 +182,10 @@ def annotate_video(input_video_path: str, mp4_with_overlay_output_path: str, jso
                             "startX": x1_smooth,
                             "startY": adjusted_y1_smooth,
                             "endX": x2_smooth,
-                            "endY": adjusted_y1_smooth,
+                            "endY": y2_smooth,
                             "visible": True
                         }
-                        overlay_data["ocerlays"][class_names_dict[class_name]]["positions"].append(position)
+                        overlay_data["overlays"][class_names_dict[class_name]]["positions"].append(position)
                         detected_classes.add(class_name)
 
         # 検出されなかったクラスのvisibleをfalseに設定
@@ -199,7 +199,7 @@ def annotate_video(input_video_path: str, mp4_with_overlay_output_path: str, jso
                     "endY": 0,
                     "visible": False
                 }
-                overlay_data["ocerlays"][class_names_dict[class_name]]["positions"].append(position)
+                overlay_data["overlays"][class_names_dict[class_name]]["positions"].append(position)
 
         # フレームを書き込み
         out.write(frame)
