@@ -133,7 +133,7 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
               top: currentBox.y * boxScaleFactor.y,
               width: currentBox.width * boxScaleFactor.x,
               height: currentBox.height * boxScaleFactor.y,
-              border: `2px dashed ${currentBox.color}`,
+              border: `5px dashed ${currentBox.color}`,
             }}
           />
         )}
@@ -147,7 +147,7 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
               top: box.y * boxScaleFactor.y,
               width: box.width * boxScaleFactor.x,
               height: box.height * boxScaleFactor.y,
-              border: `2px solid ${box.color}`,
+              border: `5px solid ${box.color}`,
             }}
           />
         ))}
