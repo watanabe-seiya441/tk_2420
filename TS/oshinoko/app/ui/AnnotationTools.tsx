@@ -1,25 +1,20 @@
 import { useState, useRef } from "react";
-import { generateYOLOAnnotations } from "@/app/lib/yoloUtils";
-import { AnnotatedSnapshot, LabelInfo, BoundingBox } from "@/app/lib/types";
+import { LabelInfo, BoundingBox } from "@/app/lib/types";
 import LabelSelectionPopup from "@/app/ui/LabelSelectionPopup";
 
 
 
 interface AnnotationToolsProps {
-  videoRef: React.RefObject<HTMLVideoElement>;
-  addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
   labels: LabelInfo[];
-  onExit: () => void;
   currentBox: BoundingBox | null;
   setCurrentBox: React.Dispatch<React.SetStateAction<BoundingBox | null>>;
   clearCurrentBox: () => void;
   boundingBoxes: BoundingBox[];
   confirmBox: (box: BoundingBox) => void;
-  clearAllBoxes: () => void;
 }
 
-const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, labels, addAnnotatedSnapshot 
-  , currentBox, setCurrentBox, clearCurrentBox, boundingBoxes, confirmBox, clearAllBoxes
+const AnnotationTools: React.FC<AnnotationToolsProps> = ({ labels,  
+  currentBox, setCurrentBox, clearCurrentBox, boundingBoxes, confirmBox
 }) => {
 
   const [showLabelPopup, setShowLabelPopup] = useState<boolean>(false);
@@ -88,30 +83,6 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, lab
     setShowLabelPopup(false);
   };
 
-  const handleFinishAnnotation = async () => {
-    if (videoRef.current) {
-      const video = videoRef.current;
-      const canvas = document.createElement('canvas');
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const context = canvas.getContext('2d');
-      if (context) {
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const imageBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob((blob) => resolve(blob)));
-        if (imageBlob) {
-          const yoloAnnotations = generateYOLOAnnotations(boundingBoxes, canvas.width, canvas.height);
-          const newSnapshot: AnnotatedSnapshot = {
-            id: `snapshot-${Date.now()}`,
-            imageBlob,
-            annotations: yoloAnnotations,
-          };
-          addAnnotatedSnapshot(newSnapshot);
-          console.log('newSnapshot:', newSnapshot);
-        }
-      }
-    }
-    clearAllBoxes();
-  };
 
   return (
     <div>
@@ -151,20 +122,6 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, lab
           />
         ))}
       </div>
-        {/* アノテーションモード中止ボタン */}
-        <button
-        onClick={() => { clearAllBoxes(); onExit(); }}
-          className="absolute top-4 right-4 px-4 py-2 bg-red-500 text-white rounded"
-        >
-          Abort
-        </button>
-        {/* アノテーション終了ボタン */}
-        <button
-          onClick={handleFinishAnnotation}
-          className="absolute top-4 right-20 px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Finish Annotation
-        </button>
 
       {/* ラベル選択ポップアップ */}
       {showLabelPopup && (
