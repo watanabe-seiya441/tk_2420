@@ -4,17 +4,28 @@ import { useRef, useState } from 'react';
 import { backendUrl } from '@/app/lib/config';
 import VideoPlayer from '@/app/ui/VideoPlayer';
 import VideoController from '@/app/ui/VideoController';
-import AnnotationTools from '@/app/ui/AnnotationTools'; // 既に作成済みと仮定
+import BoundingBoxDrawer from '@/app/ui/BoundingBoxDrawer';
 import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
+import useBoundingBoxManager from "@/app/hooks/useBoundingBoxManager";
+import { generateYOLOAnnotations } from "@/app/lib/yoloUtils";
 
 interface AnnotationStudioProps {
     addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
     labels: LabelInfo[];
 }
 
-const AnnotationStudio: React.FC<AnnotationStudioProps> = ({addAnnotatedSnapshot, labels }) => {
+const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapshot, labels }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isAnnotationMode, setIsAnnotationMode] = useState(false);
+
+    const {
+        currentBox,
+        setCurrentBox,
+        clearCurrentBox,
+        boundingBoxes,
+        confirmBox,
+        clearAllBoxes,
+    } = useBoundingBoxManager();
 
     const handleEnterAnnotationMode = () => {
         const video = videoRef.current;
@@ -31,10 +42,40 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({addAnnotatedSnapshot
         }
     }
 
+    const handleFinishAnnotation = async () => {
+        if (boundingBoxes.length === 0) {
+            alert('Please annotate at least one object.');
+            return;
+        }
+        if (videoRef.current) {
+            const video = videoRef.current;
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            if (context) {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const imageBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob((blob) => resolve(blob)));
+                if (imageBlob) {
+                    const yoloAnnotations = generateYOLOAnnotations(boundingBoxes, canvas.width, canvas.height);
+                    const newSnapshot: AnnotatedSnapshot = {
+                        id: `snapshot-${Date.now()}`,
+                        imageBlob,
+                        annotations: yoloAnnotations,
+                    };
+                    addAnnotatedSnapshot(newSnapshot);
+                    console.log('newSnapshot:', newSnapshot);
+                }
+            }
+        }
+        clearAllBoxes();
+    };
+
+
     return (
         <div className="w-full h-full flex flex-col">
             {/* Annotationモード開始ボタン */}
-            {!isAnnotationMode && (
+            {!isAnnotationMode ? (
                 <div className="mb-4">
                     <button
                         onClick={handleEnterAnnotationMode}
@@ -43,6 +84,26 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({addAnnotatedSnapshot
                         Enter Annotation Mode
                     </button>
                 </div>
+            ) : (
+                <>
+                    <div className="mb-4">
+                        <button
+                            onClick={() => { clearAllBoxes(); handleExitAnnotationMode(); }}
+                            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                        >
+                            Exit Annotation Mode
+                        </button>
+
+                    </div>
+
+                    {/* アノテーション終了ボタン */}
+                    <button
+                        onClick={handleFinishAnnotation}
+                        className="absolute top-4 right-20 px-4 py-2 bg-blue-500 text-white rounded"
+                    >
+                        Finish Annotation
+                    </button>
+                </>
             )}
             {/* Video Player */}
             <div className="relative">
@@ -50,9 +111,12 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({addAnnotatedSnapshot
                     ref={videoRef}
                     src={`${backendUrl}/videos/Supernova.mp4`}
                 />
-                {/* Annotationモード時にAnnotationToolsを表示 */}
+                {/* Annotationモード時にBoundingBoxDrawerを表示 */}
                 {isAnnotationMode && (
-                    <AnnotationTools videoRef={videoRef} onExit={handleExitAnnotationMode}  addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels}/>
+                    <BoundingBoxDrawer labels={labels}
+                        currentBox={currentBox} setCurrentBox={setCurrentBox} clearCurrentBox={clearCurrentBox} boundingBoxes={boundingBoxes}
+                        confirmBox={confirmBox} 
+                    />
                 )}
             </div>
 
