@@ -11,7 +11,7 @@ import time
 input_video_path = "Whiplash.mp4"
 file_name = os.path.splitext(os.path.basename(input_video_path))[0]
 
-json_output_path = f"py/overlays/{file_name}.json"
+json_output_path = f"py/overlays/{file_name}_overlay.json"
 mp4_with_overlay_output_path = f"{file_name}_overlay.mp4"
 
 
