@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { backendUrl } from '@/app/lib/config';
 import VideoPlayer from '@/app/ui/VideoPlayer';
 import VideoController from '@/app/ui/VideoController';
@@ -8,6 +8,7 @@ import BoundingBoxDrawer from '@/app/ui/BoundingBoxDrawer';
 import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
 import useBoundingBoxManager from "@/app/hooks/useBoundingBoxManager";
 import { generateYOLOAnnotations } from "@/app/lib/yoloUtils";
+import { STANDARD_VIDEO_BOX_WIDTH, STANDARD_VIDEO_BOX_HEIGHT } from "@/app/lib/constsnts";
 
 interface AnnotationStudioProps {
     addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
@@ -50,15 +51,17 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapsho
         }
         if (videoRef.current) {
             const video = videoRef.current;
+            const videoRect = video.getBoundingClientRect();
             const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
+            canvas.width = videoRect.width;
+            canvas.height = videoRect.height;
+            console.log(canvas.width, canvas.height);
             const context = canvas.getContext('2d');
             if (context) {
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
                 const imageBlob = await new Promise<Blob | null>((resolve) => canvas.toBlob((blob) => resolve(blob)));
                 if (imageBlob) {
-                    const yoloAnnotations = generateYOLOAnnotations(boundingBoxes, canvas.width, canvas.height);
+                    const yoloAnnotations = generateYOLOAnnotations(boundingBoxes, STANDARD_VIDEO_BOX_WIDTH, STANDARD_VIDEO_BOX_HEIGHT);
                     const newSnapshot: AnnotatedSnapshot = {
                         id: `snapshot-${Date.now()}`,
                         imageBlob,
