@@ -6,7 +6,7 @@ import PreviewSnapshots from '@/app/ui/PreviewSnapshots';
 
 import AnnotationStudio from '@/app/ui/AnnotationStudio';
 import VideoList from '@/app/ui/VideoList';
-import { AnnotatedSnapshot, LabelInfo} from '@/app/lib/types';
+import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
 import { convertSnapshotToFiles } from '@/app/lib/snapshotUtils';
 import { backendUrl } from '@/app/lib/config';
 import axios from 'axios';
@@ -19,6 +19,7 @@ const dummyLabels: LabelInfo[] = [
 
 
 const AnnotationPage: React.FC = () => {
+    const [isAnnotationMode, setIsAnnotationMode] = useState(false);
     const [annotatedSnapshots, setAnnotatedSnapshots] = useState<AnnotatedSnapshot[]>([]);
     const addAnnotatedSnapshot = (snapshot: AnnotatedSnapshot) => {
         setAnnotatedSnapshots((prev) => [...prev, snapshot]);
@@ -63,28 +64,30 @@ const AnnotationPage: React.FC = () => {
             <div className="flex flex-1">
                 {/* Left Side: Video Player and Annotation Tools */}
                 <div className="w-3/4 p-4 flex flex-col space-y-4 relative">
-
-                    <AnnotationStudio addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels} />
-
-                    {/* Upload Snapshots Button */}
-                    <button
-                        onClick={uploadAnnotatedSnapshots}
-                        className="mt-4 p-2 bg-blue-600 text-white rounded"
-                    >
-                        Upload Snapshots
-                    </button>
-
-                    {/* Preview Area */}
-                    <div className="h-40">
-                        <PreviewSnapshots snapshots={annotatedSnapshots} labels={labels} />
-                    </div>
+                    <AnnotationStudio addAnnotatedSnapshot={addAnnotatedSnapshot}
+                        isAnnotationMode={isAnnotationMode}
+                        setIsAnnotationMode={setIsAnnotationMode}
+                        labels={labels} />
                 </div>
 
-                {/* Right Side: Video List */}
+                {/* Right Side: Video List or Snapshot Preview */}
                 <div className="w-1/4 p-4 bg-gray-50">
-                    <VideoList
-                        onSelectVideo={() => { return; }}
-                    />
+                    {isAnnotationMode ? (
+                        <>
+                            <button
+                                onClick={uploadAnnotatedSnapshots}
+                                className="mt-4 p-2 bg-blue-600 text-white rounded"
+                            >
+                                Upload Snapshots
+                            </button>
+
+                            <PreviewSnapshots snapshots={annotatedSnapshots} labels={labels} />
+                        </>
+                    ) : (
+                        <VideoList
+                            onSelectVideo={() => { return; }}
+                        />
+                    )}
                 </div>
             </div>
         </div>
