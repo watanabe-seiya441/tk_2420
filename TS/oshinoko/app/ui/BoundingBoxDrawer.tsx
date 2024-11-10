@@ -4,7 +4,7 @@ import LabelSelectionPopup from "@/app/ui/LabelSelectionPopup";
 
 
 
-interface AnnotationToolsProps {
+interface BoundingBoxDrawerProps {
   labels: LabelInfo[];
   currentBox: BoundingBox | null;
   setCurrentBox: React.Dispatch<React.SetStateAction<BoundingBox | null>>;
@@ -13,7 +13,7 @@ interface AnnotationToolsProps {
   confirmBox: (box: BoundingBox) => void;
 }
 
-const AnnotationTools: React.FC<AnnotationToolsProps> = ({ labels,  
+const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,  
   currentBox, setCurrentBox, clearCurrentBox, boundingBoxes, confirmBox
 }) => {
 
@@ -135,4 +135,4 @@ const AnnotationTools: React.FC<AnnotationToolsProps> = ({ labels,
   );
 };
 
-export default AnnotationTools;
+export default BoundingBoxDrawer;

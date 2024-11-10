@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { backendUrl } from '@/app/lib/config';
 import VideoPlayer from '@/app/ui/VideoPlayer';
 import VideoController from '@/app/ui/VideoController';
-import AnnotationTools from '@/app/ui/AnnotationTools';
+import BoundingBoxDrawer from '@/app/ui/BoundingBoxDrawer';
 import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
 import useBoundingBoxManager from "@/app/hooks/useBoundingBoxManager";
 import { generateYOLOAnnotations } from "@/app/lib/yoloUtils";
@@ -111,9 +111,9 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapsho
                     ref={videoRef}
                     src={`${backendUrl}/videos/Supernova.mp4`}
                 />
-                {/* Annotationモード時にAnnotationToolsを表示 */}
+                {/* Annotationモード時にBoundingBoxDrawerを表示 */}
                 {isAnnotationMode && (
-                    <AnnotationTools labels={labels}
+                    <BoundingBoxDrawer labels={labels}
                         currentBox={currentBox} setCurrentBox={setCurrentBox} clearCurrentBox={clearCurrentBox} boundingBoxes={boundingBoxes}
                         confirmBox={confirmBox} 
                     />
