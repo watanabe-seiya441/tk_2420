@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import { generateYOLOAnnotations } from "@/app/lib/yoloUtils";
 import { AnnotatedSnapshot, LabelInfo, BoundingBox } from "@/app/lib/types";
 import LabelSelectionPopup from "@/app/ui/LabelSelectionPopup";
-import useBoundingBoxManager from "@/app/hooks/useBoundingBoxManager";
 
 
 
@@ -11,17 +10,17 @@ interface AnnotationToolsProps {
   addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
   labels: LabelInfo[];
   onExit: () => void;
+  currentBox: BoundingBox | null;
+  setCurrentBox: React.Dispatch<React.SetStateAction<BoundingBox | null>>;
+  clearCurrentBox: () => void;
+  boundingBoxes: BoundingBox[];
+  confirmBox: (box: BoundingBox) => void;
+  clearAllBoxes: () => void;
 }
 
-const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, labels, addAnnotatedSnapshot }) => {
-  const {
-    currentBox,
-    setCurrentBox,
-    clearCurrentBox,
-    boundingBoxes,
-    confirmBox,
-    clearAllBoxes,
-  } = useBoundingBoxManager();
+const AnnotationTools: React.FC<AnnotationToolsProps> = ({ videoRef, onExit, labels, addAnnotatedSnapshot 
+  , currentBox, setCurrentBox, clearCurrentBox, boundingBoxes, confirmBox, clearAllBoxes
+}) => {
 
   const [showLabelPopup, setShowLabelPopup] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);

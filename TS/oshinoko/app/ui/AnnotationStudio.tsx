@@ -4,17 +4,27 @@ import { useRef, useState } from 'react';
 import { backendUrl } from '@/app/lib/config';
 import VideoPlayer from '@/app/ui/VideoPlayer';
 import VideoController from '@/app/ui/VideoController';
-import AnnotationTools from '@/app/ui/AnnotationTools'; // 既に作成済みと仮定
+import AnnotationTools from '@/app/ui/AnnotationTools';
 import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
+import useBoundingBoxManager from "@/app/hooks/useBoundingBoxManager";
 
 interface AnnotationStudioProps {
     addAnnotatedSnapshot: (snapshot: AnnotatedSnapshot) => void;
     labels: LabelInfo[];
 }
 
-const AnnotationStudio: React.FC<AnnotationStudioProps> = ({addAnnotatedSnapshot, labels }) => {
+const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapshot, labels }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isAnnotationMode, setIsAnnotationMode] = useState(false);
+
+    const {
+        currentBox,
+        setCurrentBox,
+        clearCurrentBox,
+        boundingBoxes,
+        confirmBox,
+        clearAllBoxes,
+    } = useBoundingBoxManager();
 
     const handleEnterAnnotationMode = () => {
         const video = videoRef.current;
@@ -52,7 +62,10 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({addAnnotatedSnapshot
                 />
                 {/* Annotationモード時にAnnotationToolsを表示 */}
                 {isAnnotationMode && (
-                    <AnnotationTools videoRef={videoRef} onExit={handleExitAnnotationMode}  addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels}/>
+                    <AnnotationTools videoRef={videoRef} onExit={handleExitAnnotationMode} addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels}
+                        currentBox={currentBox} setCurrentBox={setCurrentBox} clearCurrentBox={clearCurrentBox} boundingBoxes={boundingBoxes}
+                        confirmBox={confirmBox} clearAllBoxes={clearAllBoxes}
+                    />
                 )}
             </div>
 
