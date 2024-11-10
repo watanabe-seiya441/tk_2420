@@ -56,6 +56,7 @@ const AnnotationPage: React.FC = () => {
                     const formData = new FormData();
                     formData.append('image', imageFile);
                     formData.append('annotation', annotationFile);
+                    formData.append('groupName', groupName);
 
                     // Send to backend
                     await axios.post(`${backendUrl}/api/upload_annotation`, formData, {
