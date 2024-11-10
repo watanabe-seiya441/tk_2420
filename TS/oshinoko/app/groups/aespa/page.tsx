@@ -62,7 +62,10 @@ const AespaPage = () => {
         </div>
 
         {/* Video List on the right */}
-        <VideoList onSelectVideo={setSelectedVideo} />
+        <VideoList
+          onSelectVideo={setSelectedVideo}
+          groupName="aespa"
+        />
       </div>
     </main>
   );
