@@ -6,15 +6,16 @@ import { backendUrl } from '@/app/lib/config';
 
 interface VideoListProps {
     onSelectVideo: (video: Video) => void; // Function to set the selected video in AespaPage
+    groupName: string;
 }
 
-const VideoList: React.FC<VideoListProps> = ({ onSelectVideo }) => {
+const VideoList: React.FC<VideoListProps> = ({ onSelectVideo, groupName }) => {
     const [videos, setVideos] = useState<Video[]>([]);
 
     useEffect(() => {
         // TDOO: not limited to aespa group
         // Fetch the list of videos for the aespa group
-        fetch(`${backendUrl}/api/videos?group_name=aespa`)
+        fetch(`${backendUrl}/api/videos?group_name=${groupName}`)
             .then((res) => res.json())
             .then((data) => setVideos(data))
             .catch((error) => console.error("Error fetching videos:", error));

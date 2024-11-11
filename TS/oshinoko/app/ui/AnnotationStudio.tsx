@@ -15,9 +15,10 @@ interface AnnotationStudioProps {
     isAnnotationMode: boolean;
     setIsAnnotationMode: React.Dispatch<React.SetStateAction<boolean>>;
     labels: LabelInfo[];
+    videoUrl: string;
 }
 
-const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapshot,isAnnotationMode, setIsAnnotationMode, labels }) => {
+const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapshot,isAnnotationMode, setIsAnnotationMode, labels, videoUrl}) => {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     const {
@@ -113,7 +114,7 @@ const AnnotationStudio: React.FC<AnnotationStudioProps> = ({ addAnnotatedSnapsho
             <div className="relative">
                 <VideoPlayer
                     ref={videoRef}
-                    src={`${backendUrl}/videos/Supernova.mp4`}
+                    src={`${backendUrl}${videoUrl}`}
                 />
                 {/* Annotationモード時にBoundingBoxDrawerを表示 */}
                 {isAnnotationMode && (
