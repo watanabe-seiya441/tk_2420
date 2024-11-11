@@ -10,9 +10,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  # IMAGE_NAME: ${{ github.repository }}
-  IMAGE_NAME: hara82/front-docker-publish
+  IMAGE_NAME: ${{ github.repository }}/front
 
 
 jobs:
