@@ -4,7 +4,7 @@ on:
   - pull_request
 
 jobs:
-  cache-and-install:
+  cache-and-install-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -32,3 +32,6 @@ jobs:
 
       - name: Run tests
         run: pnpm jest
+      
+      - name: Check formatter
+        run: pnpm prettier --check app
