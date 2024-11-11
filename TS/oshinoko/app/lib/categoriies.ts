@@ -4,7 +4,6 @@ export interface CategoryItem {
   image: string;
 }
 
-
 export const categories: CategoryItem[] = [
   { id: 'aespa', name: 'Aespa', image: '/whisplash.png' },
   { id: 'nokizaka', name: 'Nokizaka', image: '/giselle4.jpg' },

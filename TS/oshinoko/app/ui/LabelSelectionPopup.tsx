@@ -2,14 +2,17 @@
 import { useState } from 'react';
 import { LabelInfo } from '@/app/lib/types';
 
-
 interface LabelSelectionPopupProps {
   label_info: LabelInfo[];
   onConfirm: (label: number) => void;
   onCancel: () => void;
 }
 
-const LabelSelectionPopup: React.FC<LabelSelectionPopupProps> = ({ label_info, onConfirm, onCancel }) => {
+const LabelSelectionPopup: React.FC<LabelSelectionPopupProps> = ({
+  label_info,
+  onConfirm,
+  onCancel,
+}) => {
   const [selectedLabel, setSelectedLabel] = useState<LabelInfo | null>(null);
 
   return (
@@ -53,4 +56,3 @@ const LabelSelectionPopup: React.FC<LabelSelectionPopupProps> = ({ label_info, o
 };
 
 export default LabelSelectionPopup;
-
