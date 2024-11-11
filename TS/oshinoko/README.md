@@ -20,6 +20,7 @@ v22.11.0
 http://localhost:3000/
 
 # Development
+以下は `TS/oshinoko/` のdirectoryで行ってください.
 ## Formatter
 - prettier, `pnpm prettier app --write app` でformatできる. VSCodeの機能でもよい.
 - `pnpm prettier --check app` でformatが正しいか確認できる.
