@@ -1,6 +1,5 @@
 name: TS Test
 on:
-  # - push
   - pull_request
 
 jobs:
@@ -35,3 +34,6 @@ jobs:
       
       - name: Check formatter
         run: pnpm prettier --check app
+
+      - name: Check linter
+        run: pnpm lint
