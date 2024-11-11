@@ -97,6 +97,14 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({
   const handleMouseUp = () => {
     console.log('boxScaleFactor', boxScaleFactor);
     if (currentBox) {
+      const minBoxSize = 15;
+      const boxWidth = currentBox.width * boxScaleFactor.x;
+      const boxHeight = currentBox.height * boxScaleFactor.y;
+      // Too small box is not allowed for better UX.
+      if (boxWidth < minBoxSize || boxHeight < minBoxSize) {
+        clearCurrentBox();
+        return;
+      }
       setShowLabelPopup(true);
     }
   };
