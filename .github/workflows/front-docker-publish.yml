@@ -10,7 +10,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/front
+  IMAGE_NAME: ${{ github.repository }}_front
 
 
 jobs:
@@ -38,5 +38,5 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: ./TS/oshinoko
-          push: true
+          push: false
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test
