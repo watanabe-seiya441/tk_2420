@@ -1,10 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import {
-  YOLOAnnotation,
-  AnnotatedSnapshot,
-  LabelInfo,
-  BoundingBox,
-} from '@/app/lib/types';
+import { AnnotatedSnapshot, LabelInfo, BoundingBox } from '@/app/lib/types';
 import { generateBoundingBoxesFromYOLO } from '@/app/lib/yoloUtils';
 
 interface PreviewSnapshotsProps {
@@ -65,13 +60,15 @@ const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({
       });
     });
 
-    if (imageRef.current) {
-      resizeObserver.observe(imageRef.current);
+    const currentImageRef = imageRef.current;
+
+    if (currentImageRef) {
+      resizeObserver.observe(currentImageRef);
     }
 
     return () => {
-      if (imageRef.current) {
-        resizeObserver.unobserve(imageRef.current);
+      if (currentImageRef) {
+        resizeObserver.unobserve(currentImageRef);
       }
     };
   }, [snapshots, labels, imageUrls]);
@@ -80,6 +77,7 @@ const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({
     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 p-1">
       {imageUrls.map(({ id, url }, index) => (
         <div key={id} className="relative w-full h-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={index === 0 ? imageRef : null} // Set ref only on the first image
             src={url}

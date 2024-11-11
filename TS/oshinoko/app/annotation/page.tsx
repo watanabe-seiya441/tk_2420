@@ -20,6 +20,7 @@ const AnnotationPage: React.FC = () => {
     AnnotatedSnapshot[]
   >([]);
   const [labels, setLabels] = useState<LabelInfo[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [groupName, setGroupName] = useState<string>(GROUP_NAME);
   const [videoUrl, setVideoUrl] = useState<string>(DEFAULT_VIDEO_URL);
 
@@ -43,6 +44,8 @@ const AnnotationPage: React.FC = () => {
     if (groupName) {
       fetchLabelInfo();
     }
+    // NOTE: errorの理由がまだよくわかっていないので無視
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupName]);
 
   const uploadAnnotatedSnapshots = async () => {

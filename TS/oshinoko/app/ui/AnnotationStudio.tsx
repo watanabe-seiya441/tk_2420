@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { backendUrl } from '@/app/lib/config';
 import VideoPlayer from '@/app/ui/VideoPlayer';
 import VideoController from '@/app/ui/VideoController';

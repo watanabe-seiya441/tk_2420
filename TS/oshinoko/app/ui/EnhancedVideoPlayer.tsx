@@ -114,6 +114,7 @@ const EnhancedVideoPlayer: React.FC<EnhancedVideoPlayerProps> = ({
   useEffect(() => {
     const updateScale = () => {
       if (!videoRef.current) return;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { videoWidth, videoHeight, clientWidth, clientHeight } =
         videoRef.current;
 
