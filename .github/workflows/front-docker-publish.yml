@@ -5,6 +5,8 @@ name: Deploy Docker Image to GHCR
 on:
   push:
     branches: [ "*" ] # TODO: change this to main after testing.
+  pull_request:
+    branches: [ "*" ]
 
 env:
   REGISTRY: ghcr.io
