@@ -1,0 +1,5 @@
+services:
+  front-oshinoko:
+    image: ghcr.io/hara82/jphacks24-front:latest
+    ports:
+      - "80:3000"
