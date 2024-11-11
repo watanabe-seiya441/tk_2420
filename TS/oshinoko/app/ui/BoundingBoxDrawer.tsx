@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from "react";
-import { LabelInfo, BoundingBox } from "@/app/lib/types";
-import { STANDARD_VIDEO_BOX_WIDTH, STANDARD_VIDEO_BOX_HEIGHT } from "@/app/lib/constsnts";
-import LabelSelectionPopup from "@/app/ui/LabelSelectionPopup";
-
-
+import { useState, useRef, useEffect } from 'react';
+import { LabelInfo, BoundingBox } from '@/app/lib/types';
+import {
+  STANDARD_VIDEO_BOX_WIDTH,
+  STANDARD_VIDEO_BOX_HEIGHT,
+} from '@/app/lib/constsnts';
+import LabelSelectionPopup from '@/app/ui/LabelSelectionPopup';
 
 interface BoundingBoxDrawerProps {
   labels: LabelInfo[];
@@ -14,21 +15,28 @@ interface BoundingBoxDrawerProps {
   confirmBox: (box: BoundingBox) => void;
 }
 
-const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,  
-  currentBox, setCurrentBox, clearCurrentBox, boundingBoxes, confirmBox
+const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({
+  labels,
+  currentBox,
+  setCurrentBox,
+  clearCurrentBox,
+  boundingBoxes,
+  confirmBox,
 }) => {
-
   const [showLabelPopup, setShowLabelPopup] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const startPoint = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [boxScaleFactor, setBoxScaleFactor] = useState<{ x: number; y: number }>({ x: 1, y: 1 });
+  const [boxScaleFactor, setBoxScaleFactor] = useState<{
+    x: number;
+    y: number;
+  }>({ x: 1, y: 1 });
 
   // Update scale factor when the window resizes
   const updateScaleFactor = () => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
-      const videoBoxWidth = STANDARD_VIDEO_BOX_WIDTH
-      const videoBoxHeight = STANDARD_VIDEO_BOX_HEIGHT
+      const videoBoxWidth = STANDARD_VIDEO_BOX_WIDTH;
+      const videoBoxHeight = STANDARD_VIDEO_BOX_HEIGHT;
       setBoxScaleFactor({
         x: rect.width / videoBoxWidth,
         y: rect.height / videoBoxHeight,
@@ -41,11 +49,11 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
     updateScaleFactor();
 
     // Add resize event listener
-    window.addEventListener("resize", updateScaleFactor);
+    window.addEventListener('resize', updateScaleFactor);
 
     // Cleanup event listener on unmount
     return () => {
-      window.removeEventListener("resize", updateScaleFactor);
+      window.removeEventListener('resize', updateScaleFactor);
     };
   }, []);
 
@@ -60,7 +68,7 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
         y: startY / boxScaleFactor.y,
         width: 0 / boxScaleFactor.x,
         height: 0 / boxScaleFactor.y,
-        color: "white",
+        color: 'white',
       });
     }
   };
@@ -76,13 +84,12 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
       const newWidth = Math.abs(currentX - startPoint.current.x);
       const newHeight = Math.abs(currentY - startPoint.current.y);
 
-
       setCurrentBox({
         ...currentBox,
         x: newX / boxScaleFactor.x,
-        y: newY/ boxScaleFactor.y,
-        width: newWidth/ boxScaleFactor.x,
-        height: newHeight/ boxScaleFactor.y,
+        y: newY / boxScaleFactor.y,
+        width: newWidth / boxScaleFactor.x,
+        height: newHeight / boxScaleFactor.y,
       });
     }
   };
@@ -95,7 +102,9 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
   };
 
   const handleLabelConfirm = (selectedLabelId: number) => {
-    const labelInfo = labels.find((label) => label.label_id === selectedLabelId);
+    const labelInfo = labels.find(
+      (label) => label.label_id === selectedLabelId,
+    );
     console.log('labelInfo', labelInfo);
     if (currentBox && labelInfo) {
       confirmBox({
@@ -113,7 +122,6 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
     setShowLabelPopup(false);
   };
 
-
   return (
     <div>
       <div
@@ -122,13 +130,13 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-      style={{ cursor: 'crosshair' }}
+        style={{ cursor: 'crosshair' }}
       >
         {/* 現在描画中のボックス */}
         {currentBox && (
           <div
             style={{
-            position: 'absolute',
+              position: 'absolute',
               left: currentBox.x * boxScaleFactor.x,
               top: currentBox.y * boxScaleFactor.y,
               width: currentBox.width * boxScaleFactor.x,
@@ -142,7 +150,7 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
           <div
             key={index}
             style={{
-            position: 'absolute',
+              position: 'absolute',
               left: box.x * boxScaleFactor.x,
               top: box.y * boxScaleFactor.y,
               width: box.width * boxScaleFactor.x,
@@ -154,7 +162,10 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
               className="absolute text-s bg-black text-white p-1"
               style={{ top: '0', left: '0' }}
             >
-              {labels.find((label) => label.label_id === box.label_id)?.label_name}
+              {
+                labels.find((label) => label.label_id === box.label_id)
+                  ?.label_name
+              }
             </span>
           </div>
         ))}
