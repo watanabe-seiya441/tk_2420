@@ -105,8 +105,23 @@ def get_video_dimensions(video_path: str):
 
 @app.route("/api/list_oshi_images", methods=["POST"])
 def list_oshi_images():
-    dummy_data = ["image1.png", "image2.png", "image3.png"]  # 配列データの例
-    return jsonify(dummy_data), 201
+    ## とりあえず"photo/Whiplash/giselle/"の写真を返す# 
+
+    # 画像ディレクトリのパスを作成
+    directory_path = "photo/Whiplash/giselle/"
+
+    # ディレクトリの存在を確認し、存在する場合のみ処理
+    if os.path.isdir(directory_path):
+        # .pngファイルのみをリスト化してURL形式で返す
+        image_files = [
+            f"/{directory_path}/{filename}"
+            for filename in os.listdir(directory_path)
+            if filename.endswith('.png')
+        ]
+        return jsonify(image_files), 201
+    else:
+        # ディレクトリが存在しない場合のエラーメッセージ
+        return jsonify({"error": "指定されたディレクトリが存在しません"}), 404
 
 
 @app.route("/api/upload_kpop_face_match", methods=["POST"])
