@@ -14,6 +14,7 @@ const AespaPage = () => {
   console.log('selectedVideo:', selectedVideo);
   console.log('originalVideoWidth:', selectedVideo?.original_video_width);
   console.log('originalVideoHeight:', selectedVideo?.original_video_height);
+  console.log('backendUrl:', backendUrl);
 
   return (
     <main className="min-h-screen bg-gray-100">
