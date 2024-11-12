@@ -14,17 +14,17 @@ input_photo_path = "./Hashimoto_Kanna_at_Opening_Ceremony_of_the_Tokyo_Internati
 model = load_pretrained_model('ir_50')
 aligned_rgb_img = align.get_aligned_face(input_photo_path)
 bgr_tensor_input = to_input(aligned_rgb_img)
-feature, _ = model(bgr_tensor_input)
-feature = feature.detach().numpy()
+face_feature, _ = model(bgr_tensor_input)
+face_feature = face_feature.detach().numpy()
 
 similarity_scores = {}
-for fname, idol_feature_list in idol_features.items():
+for idol_name, idol_feature_list in idol_features.items():
     idol_feature = np.array(idol_feature_list)
-    similarity_scores[fname] = feature @  idol_feature.T
+    similarity_scores[idol_name] = face_feature @  idol_feature.T
 
 # 大きい順にソート
 sorted_similarity_scores = sorted(similarity_scores.items(), key=lambda x: x[1], reverse=True)
 
 # 類似度の高い順に出力
-for fname, score in sorted_similarity_scores:
-    print(fname, score)
+for idol_name, similarity_score in sorted_similarity_scores:
+    print(idol_name, similarity_score)
