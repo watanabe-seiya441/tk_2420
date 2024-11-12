@@ -8,4 +8,6 @@ runs_old/
 *.pyc
 *.db
 *.png
+*.ckpt
+*.DS_Store
 py/additional_dataset/

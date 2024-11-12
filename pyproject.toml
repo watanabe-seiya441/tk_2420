@@ -12,4 +12,11 @@ dependencies = [
     "lapx>=0.5.11",
     "opencv-python>=4.10.0.84",
     "ultralytics>=8.3.23",
+    "pytorch-lightning==1.8.6",
+    "torch<=1.13.1",
+    "bcolz-zipline",
+    "prettytable",
+    "menpo",
+    "opencv-python",
+    "net>=2.4",
 ]
