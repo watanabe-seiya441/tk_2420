@@ -1,48 +1,116 @@
-'use client';
-
-import { AnnotatedSnapshot, LabelInfo } from '@/app/lib/types';
+import { useEffect, useRef, useState } from 'react';
+import { AnnotatedSnapshot, LabelInfo, BoundingBox } from '@/app/lib/types';
 import { generateBoundingBoxesFromYOLO } from '@/app/lib/yoloUtils';
-import Image from 'next/image';
-import React from 'react';
 
 interface PreviewSnapshotsProps {
-    snapshots: AnnotatedSnapshot[];
-    labels: LabelInfo[];
+  snapshots: AnnotatedSnapshot[];
+  labels: LabelInfo[];
 }
 
-const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({ snapshots, labels }) => {
-    const imageWidth = 160;
-    const imageHeihgt = 160;
-    return (
-        <div className="flex space-x-2 overflow-x-auto">
-            <h1 className="text-lg font-bold">Annotation Preview</h1>
-            {snapshots.map((snapshot) => (
-                <div key={snapshot.id} className="relative border rounded">
-                    <Image
-                        src={URL.createObjectURL(snapshot.imageBlob)}
-                        alt={`Snapshot ${snapshot.id}`}
-                        layout="intrinsic"
-                        objectFit="contain"
-                        width={imageWidth} // 固定の幅
-                        height={imageHeihgt} // 固定の高さ
-                    />
-                    {generateBoundingBoxesFromYOLO(snapshot.annotations, labels, imageWidth, imageHeihgt).map((box, index) => (
-                        <div
-                            key={index}
-                            className="absolute border-2"
-                            style={{
-                                left: `${box.x}%`,
-                                top: `${box.y}%`,
-                                width: `${box.width}%`,
-                                height: `${box.height}%`,
-                                borderColor: box.color,
-                            }}
-                        ></div>
-                    ))}
-                </div>
-            ))}
+const PreviewSnapshots: React.FC<PreviewSnapshotsProps> = ({
+  snapshots,
+  labels,
+}) => {
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const [imageUrls, setImageUrls] = useState<{ id: string; url: string }[]>([]);
+  const [boundingBoxes, setBoundingBoxes] = useState<{
+    [key: string]: BoundingBox[];
+  }>({});
+
+  useEffect(() => {
+    // Generate URLs from Blobs
+    const urls = snapshots.map((snapshot) => ({
+      id: snapshot.id,
+      url: URL.createObjectURL(snapshot.imageBlob),
+    }));
+    setImageUrls(urls);
+
+    // Clean up Blob URLs when component unmounts
+    return () => {
+      urls.forEach(({ url }) => URL.revokeObjectURL(url));
+    };
+  }, [snapshots]);
+
+  useEffect(() => {
+    // Update bounding boxes when snapshots or image dimensions change
+    const updateBoundingBoxes = () => {
+      if (imageRef.current) {
+        const { width: imageWidth, height: imageHeight } = imageRef.current;
+        const boxes: { [key: string]: BoundingBox[] } = {};
+
+        snapshots.forEach((snapshot) => {
+          boxes[snapshot.id] = generateBoundingBoxesFromYOLO(
+            snapshot.annotations,
+            labels,
+            imageWidth,
+            imageHeight,
+          );
+        });
+        setBoundingBoxes(boxes);
+      }
+    };
+
+    updateBoundingBoxes();
+
+    // ResizeObserver to watch for image size changes
+    const resizeObserver = new ResizeObserver(() => {
+      // Use requestAnimationFrame to prevent rapid updates causing vibration
+      window.requestAnimationFrame(() => {
+        updateBoundingBoxes();
+      });
+    });
+
+    const currentImageRef = imageRef.current;
+
+    if (currentImageRef) {
+      resizeObserver.observe(currentImageRef);
+    }
+
+    return () => {
+      if (currentImageRef) {
+        resizeObserver.unobserve(currentImageRef);
+      }
+    };
+  }, [snapshots, labels, imageUrls]);
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 p-1">
+      {imageUrls.map(({ id, url }, index) => (
+        <div key={id} className="relative w-full h-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={index === 0 ? imageRef : null} // Set ref only on the first image
+            src={url}
+            alt={`snapshot-${id}`}
+            className="w-full h-auto"
+          />
+          {boundingBoxes[id]?.map((box, boxIndex) => (
+            <div
+              key={boxIndex}
+              className="absolute border-2 pointer-events-none"
+              style={{
+                top: `${box.y}px`,
+                left: `${box.x}px`,
+                width: `${box.width}px`,
+                height: `${box.height}px`,
+                borderColor: box.color,
+              }}
+            >
+              <span
+                className="absolute text-xs bg-black text-white p-1"
+                style={{ top: '-0.5rem', left: '0' }}
+              >
+                {
+                  labels.find((label) => label.label_id === box.label_id)
+                    ?.label_name
+                }
+              </span>
+            </div>
+          ))}
         </div>
-    );
+      ))}
+    </div>
+  );
 };
 
 export default PreviewSnapshots;

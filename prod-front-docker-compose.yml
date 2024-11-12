@@ -1,0 +1,5 @@
+services:
+  front-oshinoko:
+    image: ghcr.io/jphacks/tk_2420/frontend:latest
+    ports:
+      - "80:3000"

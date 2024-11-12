@@ -1,0 +1,17 @@
+README.md
+# Ignore node_modules since dependencies are managed by Docker in separate layers
+node_modules
+
+# Ignore any build artifacts or local cache
+.next
+out
+dist
+.cache
+
+# Ignore Docker files if not needed in the image
+Dockerfile
+
+# Ignore other common editor or OS generated files
+.DS_Store
+*.log
+*.swp

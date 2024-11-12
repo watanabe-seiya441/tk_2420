@@ -6,11 +6,11 @@ import uuid
 import cv2
 from werkzeug.utils import secure_filename
 
-from models import db, VideoInfo  # models からインポート
+from models import db, VideoInfo, AnnotationLabel  # models からインポート
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///video_info.db"
-CORS(app, origins=["http://localhost:3000"])  # Allow requests from React app.
+CORS(app)  # Allow requests tentatively. TODO: tighten this up
 
 # dbの初期化
 db.init_app(app)
@@ -104,6 +104,12 @@ def get_video_dimensions(video_path: str):
     return (video_width, video_height)
 
 
+@app.route("/api/upload_kpop_face_match", methods=["POST"])
+def upload_kpop_face_match():
+    dummy_data = "Winter"
+    return jsonify({"idol_name": dummy_data}), 201
+
+
 @app.route("/api/upload", methods=["POST"])
 def upload_video():
     """When new video is uploaded, save the video file and create overlay data."""
@@ -157,25 +163,54 @@ def upload_annotation():
     """Upload new annotation data and save to the specified directory."""
     annotation_file = request.files.get("annotation")
     image_file = request.files.get("image")
+    group_name = request.form.get("groupName")
 
-    if not annotation_file or not image_file:
-        return jsonify({"error": "Missing annotation or image file"}), 400
+    if not annotation_file or not image_file or not group_name:
+        return jsonify({"error": "Missing annotation or image file or group name"}), 400
+    
+    group_dir = os.path.join(ANNOTATION_DIR, group_name)
+    os.makedirs(group_dir, exist_ok=True)
 
     annotation_id = str(uuid.uuid4())
-    annotation_filename = secure_filename(f"groupname_{annotation_id}.txt")
-    annotation_path = os.path.join(ANNOTATION_DIR, annotation_filename)
+
+    annotation_filename = f"{annotation_id}.txt"
+    annotation_path = os.path.join(group_dir, annotation_filename)
     annotation_file.save(annotation_path)
 
-    image_filename = secure_filename(f"groupname_{annotation_id}.jpeg")
-    image_path = os.path.join(ANNOTATION_DIR, image_filename)
+    image_filename = f"{annotation_id}.jpeg"
+    image_path = os.path.join(group_dir, image_filename)
     image_file.save(image_path)
     
-    print(f"Annotation saved to {annotation_path}")
+    print(f"Annotation saved to {annotation_path} and image saved to {image_path}")
 
     return jsonify({
         "message": "Annotation and image uploaded successfully", 
     }), 201
 
+
+@app.route("/api/annotation_labels", methods=["GET"])
+def get_annotation_labels():
+    """Get list of annotation labels"""
+    group_name = request.args.get("groupName")
+    print(f"group_name: {group_name}")
+
+    labels = db.session.execute(
+        db.select(AnnotationLabel)
+        .filter_by(group_name=group_name)
+        .order_by(AnnotationLabel.label_id)
+    ).scalars().all()
+
+    # Convert to a list of dictionaries
+    labels_dict = [
+        {
+            "label_id": label.label_id,
+            "label_name": label.label_name,
+            "label_color": label.label_color,
+            "group_name": label.group_name,
+        }
+        for label in labels
+    ]
+    return jsonify(labels_dict)
 
 if __name__ == "__main__":
     with app.app_context():

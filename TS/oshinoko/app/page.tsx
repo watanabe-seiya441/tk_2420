@@ -11,8 +11,18 @@ const HomePage = () => {
         <h1 className="text-4xl font-bold mb-8">Explore Categories</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center">
           {categories.map((category) => (
-            <Link key={category.id} href={`/groups/${category.id}`} className="block p-4 bg-white shadow-lg rounded-lg hover:bg-gray-200 transition text-center">
-              <Image src={category.image} alt={category.name} width={150} height={150} className="rounded-full mx-auto" />
+            <Link
+              key={category.id}
+              href={`/groups/${category.id}`}
+              className="block p-4 bg-white shadow-lg rounded-lg hover:bg-gray-200 transition text-center"
+            >
+              <Image
+                src={category.image}
+                alt={category.name}
+                width={150}
+                height={150}
+                className="rounded-full mx-auto"
+              />
               <h2 className="mt-4 text-xl font-semibold">{category.name}</h2>
             </Link>
           ))}

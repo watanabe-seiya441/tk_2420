@@ -1,94 +1,144 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/app/ui/Header';
 import PreviewSnapshots from '@/app/ui/PreviewSnapshots';
-
 import AnnotationStudio from '@/app/ui/AnnotationStudio';
 import VideoList from '@/app/ui/VideoList';
-import { AnnotatedSnapshot, LabelInfo} from '@/app/lib/types';
+import { AnnotatedSnapshot, LabelInfo, Video } from '@/app/lib/types';
 import { convertSnapshotToFiles } from '@/app/lib/snapshotUtils';
 import { backendUrl } from '@/app/lib/config';
 import axios from 'axios';
 
-const dummyLabels: LabelInfo[] = [
-    { label_id: 0, label_name: "Person", label_color: "red" },
-    { label_id: 1, label_name: "Car", label_color: "green" },
-    { label_id: 2, label_name: "Bicycle", label_color: "blue" },
-];
-
+// TODO: set group name dynamically.
+const GROUP_NAME = 'aespa';
+const DEFAULT_VIDEO_URL = '/videos/Supernova.mp4';
 
 const AnnotationPage: React.FC = () => {
-    const [annotatedSnapshots, setAnnotatedSnapshots] = useState<AnnotatedSnapshot[]>([]);
-    const addAnnotatedSnapshot = (snapshot: AnnotatedSnapshot) => {
-        setAnnotatedSnapshots((prev) => [...prev, snapshot]);
-    };
-    const [labels, setLabels ] = useState<LabelInfo[]>(dummyLabels);
+  const [isAnnotationMode, setIsAnnotationMode] = useState(false);
+  const [annotatedSnapshots, setAnnotatedSnapshots] = useState<
+    AnnotatedSnapshot[]
+  >([]);
+  const [labels, setLabels] = useState<LabelInfo[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [groupName, setGroupName] = useState<string>(GROUP_NAME);
+  const [videoUrl, setVideoUrl] = useState<string>(DEFAULT_VIDEO_URL);
 
-    const uploadAnnotatedSnapshots = async () => {
-        if (annotatedSnapshots.length === 0) {
-            alert('No snapshots to upload.');
-            return;
-        }
-            try {
-                for (const snapshot of annotatedSnapshots) {
-                    const { imageFile, annotationFile } = convertSnapshotToFiles(snapshot);
+  const addAnnotatedSnapshot = (snapshot: AnnotatedSnapshot) => {
+    setAnnotatedSnapshots((prev) => [...prev, snapshot]);
+  };
 
-                    // Prepare FormData
-                    const formData = new FormData();
-                    formData.append('image', imageFile);
-                    formData.append('annotation', annotationFile);
+  const fetchLabelInfo = async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/api/annotation_labels`, {
+        params: { groupName },
+      });
+      setLabels(response.data);
+      console.log('Labels fetched:', response.data);
+    } catch (error) {
+      console.error('Failed to fetch labels:', error);
+    }
+  };
 
-                    // Send to backend
-                    await axios.post(`${backendUrl}/api/upload_annotation`, formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data',
-                        },
-                    });
-                }
-                console.log('All snapshots uploaded successfully.');
-                setAnnotatedSnapshots([]);
-            } catch (error) {
-                console.error('Error uploading snapshots:', error);
-                alert("Failed to upload snapshots. Please try again.");
-            }
-    };
+  useEffect(() => {
+    if (groupName) {
+      fetchLabelInfo();
+    }
+    // NOTE: errorの理由がまだよくわかっていないので無視
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groupName]);
 
-    return (
-        <div className="flex flex-col min-h-screen">
-            {/* Header */}
-            <Header />
+  const uploadAnnotatedSnapshots = async () => {
+    if (annotatedSnapshots.length === 0) {
+      alert('No snapshots to upload.');
+      return;
+    }
+    try {
+      for (const snapshot of annotatedSnapshots) {
+        const { imageFile, annotationFile } = convertSnapshotToFiles(snapshot);
 
-            {/* Main Content */}
-            <div className="flex flex-1">
-                {/* Left Side: Video Player and Annotation Tools */}
-                <div className="w-3/4 p-4 flex flex-col space-y-4 relative">
+        // Prepare FormData
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        formData.append('annotation', annotationFile);
+        formData.append('groupName', groupName);
 
-                    <AnnotationStudio addAnnotatedSnapshot={addAnnotatedSnapshot} labels={labels} />
+        // Send to backend
+        await axios.post(`${backendUrl}/api/upload_annotation`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+      }
+      console.log('All snapshots uploaded successfully.');
+      setAnnotatedSnapshots([]);
+    } catch (error) {
+      console.error('Error uploading snapshots:', error);
+      alert('Failed to upload snapshots. Please try again.');
+    }
+  };
 
-                    {/* Upload Snapshots Button */}
-                    <button
-                        onClick={uploadAnnotatedSnapshots}
-                        className="mt-4 p-2 bg-blue-600 text-white rounded"
-                    >
-                        Upload Snapshots
-                    </button>
+  const clearSnapshots = () => {
+    if (annotatedSnapshots.length === 0) {
+      alert('No snapshots to clear.');
+      return;
+    }
+    window.confirm('Are you sure you want to clear all snapshots?');
+    setAnnotatedSnapshots([]);
+  };
 
-                    {/* Preview Area */}
-                    <div className="h-40">
-                        <PreviewSnapshots snapshots={annotatedSnapshots} labels={labels} />
-                    </div>
-                </div>
+  const handleVideoSelect = (video: Video) => {
+    setVideoUrl(video.video_url);
+    console.log('Selected video:', videoUrl);
+  };
 
-                {/* Right Side: Video List */}
-                <div className="w-1/4 p-4 bg-gray-50">
-                    <VideoList
-                        onSelectVideo={() => { return; }}
-                    />
-                </div>
-            </div>
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Header */}
+      <Header />
+
+      {/* Main Content */}
+      <div className="flex flex-1">
+        {/* Left Side: Video Player and Annotation Tools */}
+        <div className="w-3/4 p-4 flex flex-col space-y-4 relative">
+          <AnnotationStudio
+            addAnnotatedSnapshot={addAnnotatedSnapshot}
+            isAnnotationMode={isAnnotationMode}
+            setIsAnnotationMode={setIsAnnotationMode}
+            labels={labels}
+            videoUrl={videoUrl}
+          />
         </div>
-    );
+
+        {/* Right Side: Video List or Snapshot Preview */}
+        <div className="w-1/4 p-4 bg-gray-50">
+          {isAnnotationMode || annotatedSnapshots.length !== 0 ? (
+            <>
+              <button
+                onClick={uploadAnnotatedSnapshots}
+                className="mt-4 p-2 bg-blue-600 text-white rounded"
+              >
+                Upload Snapshots
+              </button>
+              <button
+                onClick={clearSnapshots}
+                className="mt-4 p-2 bg-red-600 text-white rounded"
+              >
+                Clear Snapshots
+              </button>
+
+              <PreviewSnapshots
+                snapshots={annotatedSnapshots}
+                labels={labels}
+              />
+            </>
+          ) : (
+            <VideoList onSelectVideo={handleVideoSelect} groupName="aespa" />
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default AnnotationPage;

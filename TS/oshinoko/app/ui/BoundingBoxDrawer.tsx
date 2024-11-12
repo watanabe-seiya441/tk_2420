@@ -1,8 +1,10 @@
-import { useState, useRef } from "react";
-import { LabelInfo, BoundingBox } from "@/app/lib/types";
-import LabelSelectionPopup from "@/app/ui/LabelSelectionPopup";
-
-
+import { useState, useRef, useEffect } from 'react';
+import { LabelInfo, BoundingBox } from '@/app/lib/types';
+import {
+  STANDARD_VIDEO_BOX_WIDTH,
+  STANDARD_VIDEO_BOX_HEIGHT,
+} from '@/app/lib/constsnts';
+import LabelSelectionPopup from '@/app/ui/LabelSelectionPopup';
 
 interface BoundingBoxDrawerProps {
   labels: LabelInfo[];
@@ -13,13 +15,47 @@ interface BoundingBoxDrawerProps {
   confirmBox: (box: BoundingBox) => void;
 }
 
-const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,  
-  currentBox, setCurrentBox, clearCurrentBox, boundingBoxes, confirmBox
+const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({
+  labels,
+  currentBox,
+  setCurrentBox,
+  clearCurrentBox,
+  boundingBoxes,
+  confirmBox,
 }) => {
-
   const [showLabelPopup, setShowLabelPopup] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const startPoint = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [boxScaleFactor, setBoxScaleFactor] = useState<{
+    x: number;
+    y: number;
+  }>({ x: 1, y: 1 });
+
+  // Update scale factor when the window resizes
+  const updateScaleFactor = () => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const videoBoxWidth = STANDARD_VIDEO_BOX_WIDTH;
+      const videoBoxHeight = STANDARD_VIDEO_BOX_HEIGHT;
+      setBoxScaleFactor({
+        x: rect.width / videoBoxWidth,
+        y: rect.height / videoBoxHeight,
+      });
+    }
+  };
+
+  useEffect(() => {
+    // Set initial scale factor
+    updateScaleFactor();
+
+    // Add resize event listener
+    window.addEventListener('resize', updateScaleFactor);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener('resize', updateScaleFactor);
+    };
+  }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (containerRef.current) {
@@ -28,12 +64,11 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
       const startY = e.clientY - rect.top;
       startPoint.current = { x: startX, y: startY };
       setCurrentBox({
-        x: startX,
-        y: startY,
-        width: 0,
-        height: 0,
-        label: "",
-        color: "white",
+        x: startX / boxScaleFactor.x,
+        y: startY / boxScaleFactor.y,
+        width: 0 / boxScaleFactor.x,
+        height: 0 / boxScaleFactor.y,
+        color: 'white',
       });
     }
   };
@@ -51,26 +86,38 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
 
       setCurrentBox({
         ...currentBox,
-        x: newX,
-        y: newY,
-        width: newWidth,
-        height: newHeight,
+        x: newX / boxScaleFactor.x,
+        y: newY / boxScaleFactor.y,
+        width: newWidth / boxScaleFactor.x,
+        height: newHeight / boxScaleFactor.y,
       });
     }
   };
 
   const handleMouseUp = () => {
+    console.log('boxScaleFactor', boxScaleFactor);
     if (currentBox) {
+      const minBoxSize = 15;
+      const boxWidth = currentBox.width * boxScaleFactor.x;
+      const boxHeight = currentBox.height * boxScaleFactor.y;
+      // Too small box is not allowed for better UX.
+      if (boxWidth < minBoxSize || boxHeight < minBoxSize) {
+        clearCurrentBox();
+        return;
+      }
       setShowLabelPopup(true);
     }
   };
 
-  const handleLabelConfirm = (labelName: string) => {
-    const labelInfo = labels.find((label) => label.label_name === labelName);
+  const handleLabelConfirm = (selectedLabelId: number) => {
+    const labelInfo = labels.find(
+      (label) => label.label_id === selectedLabelId,
+    );
+    console.log('labelInfo', labelInfo);
     if (currentBox && labelInfo) {
       confirmBox({
         ...currentBox,
-        label: labelInfo.label_name,
+        label_id: labelInfo.label_id,
         color: labelInfo.label_color,
       });
     }
@@ -83,7 +130,6 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
     setShowLabelPopup(false);
   };
 
-
   return (
     <div>
       <div
@@ -92,18 +138,18 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-      style={{ cursor: 'crosshair' }}
+        style={{ cursor: 'crosshair' }}
       >
         {/* 現在描画中のボックス */}
         {currentBox && (
           <div
             style={{
-            position: 'absolute',
-              left: currentBox.x,
-              top: currentBox.y,
-              width: currentBox.width,
-              height: currentBox.height,
-              border: `2px dashed ${currentBox.color}`,
+              position: 'absolute',
+              left: currentBox.x * boxScaleFactor.x,
+              top: currentBox.y * boxScaleFactor.y,
+              width: currentBox.width * boxScaleFactor.x,
+              height: currentBox.height * boxScaleFactor.y,
+              border: `5px dashed ${currentBox.color}`,
             }}
           />
         )}
@@ -112,14 +158,24 @@ const BoundingBoxDrawer: React.FC<BoundingBoxDrawerProps> = ({ labels,
           <div
             key={index}
             style={{
-            position: 'absolute',
-              left: box.x,
-              top: box.y,
-              width: box.width,
-              height: box.height,
-              border: `2px solid ${box.color}`,
+              position: 'absolute',
+              left: box.x * boxScaleFactor.x,
+              top: box.y * boxScaleFactor.y,
+              width: box.width * boxScaleFactor.x,
+              height: box.height * boxScaleFactor.y,
+              border: `5px solid ${box.color}`,
             }}
-          />
+          >
+            <span
+              className="absolute text-s bg-black text-white p-1"
+              style={{ top: '0', left: '0' }}
+            >
+              {
+                labels.find((label) => label.label_id === box.label_id)
+                  ?.label_name
+              }
+            </span>
+          </div>
         ))}
       </div>
 

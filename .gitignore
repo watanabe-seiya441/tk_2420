@@ -10,3 +10,4 @@ runs_old/
 *.png
 *.ckpt
 *.DS_Store
+py/additional_dataset/
