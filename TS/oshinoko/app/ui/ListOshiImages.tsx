@@ -42,15 +42,17 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({ selectedVideo }) => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 mt-4">
-      {imageUrls.map((url, index) => (
-        <img
-          key={index}
-          src={url} // 画像URLをsrcに直接設定
-          alt={`Image ${index + 1}`}
-          className="w-full h-auto rounded-lg shadow-md"
-        />
-      ))}
+    <div className="overflow-x-auto mt-4" style={{ width: '100%', maxWidth: '800px' }}>
+      <div className="flex gap-4">
+        {imageUrls.map((url, index) => (
+          <img
+            key={index}
+            src={url}
+            alt={`Image ${index + 1}`}
+            className="h-48 w-auto rounded-lg shadow-md"
+          />
+        ))}
+      </div>
     </div>
   );
 };
