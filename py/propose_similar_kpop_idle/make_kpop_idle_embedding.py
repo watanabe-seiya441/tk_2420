@@ -8,25 +8,28 @@ from face_alignment import align
 import os
 import json
 
-model = load_pretrained_model("ir_50")
-input_imp_path = "./kpop_idle_dataset/Hashimoto_Kanna_at_Opening_Ceremony_of_the_Tokyo_International_Film_Festival_2017_(39304102215)_(cropped).jpg"
-kpop_idle_dir = "./kpop_idle_dataset"
 
-idle_features = {}
-# Get the feature of the test image
-for idol_name in os.listdir(kpop_idle_dir):
-    face_features = []
-    idle_photo_dir = os.path.join(kpop_idle_dir, idol_name)
-    for photo in os.listdir(idle_photo_dir):
-        idle_photo_path = os.path.join(idle_photo_dir, photo)
-        aligned_rgb_img = align.get_aligned_face(idle_photo_path)
-        bgr_tensor_input = to_input(aligned_rgb_img)
-        feature, _ = model(bgr_tensor_input)
-        face_features.append(feature)
-        average_feature = sum(face_features) / len(face_features)
-        average_feature = average_feature.tolist()
-    idle_features[idol_name] = average_feature
+def make_kpop_idle_embedding(kpop_idle_dir="./kpop_idle_dataset"):
+    model = load_pretrained_model("ir_50")
 
-with open("idol_features.json", "w") as f:
-    json.dump(idle_features, f)
+    idle_features = {}
+    # Get the feature of the test image
+    for idol_name in os.listdir(kpop_idle_dir):
+        face_features = []
+        idle_photo_dir = os.path.join(kpop_idle_dir, idol_name)
+        for photo in os.listdir(idle_photo_dir):
+            idle_photo_path = os.path.join(idle_photo_dir, photo)
+            aligned_rgb_img = align.get_aligned_face(idle_photo_path)
+            bgr_tensor_input = to_input(aligned_rgb_img)
+            face_emmbedding, _ = model(bgr_tensor_input)
+            face_features.append(face_emmbedding)
+            average_feature = (sum(face_features) / len(face_features)).tolist()
+        idle_features[idol_name] = average_feature
+
+    with open("idol_features.json", "w") as f:
+        json.dump(idle_features, f)
+
+
+if __name__ == "__main__":
+    make_kpop_idle_embedding()
     
