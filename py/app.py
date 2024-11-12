@@ -105,24 +105,28 @@ def get_video_dimensions(video_path: str):
 
 @app.route("/api/list_oshi_images", methods=["POST"])
 def list_oshi_images():
-    ## とりあえず"photo/Whiplash/giselle/"の写真を返す# 
-
-    # 画像ディレクトリのパスを作成
+    # 画像ディレクトリのパス
     directory_path = "photo/Whiplash/giselle/"
 
-    # ディレクトリの存在を確認し、存在する場合のみ処理
+    # ディレクトリが存在する場合のみ処理
     if os.path.isdir(directory_path):
-        # .pngファイルのみをリスト化してURL形式で返す
-        image_files = [
-            f"/{directory_path}/{filename}"
+        # 画像のリンクを作成し、リストとして返す
+        image_urls = [
+            f"{request.host_url}photo/Whiplash/giselle/{filename}"  # 画像URLを直接組み立てる
             for filename in os.listdir(directory_path)
             if filename.endswith('.png')
         ]
-        return jsonify(image_files), 201
+        return jsonify(image_urls), 201
     else:
         # ディレクトリが存在しない場合のエラーメッセージ
         return jsonify({"error": "指定されたディレクトリが存在しません"}), 404
 
+# 画像を取得するためのエンドポイント
+@app.route("/photo/Whiplash/giselle/<path:filename>", methods=["GET"])
+def get_image(filename):
+    # フルパスを指定
+    directory_path = "photo/Whiplash/giselle"
+    return send_from_directory(directory_path, filename)
 
 @app.route("/api/upload_kpop_face_match", methods=["POST"])
 def upload_kpop_face_match():
