@@ -8,3 +8,5 @@ runs_old/
 *.pyc
 *.db
 *.png
+*.ckpt
+*.DS_Store
