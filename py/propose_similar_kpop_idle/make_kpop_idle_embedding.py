@@ -9,8 +9,8 @@ import os
 import json
 
 
-def make_kpop_idle_embedding(kpop_idle_dir="./kpop_idle_dataset"):
-    model = load_pretrained_model("ir_50")
+def make_kpop_idle_embedding(kpop_idle_dir="propose_similar_kpop_idle/kpop_idle_dataset", model_path="propose_similar_kpop_idle/AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt", output_json_path="propose_similar_kpop_idle/idol_features.json"):
+    model = load_pretrained_model("ir_50", model_path)
 
     idle_features = {}
     # Get the feature of the test image
@@ -26,8 +26,8 @@ def make_kpop_idle_embedding(kpop_idle_dir="./kpop_idle_dataset"):
             average_feature = (sum(face_features) / len(face_features)).tolist()
         idle_features[idol_name] = average_feature
 
-    with open("idol_features.json", "w") as f:
-        json.dump(idle_features, f)
+    with open(output_json_path, "w") as f:
+        json.dump(idle_features, f, indent=4)
 
 
 if __name__ == "__main__":

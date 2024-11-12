@@ -5,11 +5,10 @@ from AdaFace.face_alignment import align
 import numpy as np
 
 
-adaface_models = {
-    'ir_50':"AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt",
-}
-
-def load_pretrained_model(architecture='ir_50'):
+def load_pretrained_model(architecture='ir_50', model_path="AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt"):
+    adaface_models = {
+        'ir_50':model_path,
+    }
     # load model and pretrained statedict
     assert architecture in adaface_models.keys()
     model = net.build_model(architecture)
