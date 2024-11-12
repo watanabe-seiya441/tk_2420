@@ -10,7 +10,7 @@ from models import db, VideoInfo, AnnotationLabel  # models からインポー�
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///video_info.db"
-CORS(app, origins=["http://localhost:3000"])  # Allow requests from React app.
+CORS(app)  # Allow requests tentatively. TODO: tighten this up
 
 # dbの初期化
 db.init_app(app)
