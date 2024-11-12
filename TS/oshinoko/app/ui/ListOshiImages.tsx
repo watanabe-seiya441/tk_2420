@@ -42,7 +42,7 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({ selectedVideo }) => {
   }
 
   return (
-    <div className="overflow-x-auto mt-4" style={{ width: '100%', maxWidth: '800px' }}>
+    <div className="overflow-x-auto mt-4" style={{ width: '100%'}}>
       <div className="flex gap-4">
         {imageUrls.map((url, index) => (
           <img
