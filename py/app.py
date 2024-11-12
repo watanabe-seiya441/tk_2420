@@ -104,6 +104,12 @@ def get_video_dimensions(video_path: str):
     return (video_width, video_height)
 
 
+@app.route("/api/upload_kpop_face_match", methods=["POST"])
+def upload_kpop_face_match():
+    dummy_data = "Winter"
+    return jsonify({"idol_name": dummy_data}), 201
+
+
 @app.route("/api/upload", methods=["POST"])
 def upload_video():
     """When new video is uploaded, save the video file and create overlay data."""

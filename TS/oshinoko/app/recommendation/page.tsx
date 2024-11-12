@@ -24,12 +24,16 @@ const RecommendationPage = () => {
     formData.append('image', selectedFile);
 
     try {
-      const response = await axios.post(`${backendUrl}/api/upload`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      const response = await axios.post(
+        `${backendUrl}/api/upload_kpop_face_match`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      });
-      setCelebrityName(response.data.celebrityName);
+      );
+      setCelebrityName(response.data.idol_name);
     } catch (error) {
       console.error('Error uploading file:', error);
       alert('Failed to upload the file. Please try again.');
