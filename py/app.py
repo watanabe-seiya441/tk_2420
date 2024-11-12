@@ -103,6 +103,11 @@ def get_video_dimensions(video_path: str):
     cap.release()
     return (video_width, video_height)
 
+@app.route("/api/list_oshi_images", methods=["POST"])
+def list_oshi_images():
+    dummy_data = ["image1.png", "image2.png", "image3.png"]  # 配列データの例
+    return jsonify(dummy_data), 201
+
 
 @app.route("/api/upload_kpop_face_match", methods=["POST"])
 def upload_kpop_face_match():
