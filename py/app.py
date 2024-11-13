@@ -6,6 +6,7 @@ import cv2
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import AnnotationLabel, VideoInfo, db  # models からインポート
+from movie_detector import annotate_video
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -86,7 +87,7 @@ def get_video_data(video_id: str):
 # TODO: This is sitll a dummy implementation. Implement the actual overlay creation logic.
 def create_overlay(video_file, video_id: str) -> str:
     """Creates overlay data in JSON for the given video file using its unique ID."""
-    overlay_path = f"/{OVERLAY_DIR}/overlay_{video_id}.json"
+    overlay_path = f"{OVERLAY_DIR}/overlay_{video_id}.json"
     # Dummy overlay content for illustration
     overlay_data = {"data": "overlay content"}
     with open(os.path.join("overlays", f"overlay_{video_id}.json"), "w") as f:
@@ -123,38 +124,40 @@ def upload_video():
 
     video_id = str(uuid.uuid4())
     # Save the uploaded video file
-    clean_title = secure_filename(title)
-    if not clean_title:
-        clean_title = "video"
+    clean_title = secure_filename(title) or "video"
 
     video_filename = f"{clean_title}_{video_id}.mp4"
     video_path = os.path.join(VIDEO_DIR, video_filename)
     video_file.save(video_path)
 
     video_width, video_height = get_video_dimensions(video_path)
-    overlay_path = create_overlay(video_file, video_id)
 
-    new_video = VideoInfo(
-        id=video_id,
-        title=title,
-        group_name=group_name,
-        video_url=video_path,
-        overlay_url=overlay_path,
-        original_video_width=video_width,
-        original_video_height=video_height,
-    )
-    db.session.add(new_video)
-    db.session.commit()
+    # Annotate the video (add bounding boxes and overlay data)
+    overlay_path = create_overlay(video_file, video_id)
+    output_path = "output.mp4"
+    annotate_video(video_path, output_path, overlay_path, "../hackday/models/hackv4i.pt")
+
+    # new_video = VideoInfo(
+    #     id=video_id,
+    #     title=title,
+    #     group_name=group_name,
+    #     video_url=video_path,
+    #     overlay_url=overlay_path,
+    #     original_video_width=video_width,
+    #     original_video_height=video_height,
+    # )
+    # db.session.add(new_video)
+    # db.session.commit()
 
     return jsonify(
         {
-            "id": new_video.id,
-            "title": new_video.title,
-            "group_name": new_video.group_name,
-            "video_url": f"/{new_video.video_url}",
-            "overlay_url": new_video.overlay_url,
-            "original_video_width": new_video.original_video_width,
-            "original_video_height": new_video.original_video_height,
+            "id": video_id,
+            "title": title,
+            "group_name": group_name,
+            "video_url": f"/videos/{video_filename}",
+            "overlay_url": f"/overlays/overlay_{video_id}.json",
+            "original_video_width": video_width,
+            "original_video_height": video_height,
         }
     ), 201
 
