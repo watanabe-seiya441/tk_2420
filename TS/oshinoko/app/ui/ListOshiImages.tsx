@@ -5,19 +5,23 @@ import { backendUrl } from '@/app/lib/config';
 import axios from 'axios';
 
 interface ListOshiImageProps {
-
   title: string;
 }
 
-const ListOshiImages: React.FC<ListOshiImageProps> = ({title }) => {
+const ListOshiImages: React.FC<ListOshiImageProps> = ({ title }) => {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
+        console.log(`Fetching images for title: ${title}`);
+
+        // タイトルに応じて画像リストを取得
         const response = await axios.post<string[]>(`${backendUrl}/api/list_oshi_images`, { title });
-        setImageUrls(response.data); // URLリストを状態に設定
+        
+        console.log("Fetched image URLs:", response.data);
+        setImageUrls(response.data);
         setError(null);
       } catch (err) {
         console.error('Failed to fetch image URLs:', err);
@@ -25,8 +29,8 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({title }) => {
       }
     };
 
-    fetchImages(); // 画像のフェッチ関数を呼び出し
-  }, [title]);
+    fetchImages();
+  }, [title]); // titleの変更に応じて再実行
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
