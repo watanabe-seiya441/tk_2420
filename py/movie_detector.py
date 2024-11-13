@@ -35,11 +35,11 @@ def annotate_video(
     frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     tmp_movie_output_path = "./tmp.mp4"
 
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")  # type: ignore
     out = cv2.VideoWriter(tmp_movie_output_path, fourcc, fps, (frame_width, frame_height))
 
     # 過去のバウンディングボックスとクラス情報を保存する辞書を初期化
-    past_info = {}
+    past_info: dict[int, dict] = {}
     # 前のフレームを保存する変数を初期化（シーン切り替え検出用）
     prev_frame_gray = None
     # シーン切り替えのしきい値
@@ -59,7 +59,7 @@ def annotate_video(
     frame_count = 0
 
     # オーバーレイデータの初期化
-    overlay_data = {"overlays": []}
+    overlay_data: dict[str, list] = {"overlays": []}
     class_colors = {
         "karina": "#0000FF",  # ブルー
         "giselle": "#FF69B4",  # ピンク
@@ -91,7 +91,7 @@ def annotate_video(
         # シーン切り替えの検出
         frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         if prev_frame_gray is not None:
-            diff = cv2.absdiff(prev_frame_gray, frame_gray)
+            diff = cv2.absdiff(prev_frame_gray, frame_gray)  # type: ignore
             non_zero_count = np.count_nonzero(diff)
             if non_zero_count / (frame_width * frame_height) * 100 > scene_change_threshold:
                 # シーンが切り替わったと判断し、過去の情報をリセット
