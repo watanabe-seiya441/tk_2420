@@ -5,6 +5,19 @@
 4. Place `Whiplash.mp4` and `Supernova.mp4` in `/py/videos/` directory if you want to work with frontend.
 5. Set data in SQLite database by `python3 seed_db.py`
 6. Run `app.py` with `cd py` and then `python3 app.py`
+ or `flask run --host=0.0.0.0 --port 5000` 
+
+# Development
+## Linter, Formatter and Type checker
+```sh
+ruff check # check code with linter
+ruff format # run formatter
+# organize import order. 
+ruff check --select I --fix # ruff formatだけでは不十分
+# Type check
+mypy py
+```
+
 
 # Backend structure
 ```
