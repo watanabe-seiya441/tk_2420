@@ -1,12 +1,12 @@
+import json
+import os
+import uuid
+
+import cv2
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-import os
-import json
-import uuid
-import cv2
+from models import AnnotationLabel, VideoInfo, db  # models からインポート
 from werkzeug.utils import secure_filename
-
-from models import db, VideoInfo, AnnotationLabel  # models からインポート
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///video_info.db"
@@ -24,6 +24,7 @@ ANNOTATION_DIR = "additional_dataset"
 os.makedirs(VIDEO_DIR, exist_ok=True)
 os.makedirs(OVERLAY_DIR, exist_ok=True)
 os.makedirs(ANNOTATION_DIR, exist_ok=True)
+
 
 # Serve static files.
 # Route to serve video files
@@ -167,7 +168,7 @@ def upload_annotation():
 
     if not annotation_file or not image_file or not group_name:
         return jsonify({"error": "Missing annotation or image file or group name"}), 400
-    
+
     group_dir = os.path.join(ANNOTATION_DIR, group_name)
     os.makedirs(group_dir, exist_ok=True)
 
@@ -180,12 +181,14 @@ def upload_annotation():
     image_filename = f"{annotation_id}.jpeg"
     image_path = os.path.join(group_dir, image_filename)
     image_file.save(image_path)
-    
+
     print(f"Annotation saved to {annotation_path} and image saved to {image_path}")
 
-    return jsonify({
-        "message": "Annotation and image uploaded successfully", 
-    }), 201
+    return jsonify(
+        {
+            "message": "Annotation and image uploaded successfully",
+        }
+    ), 201
 
 
 @app.route("/api/annotation_labels", methods=["GET"])
@@ -194,11 +197,13 @@ def get_annotation_labels():
     group_name = request.args.get("groupName")
     print(f"group_name: {group_name}")
 
-    labels = db.session.execute(
-        db.select(AnnotationLabel)
-        .filter_by(group_name=group_name)
-        .order_by(AnnotationLabel.label_id)
-    ).scalars().all()
+    labels = (
+        db.session.execute(
+            db.select(AnnotationLabel).filter_by(group_name=group_name).order_by(AnnotationLabel.label_id)
+        )
+        .scalars()
+        .all()
+    )
 
     # Convert to a list of dictionaries
     labels_dict = [
@@ -211,6 +216,7 @@ def get_annotation_labels():
         for label in labels
     ]
     return jsonify(labels_dict)
+
 
 if __name__ == "__main__":
     with app.app_context():

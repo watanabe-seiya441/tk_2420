@@ -1,24 +1,23 @@
+import os
+import sys
 from typing import Tuple
+
 import numpy as np
 import torch
 from PIL import Image
 from torch.autograd import Variable
 
-import sys
-import os
-
 sys.path.insert(0, os.path.dirname(__file__))
 
-from mtcnn_pytorch.src.get_nets import PNet, RNet, ONet
-from mtcnn_pytorch.src.box_utils import nms, calibrate_box, get_image_boxes, convert_to_square
-from mtcnn_pytorch.src.first_stage import run_first_stage
 from mtcnn_pytorch.src.align_trans import get_reference_facial_points, warp_and_crop_face
+from mtcnn_pytorch.src.box_utils import calibrate_box, convert_to_square, get_image_boxes, nms
+from mtcnn_pytorch.src.first_stage import run_first_stage
+from mtcnn_pytorch.src.get_nets import ONet, PNet, RNet
 
 
-class MTCNN():
-    def __init__(self, device: str = 'cuda:0', crop_size: Tuple[int, int] = (112, 112)):
-
-        assert device in ['cuda:0', 'cpu']
+class MTCNN:
+    def __init__(self, device: str = "cuda:0", crop_size: Tuple[int, int] = (112, 112)):
+        assert device in ["cuda:0", "cpu"]
         self.device = torch.device(device)
         assert crop_size in [(112, 112), (96, 112)]
         self.crop_size = crop_size
@@ -36,10 +35,9 @@ class MTCNN():
         self.refrence = get_reference_facial_points(default_square=crop_size[0] == crop_size[1])
 
         self.min_face_size = 20
-        self.thresholds =  [0.6,0.7,0.9]
+        self.thresholds = [0.6, 0.7, 0.9]
         self.nms_thresholds = [0.7, 0.7, 0.7]
         self.factor = 0.85
-
 
         os.chdir(cwd)
 
@@ -134,7 +132,7 @@ class MTCNN():
 
             keep = np.where(probs[:, 1] > thresholds[1])[0]
             bounding_boxes = bounding_boxes[keep]
-            bounding_boxes[:, 4] = probs[keep, 1].reshape((-1, ))
+            bounding_boxes[:, 4] = probs[keep, 1].reshape((-1,))
             offsets = offsets[keep]
 
             keep = nms(bounding_boxes, nms_thresholds[1])
@@ -156,7 +154,7 @@ class MTCNN():
 
             keep = np.where(probs[:, 1] > thresholds[2])[0]
             bounding_boxes = bounding_boxes[keep]
-            bounding_boxes[:, 4] = probs[keep, 1].reshape((-1, ))
+            bounding_boxes[:, 4] = probs[keep, 1].reshape((-1,))
             offsets = offsets[keep]
             landmarks = landmarks[keep]
 
@@ -168,7 +166,7 @@ class MTCNN():
             landmarks[:, 5:10] = np.expand_dims(ymin, 1) + np.expand_dims(height, 1) * landmarks[:, 5:10]
 
             bounding_boxes = calibrate_box(bounding_boxes, offsets)
-            keep = nms(bounding_boxes, nms_thresholds[2], mode='min')
+            keep = nms(bounding_boxes, nms_thresholds[2], mode="min")
             bounding_boxes = bounding_boxes[keep]
             landmarks = landmarks[keep]
 

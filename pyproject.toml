@@ -19,4 +19,56 @@ dependencies = [
     "menpo",
     "opencv-python",
     "net>=2.4",
+    "ruff>=0.7.3",
+]
+
+[tool.mypy]
+check_untyped_defs = false
+ignore_missing_imports = true
+python_version = '3.10'
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".git",
+  ".ipynb_checkpoints",
+  ".mypy_cache",
+  ".pytest_cache",
+  ".ruff_cache",
+  ".venv",
+  ".vscode",
+  "__pypackages__",
+  "__pycache__",
+  "venv",
+  "hackday",
+  "py/propose_similar_kpop_idle/AdaFace"
+]
+line-length = 120
+indent-width = 4
+
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["I", "B", "F", "E"]
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.13.0",
 ]

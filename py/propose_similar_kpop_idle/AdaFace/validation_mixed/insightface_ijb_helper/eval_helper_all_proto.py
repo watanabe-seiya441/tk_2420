@@ -1,12 +1,14 @@
-import pandas as pd
 import os
-import numpy as np
 import random
+
 import cv2
-from skimage import transform
-from sklearn.metrics import roc_curve, auc
-from tqdm import tqdm
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from skimage import transform
+from sklearn.metrics import auc, roc_curve
+from tqdm import tqdm
+
 
 def read_IJB_meta_columns_to_int(file_path, columns, sep=" ", skiprows=0, header=None):
     # meta = np.loadtxt(file_path, skiprows=skiprows, delimiter=sep)
@@ -44,7 +46,9 @@ def extract_IJB_data_11(data_path, subset, save_path=None, force_reload=False):
 
     print(">>>> Loading templates and medias...")
     templates, medias = read_IJB_meta_columns_to_int(media_list_path, columns=[1, 2])  # ['1.jpg', '1', '69544']
-    print("templates: %s, medias: %s, unique templates: %s" % (templates.shape, medias.shape, np.unique(templates).shape))
+    print(
+        "templates: %s, medias: %s, unique templates: %s" % (templates.shape, medias.shape, np.unique(templates).shape)
+    )
     # templates: (227630,), medias: (227630,), unique templates: (12115,)
 
     print(">>>> Loading pairs...")
@@ -114,15 +118,26 @@ def extract_gallery_prob_data(data_path, subset, save_path=None, force_reload=Fa
     print(">>>> Loading gallery feature...")
     s1_templates, s1_subject_ids = read_IJB_meta_columns_to_int(gallery_s1_record, columns=[0, 1], skiprows=1, sep=",")
     s2_templates, s2_subject_ids = read_IJB_meta_columns_to_int(gallery_s2_record, columns=[0, 1], skiprows=1, sep=",")
-    print("s1 gallery: %s, ids: %s, unique: %s" % (s1_templates.shape, s1_subject_ids.shape, np.unique(s1_templates).shape))
-    print("s2 gallery: %s, ids: %s, unique: %s" % (s2_templates.shape, s2_subject_ids.shape, np.unique(s2_templates).shape))
+    print(
+        "s1 gallery: %s, ids: %s, unique: %s"
+        % (s1_templates.shape, s1_subject_ids.shape, np.unique(s1_templates).shape)
+    )
+    print(
+        "s2 gallery: %s, ids: %s, unique: %s"
+        % (s2_templates.shape, s2_subject_ids.shape, np.unique(s2_templates).shape)
+    )
 
     print(">>>> Loading prope feature...")
     probe_mixed_templates, probe_mixed_subject_ids = read_IJB_meta_columns_to_int(
         probe_mixed_record, columns=[0, 1], skiprows=1, sep=","
     )
-    print("probe_mixed_templates: %s, unique: %s" % (probe_mixed_templates.shape, np.unique(probe_mixed_templates).shape))
-    print("probe_mixed_subject_ids: %s, unique: %s" % (probe_mixed_subject_ids.shape, np.unique(probe_mixed_subject_ids).shape))
+    print(
+        "probe_mixed_templates: %s, unique: %s" % (probe_mixed_templates.shape, np.unique(probe_mixed_templates).shape)
+    )
+    print(
+        "probe_mixed_subject_ids: %s, unique: %s"
+        % (probe_mixed_subject_ids.shape, np.unique(probe_mixed_subject_ids).shape)
+    )
 
     print(">>>> Saving backup to: %s ..." % save_path)
     np.savez(
@@ -141,7 +156,8 @@ def extract_gallery_prob_data(data_path, subset, save_path=None, force_reload=Fa
 def face_align_landmark(img, landmark, image_size=(112, 112), method="similar"):
     tform = transform.AffineTransform() if method == "affine" else transform.SimilarityTransform()
     src = np.array(
-        [[38.2946, 51.6963], [73.5318, 51.5014], [56.0252, 71.7366], [41.5493, 92.3655], [70.729904, 92.2041]], dtype=np.float32
+        [[38.2946, 51.6963], [73.5318, 51.5014], [56.0252, 71.7366], [41.5493, 92.3655], [70.729904, 92.2041]],
+        dtype=np.float32,
     )
     tform.estimate(landmark, src)
     # ndimage = transform.warp(img, tform.inverse, output_shape=image_size)
@@ -152,12 +168,12 @@ def face_align_landmark(img, landmark, image_size=(112, 112), method="similar"):
         ndimage = np.stack([ndimage, ndimage, ndimage], -1)
     else:
         if random.random() < 0.1:
-            print('using RGB image!!')
+            print("using RGB image!!")
         ndimage = cv2.cvtColor(ndimage, cv2.COLOR_BGR2RGB)
     return ndimage
 
 
-def plot_roc_and_calculate_tpr(scores, names=None, label=None, save_root=''):
+def plot_roc_and_calculate_tpr(scores, names=None, label=None, save_root=""):
     print(">>>> plot roc and calculate tpr...")
     score_dict = {}
     for id, score in enumerate(scores):
@@ -191,7 +207,7 @@ def plot_roc_and_calculate_tpr(scores, names=None, label=None, save_root=''):
         tpr_result[name] = [tpr[np.argmin(abs(fpr - ii))] for ii in x_labels]
         fpr_dict[name], tpr_dict[name], roc_auc_dict[name] = fpr, tpr, roc_auc
     tpr_result_df = pd.DataFrame(tpr_result, index=x_labels).T
-    tpr_result_df['AUC'] = pd.Series(roc_auc_dict)
+    tpr_result_df["AUC"] = pd.Series(roc_auc_dict)
     tpr_result_df.columns.name = "Methods"
     print(tpr_result_df)
     # print(tpr_result_df)
@@ -201,7 +217,7 @@ def plot_roc_and_calculate_tpr(scores, names=None, label=None, save_root=''):
         plt.plot(fpr_dict[name], tpr_dict[name], lw=1, label="[%s (AUC = %0.4f%%)]" % (name, roc_auc_dict[name] * 100))
     title = "ROC on IJB" + name.split("IJB")[-1][0] if "IJB" in name else "ROC on IJB"
 
-    plt.xlim([10 ** -6, 0.1])
+    plt.xlim([10**-6, 0.1])
     plt.xscale("log")
     plt.xticks(x_labels)
     plt.xlabel("False Positive Rate")
@@ -211,18 +227,18 @@ def plot_roc_and_calculate_tpr(scores, names=None, label=None, save_root=''):
 
     plt.grid(linestyle="--", linewidth=1)
     plt.title(title)
-    plt.legend(loc="lower right", fontsize='x-small')
+    plt.legend(loc="lower right", fontsize="x-small")
     plt.tight_layout()
 
     if save_root:
-        plt.savefig(os.path.join(save_root, 'visual.png'))
-        tpr_result_df.to_csv(os.path.join(save_root, 'result.csv'))
-    plt.clf() 
+        plt.savefig(os.path.join(save_root, "visual.png"))
+        tpr_result_df.to_csv(os.path.join(save_root, "result.csv"))
+    plt.clf()
 
     return tpr_result_df, fig
 
 
-def plot_dir_far_cmc_scores(scores, names=None, save_root=''):
+def plot_dir_far_cmc_scores(scores, names=None, save_root=""):
     fig = plt.figure()
     for id, score in enumerate(scores):
         name = None if names is None else names[id]
@@ -243,15 +259,14 @@ def plot_dir_far_cmc_scores(scores, names=None, save_root=''):
     plt.ylim([0, 1])
 
     plt.grid(linestyle="--", linewidth=1)
-    plt.legend(fontsize='x-small')
+    plt.legend(fontsize="x-small")
     plt.tight_layout()
-    
+
     if save_root:
-        plt.savefig(os.path.join(save_root, 'visual.png'))
+        plt.savefig(os.path.join(save_root, "visual.png"))
     plt.clf()
 
     return fig
-
 
 
 def verification_11(template_norm_feats=None, unique_templates=None, p1=None, p2=None, batch_size=10000):
@@ -299,7 +314,9 @@ def evaluation_1N(query_feats, gallery_feats, query_ids, reg_ids, fars=[0.01, 0.
     total_pos = len(pos_sims)
     pos_sims, neg_sims, non_gallery_sims = np.array(pos_sims), np.array(neg_sims), np.array(non_gallery_sims)
     print("pos_sims: %s, neg_sims: %s, non_gallery_sims: %s" % (pos_sims.shape, neg_sims.shape, non_gallery_sims.shape))
-    print("top1: %f, top5: %f, top10: %f" % (top_1_count / total_pos, top_5_count / total_pos, top_10_count / total_pos))
+    print(
+        "top1: %f, top5: %f, top10: %f" % (top_1_count / total_pos, top_5_count / total_pos, top_10_count / total_pos)
+    )
 
     correct_pos_cond = pos_sims > neg_sims.max(1)
     non_gallery_sims_sorted = np.sort(non_gallery_sims.max(1))[::-1]
@@ -311,5 +328,7 @@ def evaluation_1N(query_feats, gallery_feats, query_ids, reg_ids, fars=[0.01, 0.
         threshes.append(thresh)
         recalls.append(recall)
         # print("FAR = {:.10f} TPIR = {:.10f} th = {:.10f}".format(far, recall, thresh))
-    cmc_scores = list(zip(neg_sims, pos_sims.reshape(-1, 1))) + list(zip(non_gallery_sims, [None] * non_gallery_sims.shape[0]))
+    cmc_scores = list(zip(neg_sims, pos_sims.reshape(-1, 1))) + list(
+        zip(non_gallery_sims, [None] * non_gallery_sims.shape[0])
+    )
     return top_1_count, top_5_count, top_10_count, threshes, recalls, cmc_scores
