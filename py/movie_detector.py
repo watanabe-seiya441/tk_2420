@@ -35,7 +35,7 @@ def annotate_video(
     frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     tmp_movie_output_path = "./tmp.mp4"
 
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")  # type: ignore
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     out = cv2.VideoWriter(tmp_movie_output_path, fourcc, fps, (frame_width, frame_height))
 
     # 過去のバウンディングボックスとクラス情報を保存する辞書を初期化
