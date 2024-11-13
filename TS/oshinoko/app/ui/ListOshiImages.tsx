@@ -5,21 +5,18 @@ import { backendUrl } from '@/app/lib/config';
 import axios from 'axios';
 
 interface ListOshiImageProps {
-  selectedVideo: { video_url: string };
+
+  title: string;
 }
 
-const ListOshiImages: React.FC<ListOshiImageProps> = ({ selectedVideo }) => {
+const ListOshiImages: React.FC<ListOshiImageProps> = ({title }) => {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const videoName = selectedVideo.video_url.split('/').pop()?.replace('.mp4', ''); // 拡張子なしのビデオ名
-        const response = await axios.post<string[]>(
-          `${backendUrl}/api/list_oshi_images`,
-          { videoName, member: 'giselle' }
-        );
+        const response = await axios.post<string[]>(`${backendUrl}/api/list_oshi_images`, { title });
         setImageUrls(response.data); // URLリストを状態に設定
         setError(null);
       } catch (err) {
@@ -28,10 +25,8 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({ selectedVideo }) => {
       }
     };
 
-    if (selectedVideo) {
-      fetchImages();
-    }
-  }, [selectedVideo]);
+    fetchImages(); // 画像のフェッチ関数を呼び出し
+  }, [title]);
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
@@ -42,7 +37,7 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({ selectedVideo }) => {
   }
 
   return (
-    <div className="overflow-x-auto mt-4" style={{ width: '100%'}}>
+    <div className="overflow-x-auto mt-4" style={{ width: '100%' }}>
       <div className="flex gap-4">
         {imageUrls.map((url, index) => (
           <img

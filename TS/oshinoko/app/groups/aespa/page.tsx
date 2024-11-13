@@ -68,7 +68,7 @@ const AespaPage = () => {
           {/* List Oshi Image*/}
           {selectedVideo && 
           <ListOshiImages
-            selectedVideo={selectedVideo} 
+            title={selectedVideo.title}
           />}
         </div>
 
