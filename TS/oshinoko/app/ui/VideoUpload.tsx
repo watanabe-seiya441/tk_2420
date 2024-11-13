@@ -1,6 +1,7 @@
-// TODO: this is not integrated with backend.
 'use client';
 import { useState } from 'react';
+import axios from 'axios';
+import { backendUrl } from '@/app/lib/config';
 
 const VideoUpload = () => {
   const [message, setMessage] = useState<string>('');
@@ -16,9 +17,12 @@ const VideoUpload = () => {
     const formData = new FormData();
     formData.append('title', 'Sample Video'); // 動画タイトルをここに追加
     formData.append('group_name', 'Sample Group'); // グループ名をここに追加
-    const fileInput = (event.target as HTMLFormElement)
-      .video as HTMLInputElement;
-    if (fileInput.files) {
+
+    const fileInput = (event.target as HTMLFormElement).elements.namedItem(
+      'video',
+    ) as HTMLInputElement;
+
+    if (fileInput?.files) {
       formData.append('video', fileInput.files[0]);
     } else {
       setMessage('No video file selected.');
@@ -27,18 +31,24 @@ const VideoUpload = () => {
 
     setMessage('Processing video, please wait...');
 
-    // Send file to the backend for processing
-    const response = await fetch('${backendUrl}/api/upload', {
-      method: 'POST',
-      body: formData,
-    });
+    try {
+      // Send file to the backend for processing
+      const response = await axios.post(`${backendUrl}/api/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-    if (response.ok) {
-      const result = await response.json();
       setMessage('Video processed successfully!');
-      setVideoData(result);
-    } else {
-      setMessage('Failed to upload the video. Please try again.');
+      setVideoData(response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        setMessage(
+          `Failed to upload the video. Error: ${error.response.status}`,
+        );
+      } else {
+        setMessage('An error occurred. Please try again.');
+      }
     }
   };
 
