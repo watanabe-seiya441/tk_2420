@@ -110,7 +110,7 @@ if __name__ == "__main__":
                 np.save(save_path, norms)
 
         if args.fuse_match_method == "pre_norm_vector_add_cos":
-            features = features * norms
+            features = features * norms # type: ignore
         all_features.append(features)
     all_features = np.concatenate(all_features, axis=0)
 
