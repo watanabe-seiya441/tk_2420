@@ -122,6 +122,9 @@ def list_oshi_images():
             for filename in os.listdir(directory_path)
             if filename.endswith('.png')
         ]
+        # ファイル名を数値でソートするためのキーを設定
+        image_urls.sort(key=lambda url: int(url.split('/')[-1].split('.')[0]))
+                
         return jsonify(image_urls), 201
     else:
         # ディレクトリが存在しない場合のエラーメッセージ
