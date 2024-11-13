@@ -9,14 +9,21 @@ interface ListOshiImageProps {
   overlayConfigUrl: string; // URL for JSON configuration file
 }
 
-const ListOshiImages: React.FC<ListOshiImageProps> = ({ title, overlayConfigUrl }) => {
+const ListOshiImages: React.FC<ListOshiImageProps> = ({
+  title,
+  overlayConfigUrl,
+}) => {
   const [members, setMembers] = useState<string[]>([]);
-  const [imagesByMember, setImagesByMember] = useState<{ [member: string]: string[] }>({});
+  const [imagesByMember, setImagesByMember] = useState<{
+    [member: string]: string[];
+  }>({});
   const [error, setError] = useState<string | null>(null);
 
   // タイトルが変わるたびにメンバー情報と画像リストをリセット
   useEffect(() => {
-    console.log("Title or overlayConfigUrl changed, resetting members and images");
+    console.log(
+      'Title or overlayConfigUrl changed, resetting members and images',
+    );
     setMembers([]);
     setImagesByMember({});
     setError(null); // エラーもリセット
@@ -26,11 +33,13 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({ title, overlayConfigUrl 
       try {
         const response = await fetch(overlayConfigUrl);
         const data = await response.json();
-        const extractedMembers = data.overlays.map((overlay: { content: string }) => overlay.content);
-        console.log("Fetched members:", extractedMembers);
+        const extractedMembers = data.overlays.map(
+          (overlay: { content: string }) => overlay.content,
+        );
+        console.log('Fetched members:', extractedMembers);
         setMembers(extractedMembers);
       } catch (err) {
-        console.error("Failed to fetch members:", err);
+        console.error('Failed to fetch members:', err);
         setError('メンバー情報を取得できませんでした。');
       }
     };
@@ -43,10 +52,13 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({ title, overlayConfigUrl 
     if (members.length === 0) return; // メンバーが存在する場合のみ実行
     const fetchImagesForMember = async (member: string) => {
       try {
-        const response = await axios.post<string[]>(`${backendUrl}/api/list_oshi_images`, {
-          title,
-          member,
-        });
+        const response = await axios.post<string[]>(
+          `${backendUrl}/api/list_oshi_images`,
+          {
+            title,
+            member,
+          },
+        );
         console.log(`Fetched images for ${member}:`, response.data);
         setImagesByMember((prev) => ({ ...prev, [member]: response.data }));
       } catch (err) {
