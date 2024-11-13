@@ -164,17 +164,16 @@ def annotate_video(
                         most_common_class_name, _ = class_counter.most_common(1)[0]
                         class_name = most_common_class_name
 
-                # y1_smoothの調整（past_infoには影響しない）
-                adjusted_y1_smooth = y1_smooth
-                if y1_smooth - 5 < 0:
-                    adjusted_y1_smooth += 15
-
                 # 画像を保存
                 save_photo(
                     frame_copy_for_photo, frame_width, frame_height, x1, y1, x2, y2, class_name, photo_info_counter
                 )
 
                 if not confidence_low_flag and tracking_id is not None:
+                # y1_smoothの調整（past_infoには影響しない）
+                    adjusted_y1_smooth = y1_smooth
+                    if y1_smooth - 5 < 0:
+                        adjusted_y1_smooth += 15
                     # バウンディングボックスを描画
                     cv2.line(frame, (x1_smooth, adjusted_y1_smooth), (x2_smooth, y2_smooth), color, 2)
 
