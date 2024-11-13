@@ -69,6 +69,7 @@ const AespaPage = () => {
           {selectedVideo && 
           <ListOshiImages
             title={selectedVideo.title}
+            overlayConfigUrl={`${backendUrl}${selectedVideo.overlay_url}`}
           />}
         </div>
 

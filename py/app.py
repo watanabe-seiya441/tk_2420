@@ -105,19 +105,20 @@ def get_video_dimensions(video_path: str):
 
 @app.route("/api/list_oshi_images", methods=["POST"])
 def list_oshi_images():
-    # フロントエンドから送られるタイトルに基づいてディレクトリパスを作成
+    # フロントエンドから送られるタイトルとメンバーに基づいてディレクトリパスを作成
     title = request.json.get("title")
-    if not title:
-        return jsonify({"error": "タイトルが指定されていません"}), 400
+    member = request.json.get("member")
+    if not title or not member:
+        return jsonify({"error": "タイトルまたはメンバーが指定されていません"}), 400
 
     # 画像ディレクトリのパス
-    directory_path = f"photo/{title}/giselle/"
+    directory_path = f"photo/{title}/{member}/"
 
     # ディレクトリが存在する場合のみ処理
     if os.path.isdir(directory_path):
         # 画像のリンクを作成し、リストとして返す
         image_urls = [
-            f"{request.host_url}photo/{title}/giselle/{filename}"  # 画像URLを直接組み立てる
+            f"{request.host_url}photo/{title}/{member}/{filename}"  # 画像URLを直接組み立てる
             for filename in os.listdir(directory_path)
             if filename.endswith('.png')
         ]
@@ -126,13 +127,13 @@ def list_oshi_images():
         # ディレクトリが存在しない場合のエラーメッセージ
         return jsonify({"error": "指定されたディレクトリが存在しません"}), 404
 
-
 # 画像を取得するためのエンドポイント
-@app.route("/photo/<title>/giselle/<path:filename>", methods=["GET"])
-def get_image(title, filename):
+@app.route("/photo/<title>/<member>/<path:filename>", methods=["GET"])
+def get_image(title, member, filename):
     # フルパスを指定
-    directory_path = f"photo/{title}/giselle"
+    directory_path = f"photo/{title}/{member}"
     return send_from_directory(directory_path, filename)
+
 
 @app.route("/api/upload_kpop_face_match", methods=["POST"])
 def upload_kpop_face_match():

@@ -6,52 +6,58 @@ import axios from 'axios';
 
 interface ListOshiImageProps {
   title: string;
+  overlayConfigUrl: string; // URL for JSON configuration file
 }
 
-const ListOshiImages: React.FC<ListOshiImageProps> = ({ title }) => {
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+const ListOshiImages: React.FC<ListOshiImageProps> = ({
+  title,
+  overlayConfigUrl
+}) => {
+  const members = ['giselle', 'karina', 'winter', 'ningning']; // 表示するメンバーのリスト
+  const [imagesByMember, setImagesByMember] = useState<{ [member: string]: string[] }>({});
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchImages = async () => {
+    const fetchImagesForMember = async (member: string) => {
       try {
-        console.log(`Fetching images for title: ${title}`);
-
-        // タイトルに応じて画像リストを取得
-        const response = await axios.post<string[]>(`${backendUrl}/api/list_oshi_images`, { title });
-        
-        console.log("Fetched image URLs:", response.data);
-        setImageUrls(response.data);
+        const response = await axios.post<string[]>(`${backendUrl}/api/list_oshi_images`, {
+          title,
+          member,
+        });
+        setImagesByMember((prev) => ({ ...prev, [member]: response.data }));
         setError(null);
       } catch (err) {
-        console.error('Failed to fetch image URLs:', err);
+        console.error(`Failed to fetch images for ${member}:`, err);
         setError('画像を取得できませんでした。');
       }
     };
 
-    fetchImages();
-  }, [title]); // titleの変更に応じて再実行
+    members.forEach((member) => fetchImagesForMember(member));
+  }, [title]);
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
 
-  if (imageUrls.length === 0) {
-    return <p>画像が見つかりません。</p>;
-  }
-
   return (
-    <div className="overflow-x-auto mt-4" style={{ width: '100%' }}>
-      <div className="flex gap-4">
-        {imageUrls.map((url, index) => (
-          <img
-            key={index}
-            src={url}
-            alt={`Image ${index + 1}`}
-            className="h-48 w-auto rounded-lg shadow-md"
-          />
-        ))}
-      </div>
+    <div className="space-y-8">
+      {members.map((member) => (
+        <div key={member}>
+          <h3 className="text-xl font-semibold mb-2">{member}</h3>
+          <div className="overflow-x-auto" style={{ width: '100%' }}>
+            <div className="flex gap-4">
+              {(imagesByMember[member] || []).map((url, index) => (
+                <img
+                  key={index}
+                  src={url}
+                  alt={`${member} Image ${index + 1}`}
+                  className="h-48 w-auto rounded-lg shadow-md"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
