@@ -15,20 +15,21 @@ const VideoUpload = () => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("title", "Sample Video"); // 動画タイトルをここに追加
-    formData.append("group_name", "Sample Group"); // グループ名をここに追加
-    const fileInput = (event.target as HTMLFormElement).video as HTMLInputElement;
+    formData.append('title', 'Sample Video'); // 動画タイトルをここに追加
+    formData.append('group_name', 'Sample Group'); // グループ名をここに追加
+    const fileInput = (event.target as HTMLFormElement)
+      .video as HTMLInputElement;
     if (fileInput.files) {
-      formData.append("video", fileInput.files[0]);
+      formData.append('video', fileInput.files[0]);
     } else {
-      setMessage("No video file selected.");
+      setMessage('No video file selected.');
       return;
     }
 
     setMessage('Processing video, please wait...');
 
     // Send file to the backend for processing
-    const response = await fetch("http://localhost:5000/api/upload", {
+    const response = await fetch('http://localhost:5000/api/upload', {
       method: 'POST',
       body: formData,
     });
