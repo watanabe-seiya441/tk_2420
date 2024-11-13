@@ -1,6 +1,5 @@
 // TODO: this is not integrated with backend.
 'use client';
-import { stringify } from 'querystring';
 import { useState } from 'react';
 
 const VideoUpload = () => {
@@ -29,7 +28,7 @@ const VideoUpload = () => {
     setMessage('Processing video, please wait...');
 
     // Send file to the backend for processing
-    const response = await fetch('http://localhost:5000/api/upload', {
+    const response = await fetch('${backendUrl}/api/upload', {
       method: 'POST',
       body: formData,
     });
