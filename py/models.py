@@ -1,6 +1,7 @@
+import uuid
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import Mapped, mapped_column
-import uuid
 
 # DBインスタンスの作成
 db = SQLAlchemy()

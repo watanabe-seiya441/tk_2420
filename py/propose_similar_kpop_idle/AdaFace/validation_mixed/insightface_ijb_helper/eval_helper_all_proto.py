@@ -1,12 +1,13 @@
-import pandas as pd
 import os
-import numpy as np
 import random
+
 import cv2
-from skimage import transform
-from sklearn.metrics import roc_curve, auc
-from tqdm import tqdm
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from skimage import transform
+from sklearn.metrics import auc, roc_curve
+from tqdm import tqdm
 
 
 def read_IJB_meta_columns_to_int(file_path, columns, sep=" ", skiprows=0, header=None):

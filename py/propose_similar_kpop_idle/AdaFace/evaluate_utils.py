@@ -1,12 +1,12 @@
+import json
+import os
+
 import bcolz
 import numpy as np
-import os
-import json
-import numpy as np
-from sklearn.model_selection import KFold
-from sklearn.decomposition import PCA
 import sklearn
 from scipy import interpolate
+from sklearn.decomposition import PCA
+from sklearn.model_selection import KFold
 
 
 def get_val_data(data_path):

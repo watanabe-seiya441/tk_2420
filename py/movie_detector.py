@@ -1,12 +1,13 @@
-import cv2
-from ultralytics import YOLO
-import subprocess
-import os
-import logging
-import numpy as np
-from collections import Counter
 import json
+import logging
+import os
+import subprocess
 import time
+from collections import Counter
+
+import cv2
+import numpy as np
+from ultralytics import YOLO
 
 input_video_path = "Whiplash.mp4"
 file_name = os.path.splitext(os.path.basename(input_video_path))[0]

@@ -1,5 +1,5 @@
 from app import app
-from models import db, VideoInfo, AnnotationLabel
+from models import AnnotationLabel, VideoInfo, db
 
 
 def seed_data():

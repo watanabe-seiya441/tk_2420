@@ -1,10 +1,11 @@
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
-import numpy as np
 import heapq
 import math
+
+import numpy as np
 
 
 def read_template_subject_id_list(path):

@@ -1,12 +1,12 @@
-import sys
+import argparse
 import os
+import random
+import sys
+from datetime import datetime
 
 from face_alignment import mtcnn
-import argparse
 from PIL import Image
 from tqdm import tqdm
-import random
-from datetime import datetime
 
 mtcnn_model = mtcnn.MTCNN(device="cpu", crop_size=(112, 112))
 

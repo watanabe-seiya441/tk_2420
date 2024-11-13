@@ -1,11 +1,12 @@
 import json
-import numpy as np
 import os
 import sys
 
+import numpy as np
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "AdaFace"))
-from inference import load_pretrained_model, to_input
 from face_alignment import align
+from inference import load_pretrained_model, to_input
 
 
 def propose_similar_kpop_idol(

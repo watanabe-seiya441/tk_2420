@@ -1,12 +1,14 @@
 import numbers
-import mxnet as mx
 import os
-from torch.utils.data import Dataset
+
+import cv2
+import mxnet as mx
 import numpy as np
+import pandas as pd
 import torch
 from PIL import Image
-import pandas as pd
-import cv2
+from torch.utils.data import Dataset
+
 from .augmenter import Augmenter
 
 

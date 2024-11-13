@@ -1,8 +1,8 @@
-import numpy as np
 import cv2
-from torchvision.transforms import functional as F
+import numpy as np
 from PIL import Image
 from torchvision import transforms
+from torchvision.transforms import functional as F
 
 
 class Augmenter:

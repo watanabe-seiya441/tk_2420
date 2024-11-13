@@ -1,12 +1,13 @@
-import os
 import json
+import os
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "AdaFace"))
-from inference import load_pretrained_model, to_input
-from face_alignment import align
-import os
 import json
+import os
+
+from face_alignment import align
+from inference import load_pretrained_model, to_input
 
 
 def make_kpop_idle_embedding(

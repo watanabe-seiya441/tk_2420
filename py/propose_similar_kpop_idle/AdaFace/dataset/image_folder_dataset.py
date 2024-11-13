@@ -1,9 +1,9 @@
 import os
 
+import cv2
+import numpy as np
 import torchvision.datasets as datasets
 from PIL import Image
-import numpy as np
-import cv2
 
 from .augmenter import Augmenter
 

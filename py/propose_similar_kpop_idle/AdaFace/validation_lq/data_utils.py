@@ -1,7 +1,7 @@
 import cv2
-from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms
 from PIL import Image
+from torch.utils.data import DataLoader, Dataset
+from torchvision import transforms
 
 
 class ListDatasetWithIndex(Dataset):

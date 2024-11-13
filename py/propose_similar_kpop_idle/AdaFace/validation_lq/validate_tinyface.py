@@ -1,11 +1,13 @@
-import torch
-import numpy as np
-from tqdm import tqdm
-import data_utils
 import argparse
+import os
+import sys
+
+import data_utils
+import numpy as np
 import pandas as pd
 import tinyface_helper
-import sys, os
+import torch
+from tqdm import tqdm
 
 sys.path.insert(0, os.path.dirname(os.getcwd()))
 import net

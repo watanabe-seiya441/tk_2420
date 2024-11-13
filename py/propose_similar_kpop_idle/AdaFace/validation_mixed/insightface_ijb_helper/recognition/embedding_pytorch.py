@@ -1,25 +1,25 @@
+from collections import namedtuple
+
+import cv2
+import numpy as np
 import torch
 import torch.nn as nn
-import numpy as np
-import cv2
 import torchvision.transforms as transforms
+from skimage import transform as trans
 from torch.nn import (
-    Linear,
-    Conv2d,
+    AdaptiveAvgPool2d,
     BatchNorm1d,
     BatchNorm2d,
+    Conv2d,
+    Dropout,
+    Linear,
+    MaxPool2d,
+    Module,
     PReLU,
     ReLU,
-    Sigmoid,
-    Dropout,
-    MaxPool2d,
-    AdaptiveAvgPool2d,
     Sequential,
-    Module,
+    Sigmoid,
 )
-from collections import namedtuple
-from skimage import transform as trans
-
 
 # Support: ['IR_50', 'IR_101', 'IR_152', 'IR_SE_50', 'IR_SE_101', 'IR_SE_152']
 

@@ -1,12 +1,12 @@
+import json
+import os
+import uuid
+
+import cv2
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-import os
-import json
-import uuid
-import cv2
+from models import AnnotationLabel, VideoInfo, db  # models からインポート
 from werkzeug.utils import secure_filename
-
-from models import db, VideoInfo, AnnotationLabel  # models からインポート
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///video_info.db"

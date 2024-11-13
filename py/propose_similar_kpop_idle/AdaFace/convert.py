@@ -1,15 +1,16 @@
-from pathlib import Path
 import argparse
-import mxnet as mx
-from tqdm import tqdm
-from PIL import Image
-import bcolz
-import pickle
-import cv2
-import numpy as np
-from torchvision import transforms as trans
-import os
 import numbers
+import os
+import pickle
+from pathlib import Path
+
+import bcolz
+import cv2
+import mxnet as mx
+import numpy as np
+from PIL import Image
+from torchvision import transforms as trans
+from tqdm import tqdm
 
 
 def save_rec_to_img_dir(rec_path, swap_color_channel=False, save_as_png=False):

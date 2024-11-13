@@ -1,13 +1,13 @@
-import torch
-import torch.optim as optim
-import torch.optim.lr_scheduler as lr_scheduler
-from pytorch_lightning.core import LightningModule
-from torch.nn import CrossEntropyLoss
 import evaluate_utils
 import head
 import net
 import numpy as np
+import torch
+import torch.optim as optim
+import torch.optim.lr_scheduler as lr_scheduler
 import utils
+from pytorch_lightning.core import LightningModule
+from torch.nn import CrossEntropyLoss
 
 
 class Trainer(LightningModule):

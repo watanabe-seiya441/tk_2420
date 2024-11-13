@@ -1,11 +1,12 @@
 import argparse
-import cv2
-import numpy as np
-import sys
-import mxnet as mx
 import datetime
-from skimage import transform as trans
+import sys
+
+import cv2
+import mxnet as mx
+import numpy as np
 import sklearn
+from skimage import transform as trans
 from sklearn import preprocessing
 
 

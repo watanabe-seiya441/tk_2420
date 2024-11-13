@@ -1,17 +1,19 @@
-import numpy as np
 import pickle
-import pandas as pd
+
 import matplotlib
+import numpy as np
+import pandas as pd
 
 matplotlib.use("Agg")
+import os
+import warnings
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import sklearn
-import os
-from sklearn.metrics import roc_curve, auc
 from menpo.visualize.viewmatplotlib import sample_colours_from_colourmap
 from prettytable import PrettyTable
-from pathlib import Path
-import warnings
+from sklearn.metrics import auc, roc_curve
 
 warnings.filterwarnings("ignore")
 import csv

@@ -1,11 +1,9 @@
 import cv2
-from torch.utils.data import Dataset, DataLoader
 import numpy as np
-from torchvision import transforms
 from PIL import Image
-import cv2
-import numpy as np
 from skimage import transform as trans
+from torch.utils.data import DataLoader, Dataset
+from torchvision import transforms
 
 
 class ImageAligner:

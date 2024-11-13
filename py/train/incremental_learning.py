@@ -1,8 +1,8 @@
 import os
 import shutil
-from ultralytics import YOLO
-import torch
 
+import torch
+from ultralytics import YOLO
 
 GROUP = "aespa"
 

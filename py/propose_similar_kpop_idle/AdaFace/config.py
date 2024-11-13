@@ -1,6 +1,6 @@
 import argparse
-import sys
 import os
+import sys
 from time import gmtime, strftime
 
 

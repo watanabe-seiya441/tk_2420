@@ -1,10 +1,11 @@
-from PFE.ijbs import IJBSTest
-import PFE.utils
-import numpy as np
-from tqdm import tqdm
 import math
-from functools import partial
 import os
+from functools import partial
+
+import numpy as np
+import PFE.utils
+from PFE.ijbs import IJBSTest
+from tqdm import tqdm
 
 
 def write_result(write_path, title, values=None):

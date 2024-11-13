@@ -1,7 +1,7 @@
-from torch.utils.data import Dataset
-import numpy as np
 import evaluate_utils
+import numpy as np
 import torch
+from torch.utils.data import Dataset
 
 
 class FiveValidationDataset(Dataset):

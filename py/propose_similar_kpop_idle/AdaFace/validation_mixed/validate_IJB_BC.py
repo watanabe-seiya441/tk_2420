@@ -1,23 +1,24 @@
-import numpy as np
 import argparse
+
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
-import sys, os
+import os
+import sys
 
 sys.path.insert(0, os.path.dirname(os.getcwd()))
-import net
-
-from validation_mixed.insightface_ijb_helper.dataloader import prepare_dataloader
-from validation_mixed.insightface_ijb_helper import eval_helper_identification
-from validation_mixed.insightface_ijb_helper import eval_helper as eval_helper_verification
-
 import warnings
 
+import net
+from validation_mixed.insightface_ijb_helper import eval_helper as eval_helper_verification
+from validation_mixed.insightface_ijb_helper import eval_helper_identification
+from validation_mixed.insightface_ijb_helper.dataloader import prepare_dataloader
+
 warnings.filterwarnings("ignore")
+import pandas as pd
 import torch
 from tqdm import tqdm
-import pandas as pd
 
 
 def str2bool(v):

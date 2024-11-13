@@ -1,8 +1,9 @@
+import multiprocessing
 import os
+import pickle
+
 import numpy as np
 import scipy.io
-import pickle
-import multiprocessing
 
 
 def list2array(feat):

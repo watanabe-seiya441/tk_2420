@@ -1,7 +1,8 @@
-import numpy as np
-import scipy.io as sio
 import os
+
+import numpy as np
 import scipy
+import scipy.io as sio
 
 
 def get_all_files(root, extension_list=[".jpg", ".png", ".jpeg"]):

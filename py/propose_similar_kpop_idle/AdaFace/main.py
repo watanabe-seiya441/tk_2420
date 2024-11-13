@@ -1,17 +1,18 @@
+import inspect
+import os
+
+import config
+import data
+import pytorch_lightning as pl
 import torch
 import torch.nn.parallel
 import torch.utils.data
 import torch.utils.data.distributed
-import pytorch_lightning as pl
+import train_val
+from pytorch_lightning import seed_everything
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import CSVLogger, WandbLogger
-from pytorch_lightning import seed_everything
-import config
-import os
 from utils import dotdict
-import train_val
-import data
-import inspect
 
 
 def main(args):

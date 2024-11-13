@@ -1,13 +1,14 @@
 import os
-import pytorch_lightning as pl
-from torch.utils.data import DataLoader
-from torchvision import transforms
+
+import evaluate_utils
 import numpy as np
 import pandas as pd
-import evaluate_utils
-from dataset.image_folder_dataset import CustomImageFolderDataset
+import pytorch_lightning as pl
 from dataset.five_validation_dataset import FiveValidationDataset
+from dataset.image_folder_dataset import CustomImageFolderDataset
 from dataset.record_dataset import AugmentRecordDataset
+from torch.utils.data import DataLoader
+from torchvision import transforms
 
 
 class DataModule(pl.LightningDataModule):

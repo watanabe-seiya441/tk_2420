@@ -21,16 +21,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import sys
+import imp
+import math
 import os
+import random
+import shutil
+import sys
+import time
+from datetime import datetime
+
 import numpy as np
 from scipy import misc
-import imp
-import time
-import math
-import random
-from datetime import datetime
-import shutil
 
 
 def import_file(full_path_to_module, name="module.name"):

@@ -1,7 +1,9 @@
-import numpy as np
 import os
+
+import numpy as np
 import torch
 from tqdm import tqdm
+
 from .dataloader import prepare_dataloader
 
 
