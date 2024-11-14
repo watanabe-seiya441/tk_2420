@@ -7,7 +7,7 @@ import uuid
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import cv2
-from env import DATASETS_DIR, PROCESSED_DATA_DIR
+from env import DATASETS_DIR, MODELS_DIR, PROCESSED_DATA_DIR
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import AnnotationLabel, VideoInfo, db  # models からインポート
@@ -34,15 +34,15 @@ os.makedirs(ANNOTATION_DIR, exist_ok=True)
 
 # Serve static files.
 # Route to serve video files
-@app.route(f"/{VIDEO_DIR}/<path:filename>")
+@app.route("/videos/<path:filename>")
 def serve_video(filename):
-    return send_from_directory("videos", filename)
+    return send_from_directory(VIDEO_DIR, filename)
 
 
 # Route to serve overlay JSON files
-@app.route(f"/{OVERLAY_DIR}/<path:filename>")
+@app.route("/overlays/<path:filename>")
 def serve_overlay(filename):
-    return send_from_directory("overlays", filename)
+    return send_from_directory(OVERLAY_DIR, filename)
 
 
 @app.route("/api/videos", methods=["GET"])
@@ -88,18 +88,6 @@ def get_video_data(video_id: str):
     return jsonify(video_data)
 
 
-# TODO: This should be implemented in a separate module
-# TODO: This is sitll a dummy implementation. Implement the actual overlay creation logic.
-def create_overlay(video_file, video_id: str) -> str:
-    """Creates overlay data in JSON for the given video file using its unique ID."""
-    overlay_path = f"{OVERLAY_DIR}/overlay_{video_id}.json"
-    # Dummy overlay content for illustration
-    overlay_data = {"data": "overlay content"}
-    with open(os.path.join("overlays", f"overlay_{video_id}.json"), "w") as f:
-        json.dump(overlay_data, f)
-    return overlay_path
-
-
 def get_video_dimensions(video_path: str):
     """Get the width and height of the video file in pixels."""
     cap = cv2.VideoCapture(video_path)
@@ -110,6 +98,8 @@ def get_video_dimensions(video_path: str):
     cap.release()
     return (video_width, video_height)
 
+
+# TODO: FIXME
 @app.route("/api/list_oshi_images", methods=["POST"])
 def list_oshi_images():
     # フロントエンドから送られる動画タイトルとメンバーに基づいてディレクトリパスを作成
@@ -119,7 +109,7 @@ def list_oshi_images():
         return jsonify({"error": "動画タイトルまたはメンバーが指定されていません"}), 400
 
     # 画像ディレクトリのパス
-    directory_path = f"photo/{video_title}/{member}/"
+    directory_path = f"{PROCESSED_DATA_DIR}/oshi_photos/{video_title}/{member}/"
 
     # ディレクトリが存在する場合のみ処理
     if os.path.isdir(directory_path):
@@ -127,16 +117,18 @@ def list_oshi_images():
         image_urls = [
             f"{request.host_url}photo/{video_title}/{member}/{filename}"  # 画像URLを直接組み立てる
             for filename in os.listdir(directory_path)
-            if filename.endswith('.png')
+            if filename.endswith(".png")
         ]
         # ファイル名を数値でソートするためのキーを設定
-        image_urls.sort(key=lambda url: int(url.split('/')[-1].split('.')[0]))
-                
+        image_urls.sort(key=lambda url: int(url.split("/")[-1].split(".")[0]))
+
         return jsonify(image_urls), 201
     else:
         # ディレクトリが存在しない場合のエラーメッセージ
         return jsonify({"error": "指定されたディレクトリが存在しません"}), 404
 
+
+# TODO: FIXME
 # 画像を取得するためのエンドポイント
 @app.route("/photo/<video_title>/<member>/<path:filename>", methods=["GET"])
 def get_image(video_title, member, filename):
@@ -172,16 +164,18 @@ def upload_video():
     video_width, video_height = get_video_dimensions(video_path)
 
     # Annotate the video (add bounding boxes and overlay data)
-    overlay_path = create_overlay(video_file, video_id)
-    output_path = "output.mp4"
-    annotate_video(video_path, output_path, overlay_path, "../hackday/models/hackv4i.pt")
+    overlay_path = f"{OVERLAY_DIR}/overlay_{video_id}.json"
+    output_path = f"{PROCESSED_DATA_DIR}/videos_with_nametags/{video_filename}.mp4"
+    model_path = f"{MODELS_DIR}/{group_name}/hackv4i.pt"
+    annotate_video(video_path, output_path, overlay_path, model_path)
 
+    # NOTE: 実際にファイルを保存するパスとリクエストを投げるパスは違う.
     new_video = VideoInfo(
         id=video_id,
         title=title,
         group_name=group_name,
-        video_url=video_path,
-        overlay_url=overlay_path,
+        video_url=f"/videos/{video_filename}",
+        overlay_url=f"/overlays/overlay_{video_id}.json",
         original_video_width=video_width,
         original_video_height=video_height,
     )
