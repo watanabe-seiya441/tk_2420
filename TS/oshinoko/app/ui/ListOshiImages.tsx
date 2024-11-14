@@ -5,13 +5,13 @@ import { backendUrl } from '@/app/lib/config';
 import axios from 'axios';
 
 interface ListOshiImageProps {
-  title: string;
-  overlayConfigUrl: string; // URL for JSON configuration file
+  videoTitle: string;
+  groupName: string;
 }
 
 const ListOshiImages: React.FC<ListOshiImageProps> = ({
-  title,
-  overlayConfigUrl,
+  videoTitle,
+  groupName,
 }) => {
   const [members, setMembers] = useState<string[]>([]);
   const [imagesByMember, setImagesByMember] = useState<{
@@ -19,23 +19,30 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
   }>({});
   const [error, setError] = useState<string | null>(null);
 
-  // タイトルが変わるたびにメンバー情報と画像リストをリセット
+  // 動画タイトルやグループ名が変わるたびにメンバー情報と画像をリセット
   useEffect(() => {
     console.log(
-      'Title or overlayConfigUrl changed, resetting members and images',
+      'Video title or group name changed, resetting members and images',
     );
     setMembers([]);
     setImagesByMember({});
     setError(null); // エラーもリセット
 
-    // メンバー情報をoverlayConfigUrlから取得
+    // `/api/annotation_labels` からメンバー情報を取得
     const fetchMembers = async () => {
       try {
-        const response = await axios.get(overlayConfigUrl);
+        const response = await axios.get(
+          `${backendUrl}/api/annotation_labels`,
+          {
+            params: { groupName }, // groupNameをリクエストパラメータとして使用
+          },
+        );
         const data = response.data;
         console.log('Fetched data:', data);
-        const extractedMembers = data.overlays.map(
-          (overlay: { content: string }) => overlay.content,
+
+        // `label_name` をメンバーとして抽出
+        const extractedMembers = data.map(
+          (label: { label_name: string }) => label.label_name,
         );
         console.log('Fetched members:', extractedMembers);
         setMembers(extractedMembers);
@@ -46,7 +53,7 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
     };
 
     fetchMembers();
-  }, [title, overlayConfigUrl]);
+  }, [groupName, videoTitle]);
 
   // 画像を各メンバーごとに取得
   useEffect(() => {
@@ -56,7 +63,7 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
         const response = await axios.post<string[]>(
           `${backendUrl}/api/list_oshi_images`,
           {
-            title,
+            videoTitle,
             member,
           },
         );
@@ -69,7 +76,7 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
     };
 
     members.forEach((member) => fetchImagesForMember(member));
-  }, [members]); // titleの依存関係を削除し、membersのみ依存関係にする
+  }, [members]);
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
