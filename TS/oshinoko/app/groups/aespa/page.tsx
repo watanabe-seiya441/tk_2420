@@ -65,8 +65,8 @@ const AespaPage = () => {
           {/* List Oshi Image*/}
           {selectedVideo && (
             <ListOshiImages
-              title={selectedVideo.title}
-              overlayConfigUrl={`${backendUrl}${selectedVideo.overlay_url}`}
+              videoTitle={selectedVideo.title}
+              groupName={selectedVideo.group_name}
             />
           )}
         </div>
