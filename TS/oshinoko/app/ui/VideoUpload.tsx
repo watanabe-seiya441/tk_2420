@@ -1,22 +1,20 @@
 'use client';
 import { useState } from 'react';
+import { Video } from '@/app/lib/types';
 import axios from 'axios';
 import { backendUrl } from '@/app/lib/config';
+import EnhancedVideoPlayer from '@/app/ui/EnhancedVideoPlayer';
 
 const VideoUpload = () => {
   const [message, setMessage] = useState<string>('');
-  const [videoData, setVideoData] = useState<{
-    title: string;
-    group_name: string;
-    video_url: string;
-  } | null>(null);
+  const [videoData, setVideoData] = useState<Video | null>(null);
 
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', 'Sample Video'); // 動画タイトルをここに追加
-    formData.append('group_name', 'Sample Group'); // グループ名をここに追加
+    formData.append('title', 'Sample Video'); // TODO:  動画タイトルをここに追加
+    formData.append('group_name', 'Sample Group'); // TODO: グループ名をここに追加
 
     const fileInput = (event.target as HTMLFormElement).elements.namedItem(
       'video',
@@ -70,13 +68,21 @@ const VideoUpload = () => {
         </button>
       </form>
       <p>{message}</p>
-      {videoData?.video_url && (
-        <video
-          controls
-          src={videoData.video_url}
-          className="mt-4 mx-auto"
-          style={{ maxWidth: '100%' }}
+      {videoData ? (
+        <EnhancedVideoPlayer
+          src={`${backendUrl}${videoData.video_url}`}
+          overlayConfigUrl={`${backendUrl}${videoData.overlay_url}`}
+          originalVideoWidth={videoData.original_video_width}
+          originalVideoHeight={videoData.original_video_height}
         />
+      ) : (
+        <p className="mt-4">Select a video from the list to play.</p>
+        // <EnhancedVideoPlayer
+        //   src={`${backendUrl}/videos/Supernova.mp4`}
+        //   overlayConfigUrl={`${backendUrl}/overlays/Supernova_overlay.json`}
+        //   originalVideoWidth={640}
+        //   originalVideoHeight={360}
+        // />
       )}
     </div>
   );
