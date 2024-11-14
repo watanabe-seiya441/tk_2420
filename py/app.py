@@ -137,17 +137,17 @@ def upload_video():
     output_path = "output.mp4"
     annotate_video(video_path, output_path, overlay_path, "../hackday/models/hackv4i.pt")
 
-    # new_video = VideoInfo(
-    #     id=video_id,
-    #     title=title,
-    #     group_name=group_name,
-    #     video_url=video_path,
-    #     overlay_url=overlay_path,
-    #     original_video_width=video_width,
-    #     original_video_height=video_height,
-    # )
-    # db.session.add(new_video)
-    # db.session.commit()
+    new_video = VideoInfo(
+        id=video_id,
+        title=title,
+        group_name=group_name,
+        video_url=video_path,
+        overlay_url=overlay_path,
+        original_video_width=video_width,
+        original_video_height=video_height,
+    )
+    db.session.add(new_video)
+    db.session.commit()
 
     return jsonify(
         {

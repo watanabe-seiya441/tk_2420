@@ -1,26 +1,20 @@
 'use client';
 import { useState } from 'react';
+import { Video } from '@/app/lib/types';
 import axios from 'axios';
 import { backendUrl } from '@/app/lib/config';
 import EnhancedVideoPlayer from '@/app/ui/EnhancedVideoPlayer';
 
 const VideoUpload = () => {
   const [message, setMessage] = useState<string>('');
-  const [videoData, setVideoData] = useState<{
-    title: string;
-    group_name: string;
-    video_url: string;
-    overlay_url: string;
-    original_video_width: number;
-    original_video_height: number;
-  } | null>(null);
+  const [videoData, setVideoData] = useState<Video | null>(null);
 
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', 'Sample Video'); // 動画タイトルをここに追加
-    formData.append('group_name', 'Sample Group'); // グループ名をここに追加
+    formData.append('title', 'Sample Video'); // TODO:  動画タイトルをここに追加
+    formData.append('group_name', 'Sample Group'); // TODO: グループ名をここに追加
 
     const fileInput = (event.target as HTMLFormElement).elements.namedItem(
       'video',
