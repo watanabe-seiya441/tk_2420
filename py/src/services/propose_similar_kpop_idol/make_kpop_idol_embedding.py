@@ -36,5 +36,6 @@ def make_kpop_idol_embedding(
 
     print("Successfully saved the kpop idol face embeddings.")
 
+
 if __name__ == "__main__":
     make_kpop_idol_embedding()
