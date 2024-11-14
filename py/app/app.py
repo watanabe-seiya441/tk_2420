@@ -3,6 +3,7 @@ import os
 import uuid
 
 import cv2
+from config.settings import DATASETS_DIR, PROCESSED_DATA_DIR
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import AnnotationLabel, VideoInfo, db  # models からインポート
@@ -17,9 +18,9 @@ CORS(app)  # Allow requests tentatively. TODO: tighten this up
 db.init_app(app)
 
 # Base directories for video, overlay, and annotation files
-VIDEO_DIR = "videos"
-OVERLAY_DIR = "overlays"
-ANNOTATION_DIR = "additional_dataset"
+VIDEO_DIR = os.path.join(PROCESSED_DATA_DIR, 'videos')
+OVERLAY_DIR = os.path.join(PROCESSED_DATA_DIR, 'overlays')
+ANNOTATION_DIR = os.path.join(DATASETS_DIR,"additional_dataset")
 
 # Ensure directories exist
 os.makedirs(VIDEO_DIR, exist_ok=True)
