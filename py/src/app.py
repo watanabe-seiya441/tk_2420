@@ -193,6 +193,33 @@ def upload_video():
         }
     ), 201
 
+import threading
+from train.incremental_learning import update_model_with_additional_dataset
+def train_model_background():
+    """バックグラウンドでモデルをトレーニングする関数"""
+    update_model_with_additional_dataset(group="aespa")  # 先に提供された追加学習コードを実行
+
+training_status = {"status": "idle"}  # 初期状態はidle
+
+@app.route("/api/train_model", methods=["POST"])
+def train_model():
+    group_name = request.json.get("groupName")
+    if not group_name:
+        return jsonify({"error": "Group name is required"}), 400
+
+    # 学習開始
+    training_status["status"] = "training"
+    
+    # 実際の学習処理（非同期実行の検討が必要）
+    # 学習が完了したらstatusを"completed"に設定
+    update_model_with_additional_dataset(group=group_name)
+    training_status["status"] = "completed"
+
+    return jsonify({"message": "Model training started"}), 200
+
+@app.route("/api/train_status", methods=["GET"])
+def get_train_status():
+    return jsonify(training_status)
 
 @app.route("/api/upload_annotation", methods=["POST"])
 def upload_annotation():
