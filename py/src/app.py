@@ -1,13 +1,17 @@
 import json
 import os
+import sys
 import uuid
 
+# Add path to the parent directory
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import cv2
-from directory_config.settings import DATASETS_DIR, PROCESSED_DATA_DIR
+from env import DATASETS_DIR, PROCESSED_DATA_DIR
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import AnnotationLabel, VideoInfo, db  # models からインポート
-from movie_detector import annotate_video
+from services.create_overlay.movie_detector import annotate_video
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
