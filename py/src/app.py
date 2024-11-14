@@ -3,7 +3,7 @@ import os
 import uuid
 
 import cv2
-from config.settings import DATASETS_DIR, PROCESSED_DATA_DIR
+from directory_config.settings import DATASETS_DIR, PROCESSED_DATA_DIR
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import AnnotationLabel, VideoInfo, db  # models からインポート
