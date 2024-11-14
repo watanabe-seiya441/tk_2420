@@ -47,7 +47,7 @@ exclude = [
   "__pycache__",
   "venv",
   "hackday",
-  "py/app/services/propose_similar_kpop_idle/AdaFace"
+  "py/src/services/propose_similar_kpop_idle/AdaFace"
 ]
 line-length = 120
 indent-width = 4
