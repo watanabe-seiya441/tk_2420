@@ -156,7 +156,7 @@ def train_model():
     txt_destination = os.path.join(destination_dir, "train", "labels")
     jpg_destination = os.path.join(destination_dir, "train", "images")
     data_yaml_path = os.path.join(destination_dir, "data.yaml")
-    models_dir = MODELS_DIR
+    models_dir = os.path.join(MODELS_DIR, "YOLOv11", group_name)
     runs_dir = os.path.join(PROCESSED_DATA_DIR, "train", "runs", "detect")
 
     # 学習開始
@@ -175,7 +175,6 @@ def train_model():
     training_status["status"] = "completed"
 
     return jsonify({"message": "Model training started"}), 200
-
 
 @app.route("/api/train_status", methods=["GET"])
 def get_train_status():
