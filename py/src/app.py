@@ -135,6 +135,52 @@ def get_image(video_title, member, filename):
     directory_path = f"photo/{video_title}/{member}"
     return send_from_directory(directory_path, filename)
 
+import threading
+from src.services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
+def train_model_background():
+    """バックグラウンドでモデルをトレーニングする関数"""
+    update_model_with_additional_dataset(group="aespa")  # 先に提供された追加学習コードを実行
+
+training_status = {"status": "idle"}  # 初期状態はidle
+
+@app.route("/api/train_model", methods=["POST"])
+def train_model():
+    group_name = request.json.get("groupName")
+    if not group_name:
+        return jsonify({"error": "Group name is required"}), 400
+
+    # 必要なパスの設定
+    source_dir = os.path.join(DATASETS_DIR, "predefined_dataset", group_name)
+    destination_dir = os.path.join(DATASETS_DIR, "tmp", "copy_dataset", group_name)
+    additional_dataset_dir = os.path.join(DATASETS_DIR, "additional_dataset", group_name)
+    txt_destination = os.path.join(destination_dir, "train", "labels")
+    jpg_destination = os.path.join(destination_dir, "train", "images")
+    data_yaml_path = os.path.join(destination_dir, "data.yaml")
+    models_dir = MODELS_DIR
+    runs_dir = os.path.join(PROCESSED_DATA_DIR, "train", "runs", "detect")
+
+    # 学習開始
+    training_status["status"] = "training"
+    update_model_with_additional_dataset(
+        group=group_name,
+        source_dir=source_dir,
+        destination_dir=destination_dir,
+        additional_dataset_dir=additional_dataset_dir,
+        txt_destination=txt_destination,
+        jpg_destination=jpg_destination,
+        data_yaml_path=data_yaml_path,
+        models_dir=models_dir,
+        runs_dir=runs_dir,
+    )
+    training_status["status"] = "completed"
+
+    return jsonify({"message": "Model training started"}), 200
+
+
+@app.route("/api/train_status", methods=["GET"])
+def get_train_status():
+    return jsonify(training_status)
+
 
 @app.route("/api/upload_kpop_face_match", methods=["POST"])
 def upload_kpop_face_match():
@@ -193,33 +239,6 @@ def upload_video():
         }
     ), 201
 
-import threading
-from train.incremental_learning import update_model_with_additional_dataset
-def train_model_background():
-    """バックグラウンドでモデルをトレーニングする関数"""
-    update_model_with_additional_dataset(group="aespa")  # 先に提供された追加学習コードを実行
-
-training_status = {"status": "idle"}  # 初期状態はidle
-
-@app.route("/api/train_model", methods=["POST"])
-def train_model():
-    group_name = request.json.get("groupName")
-    if not group_name:
-        return jsonify({"error": "Group name is required"}), 400
-
-    # 学習開始
-    training_status["status"] = "training"
-    
-    # 実際の学習処理（非同期実行の検討が必要）
-    # 学習が完了したらstatusを"completed"に設定
-    update_model_with_additional_dataset(group=group_name)
-    training_status["status"] = "completed"
-
-    return jsonify({"message": "Model training started"}), 200
-
-@app.route("/api/train_status", methods=["GET"])
-def get_train_status():
-    return jsonify(training_status)
 
 @app.route("/api/upload_annotation", methods=["POST"])
 def upload_annotation():
