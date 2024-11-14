@@ -3,11 +3,8 @@ import shutil
 import torch
 from ultralytics import YOLO
 
-def update_model_with_additional_dataset(
-    DATASETS_DIR, 
-    MODELS_DIR, 
-    group
-):
+
+def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
     # パスの設定
     source_dir = os.path.join(DATASETS_DIR, "predefined_dataset", group)
     tmp_dir = os.path.join(DATASETS_DIR, "tmp")
@@ -58,7 +55,7 @@ def update_model_with_additional_dataset(
         print(f"best.pt を {best_pt_path} から {models_dir} にコピーしました。")
     else:
         print("best.pt ファイルが見つかりませんでした。")
-    
+
     # 処理が完了したらtmpディレクトリを削除
     shutil.rmtree(tmp_dir)
     print(f"{tmp_dir} を削除しました。")

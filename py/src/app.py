@@ -137,7 +137,9 @@ def get_image(video_title, member, filename):
 
 
 from src.services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
+
 training_status = {"status": "idle"}  # 初期状態はidle
+
 
 @app.route("/api/train_model", methods=["POST"])
 def train_model():
@@ -155,6 +157,7 @@ def train_model():
     training_status["status"] = "completed"
 
     return jsonify({"message": "Model training started"}), 200
+
 
 @app.route("/api/train_status", methods=["GET"])
 def get_train_status():
