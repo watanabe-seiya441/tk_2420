@@ -18,9 +18,9 @@ CORS(app)  # Allow requests tentatively. TODO: tighten this up
 db.init_app(app)
 
 # Base directories for video, overlay, and annotation files
-VIDEO_DIR = os.path.join(PROCESSED_DATA_DIR, 'videos')
-OVERLAY_DIR = os.path.join(PROCESSED_DATA_DIR, 'overlays')
-ANNOTATION_DIR = os.path.join(DATASETS_DIR,"additional_dataset")
+VIDEO_DIR = os.path.join(PROCESSED_DATA_DIR, "videos")
+OVERLAY_DIR = os.path.join(PROCESSED_DATA_DIR, "overlays")
+ANNOTATION_DIR = os.path.join(DATASETS_DIR, "additional_dataset")
 
 # Ensure directories exist
 os.makedirs(VIDEO_DIR, exist_ok=True)

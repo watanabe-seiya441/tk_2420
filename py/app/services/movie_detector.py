@@ -170,7 +170,7 @@ def annotate_video(
                 )
 
                 if not confidence_low_flag and tracking_id is not None:
-                # y1_smoothの調整（past_infoには影響しない）
+                    # y1_smoothの調整（past_infoには影響しない）
                     adjusted_y1_smooth = y1_smooth
                     if y1_smooth - 5 < 0:
                         adjusted_y1_smooth += 15
