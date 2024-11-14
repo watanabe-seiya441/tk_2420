@@ -10,7 +10,7 @@ from face_alignment import align
 from inference import load_pretrained_model, to_input
 
 
-def make_kpop_idle_embedding(
+def make_kpop_idol_embedding(
     kpop_idle_dir=f"{DATASETS_DIR}/kpop_idol_faces",
     model_path=f"{MODELS_DIR}/AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt",
     output_json_path=f"{PROCESSED_DATA_DIR}/kpop_idol_faces_embeddings/idol_features.json",
@@ -37,4 +37,4 @@ def make_kpop_idle_embedding(
     print("Successfully saved the kpop idol face embeddings.")
 
 if __name__ == "__main__":
-    make_kpop_idle_embedding()
+    make_kpop_idol_embedding()
