@@ -31,8 +31,9 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
     // メンバー情報をoverlayConfigUrlから取得
     const fetchMembers = async () => {
       try {
-        const response = await fetch(overlayConfigUrl);
-        const data = await response.json();
+        const response = await axios.get(overlayConfigUrl);
+        const data = response.data;
+        console.log('Fetched data:', data);
         const extractedMembers = data.overlays.map(
           (overlay: { content: string }) => overlay.content,
         );
