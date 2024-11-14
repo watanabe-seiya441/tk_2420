@@ -6,7 +6,6 @@ from ultralytics import YOLO
 def update_model_with_additional_dataset(
     DATASETS_DIR, 
     MODELS_DIR, 
-    PROCESSED_DATA_DIR, 
     group
 ):
     # パスの設定
@@ -18,7 +17,7 @@ def update_model_with_additional_dataset(
     jpg_destination = os.path.join(destination_dir, "train", "images")
     data_yaml_path = os.path.join(destination_dir, "data.yaml")
     models_dir = os.path.join(MODELS_DIR, "YOLOv11", group)
-    runs_dir = os.path.join(PROCESSED_DATA_DIR, "train", "runs", "detect")
+    runs_dir = os.path.join(tmp_dir, "train", "runs", "detect")
 
     # GPUが有効かチェック
     if torch.cuda.is_available():
@@ -44,8 +43,8 @@ def update_model_with_additional_dataset(
             print(f"{filename} を {jpg_destination} にコピーしました。")
 
     # モデルのトレーニング
-    model = YOLO(f"{MODELS_DIR}/yolo11n.pt").to(device)
-    model.train(data=data_yaml_path, epochs=3, imgsz=640, device=device, project=runs_dir)
+    model = YOLO(f"{MODELS_DIR}/YOLOv11/yolo11n.pt").to(device)
+    model.train(data=data_yaml_path, epochs=2, imgsz=640, device=device, project=runs_dir)
 
     # best.ptのコピー
     latest_train_dir = max(

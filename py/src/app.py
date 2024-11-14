@@ -135,12 +135,8 @@ def get_image(video_title, member, filename):
     directory_path = f"photo/{video_title}/{member}"
     return send_from_directory(directory_path, filename)
 
-import threading
-from src.services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
-def train_model_background():
-    """バックグラウンドでモデルをトレーニングする関数"""
-    update_model_with_additional_dataset(group="aespa")  # 先に提供された追加学習コードを実行
 
+from src.services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
 training_status = {"status": "idle"}  # 初期状態はidle
 
 @app.route("/api/train_model", methods=["POST"])
@@ -154,7 +150,6 @@ def train_model():
     update_model_with_additional_dataset(
         DATASETS_DIR=DATASETS_DIR,
         MODELS_DIR=MODELS_DIR,
-        PROCESSED_DATA_DIR=PROCESSED_DATA_DIR,
         group=group_name,
     )
     training_status["status"] = "completed"
