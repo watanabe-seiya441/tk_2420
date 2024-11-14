@@ -6,6 +6,7 @@ import EnhancedVideoPlayer from '@/app/ui/EnhancedVideoPlayer';
 import Header from '@/app/ui/Header';
 import VideoList from '@/app/ui/VideoList';
 import VideoUpload from '@/app/ui/VideoUpload';
+import ListOshiImages from '@/app/ui/ListOshiImages';
 import { Video } from '@/app/lib/types';
 import { backendUrl } from '@/app/lib/config';
 
@@ -61,6 +62,13 @@ const AespaPage = () => {
               // />
             )}
           </div>
+          {/* List Oshi Image*/}
+          {selectedVideo && (
+            <ListOshiImages
+              videoTitle={selectedVideo.title}
+              groupName={selectedVideo.group_name}
+            />
+          )}
         </div>
 
         {/* Video List on the right */}

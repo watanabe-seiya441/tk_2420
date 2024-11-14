@@ -5,6 +5,7 @@ export interface Video {
   overlay_url: string;
   original_video_width: number;
   original_video_height: number;
+  group_name: string;
 }
 
 export interface YOLOAnnotation {
