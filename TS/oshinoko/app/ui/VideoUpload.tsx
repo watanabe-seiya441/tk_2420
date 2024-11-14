@@ -14,7 +14,7 @@ const VideoUpload = () => {
 
     const formData = new FormData();
     formData.append('title', 'Sample Video'); // TODO:  動画タイトルをここに追加
-    formData.append('group_name', 'Sample Group'); // TODO: グループ名をここに追加
+    formData.append('group_name', 'aespa'); // TODO: グループ名をここに追加
 
     const fileInput = (event.target as HTMLFormElement).elements.namedItem(
       'video',

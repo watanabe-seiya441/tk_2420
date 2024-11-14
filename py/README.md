@@ -2,10 +2,9 @@
 1. Move to project root.
 2. Install python dependencies with `uv sync`.
 3. Activate a virtual environment with `source .venv/bin/activate`.
-4. Place `Whiplash.mp4` and `Supernova.mp4` in `/py/videos/` directory if you want to work with frontend.
-5. Set data in SQLite database by `python3 seed_db.py`
-6. Run `app.py` with `cd py` and then `python3 app.py`
- or `flask run --host=0.0.0.0 --port 5000` 
+4. Place `Whiplash.mp4` and `Supernova.mp4` in `/py/processed_data/videos/` directory if you want to work with frontend. #TODO: FIX ME
+5. Set data in SQLite database. `cd py/src` and then `python3 seed_db.py`
+7. Run `python3 app.py` or `flask run --host=0.0.0.0 --port 5000` 
 
 # Development
 ## Linter, Formatter and Type checker

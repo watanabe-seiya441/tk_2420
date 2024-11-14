@@ -3,6 +3,7 @@ import os
 import sys
 
 import numpy as np
+from env import MODELS_DIR, PROCESSED_DATA_DIR
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "AdaFace"))
 from face_alignment import align
@@ -10,9 +11,9 @@ from inference import load_pretrained_model, to_input
 
 
 def propose_similar_kpop_idol(
-    input_photo_path="propose_similar_kpop_idle/Hashimoto_Kanna.jpg",
-    embedding_json_path="propose_similar_kpop_idle/idol_features.json",
-    model_path="propose_similar_kpop_idle/AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt",
+    input_photo_path="./Hashimoto_Kanna.jpg",
+    embedding_json_path=f"{PROCESSED_DATA_DIR}/kpop_idol_faces_embeddings/idol_features.json",
+    model_path=f"{MODELS_DIR}/AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt",
 ):
     with open(embedding_json_path, "r") as f:
         idol_features = json.load(f)

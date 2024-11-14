@@ -2,16 +2,18 @@ import json
 import os
 import sys
 
+from env import DATASETS_DIR, MODELS_DIR, PROCESSED_DATA_DIR
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "AdaFace"))
 
 from face_alignment import align
 from inference import load_pretrained_model, to_input
 
 
-def make_kpop_idle_embedding(
-    kpop_idle_dir="propose_similar_kpop_idle/kpop_idle_dataset",
-    model_path="propose_similar_kpop_idle/AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt",
-    output_json_path="propose_similar_kpop_idle/idol_features.json",
+def make_kpop_idol_embedding(
+    kpop_idle_dir=f"{DATASETS_DIR}/kpop_idol_faces",
+    model_path=f"{MODELS_DIR}/AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt",
+    output_json_path=f"{PROCESSED_DATA_DIR}/kpop_idol_faces_embeddings/idol_features.json",
 ):
     model = load_pretrained_model("ir_50", model_path)
 
@@ -32,6 +34,8 @@ def make_kpop_idle_embedding(
     with open(output_json_path, "w") as f:
         json.dump(idle_features, f, indent=4)
 
+    print("Successfully saved the kpop idol face embeddings.")
+
 
 if __name__ == "__main__":
-    make_kpop_idle_embedding()
+    make_kpop_idol_embedding()
