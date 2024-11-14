@@ -149,28 +149,13 @@ def train_model():
     if not group_name:
         return jsonify({"error": "Group name is required"}), 400
 
-    # 必要なパスの設定
-    source_dir = os.path.join(DATASETS_DIR, "predefined_dataset", group_name)
-    destination_dir = os.path.join(DATASETS_DIR, "tmp", "copy_dataset", group_name)
-    additional_dataset_dir = os.path.join(DATASETS_DIR, "additional_dataset", group_name)
-    txt_destination = os.path.join(destination_dir, "train", "labels")
-    jpg_destination = os.path.join(destination_dir, "train", "images")
-    data_yaml_path = os.path.join(destination_dir, "data.yaml")
-    models_dir = os.path.join(MODELS_DIR, "YOLOv11", group_name)
-    runs_dir = os.path.join(PROCESSED_DATA_DIR, "train", "runs", "detect")
-
     # 学習開始
     training_status["status"] = "training"
     update_model_with_additional_dataset(
+        DATASETS_DIR=DATASETS_DIR,
+        MODELS_DIR=MODELS_DIR,
+        PROCESSED_DATA_DIR=PROCESSED_DATA_DIR,
         group=group_name,
-        source_dir=source_dir,
-        destination_dir=destination_dir,
-        additional_dataset_dir=additional_dataset_dir,
-        txt_destination=txt_destination,
-        jpg_destination=jpg_destination,
-        data_yaml_path=data_yaml_path,
-        models_dir=models_dir,
-        runs_dir=runs_dir,
     )
     training_status["status"] = "completed"
 

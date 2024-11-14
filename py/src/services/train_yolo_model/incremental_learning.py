@@ -4,26 +4,30 @@ import torch
 from ultralytics import YOLO
 
 def update_model_with_additional_dataset(
-    group,
-    source_dir,
-    destination_dir,
-    additional_dataset_dir,
-    txt_destination,
-    jpg_destination,
-    data_yaml_path,
-    models_dir,
-    runs_dir,
+    DATASETS_DIR, 
+    MODELS_DIR, 
+    PROCESSED_DATA_DIR, 
+    group
 ):
+    # パスの設定
+    source_dir = os.path.join(DATASETS_DIR, "predefined_dataset", group)
+    tmp_dir = os.path.join(DATASETS_DIR, "tmp")
+    destination_dir = os.path.join(DATASETS_DIR, "tmp", "copy_dataset", group)
+    additional_dataset_dir = os.path.join(DATASETS_DIR, "additional_dataset", group)
+    txt_destination = os.path.join(destination_dir, "train", "labels")
+    jpg_destination = os.path.join(destination_dir, "train", "images")
+    data_yaml_path = os.path.join(destination_dir, "data.yaml")
+    models_dir = os.path.join(MODELS_DIR, "YOLOv11", group)
+    runs_dir = os.path.join(PROCESSED_DATA_DIR, "train", "runs", "detect")
+
     # GPUが有効かチェック
     if torch.cuda.is_available():
         device = "cuda:0"
-        print("CUDA:0 が有効です。")
     elif torch.backends.mps.is_available():
         device = "mps"
-        print("MPS が有効です。")
     else:
         device = "cpu"
-        print("CPU を使用します。")
+    print(f"{device} が有効です。")
 
     # データセットのコピー
     os.makedirs(destination_dir, exist_ok=True)
@@ -40,7 +44,7 @@ def update_model_with_additional_dataset(
             print(f"{filename} を {jpg_destination} にコピーしました。")
 
     # モデルのトレーニング
-    model = YOLO("yolo11n.pt").to(device)
+    model = YOLO(f"{MODELS_DIR}/yolo11n.pt").to(device)
     model.train(data=data_yaml_path, epochs=3, imgsz=640, device=device, project=runs_dir)
 
     # best.ptのコピー
@@ -55,3 +59,7 @@ def update_model_with_additional_dataset(
         print(f"best.pt を {best_pt_path} から {models_dir} にコピーしました。")
     else:
         print("best.pt ファイルが見つかりませんでした。")
+    
+    # 処理が完了したらtmpディレクトリを削除
+    shutil.rmtree(tmp_dir)
+    print(f"{tmp_dir} を削除しました。")
