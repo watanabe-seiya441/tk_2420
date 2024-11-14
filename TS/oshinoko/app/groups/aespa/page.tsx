@@ -2,13 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import axios from 'axios';
 import EnhancedVideoPlayer from '@/app/ui/EnhancedVideoPlayer';
 import Header from '@/app/ui/Header';
 import VideoList from '@/app/ui/VideoList';
 import VideoUpload from '@/app/ui/VideoUpload';
 import ListOshiImages from '@/app/ui/ListOshiImages';
-import ModelTraining from '@/app/ui/ModelTraining'; 
+import ModelTraining from '@/app/ui/ModelTraining';
 import { Video } from '@/app/lib/types';
 import { backendUrl } from '@/app/lib/config';
 

@@ -11,6 +11,7 @@ from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import AnnotationLabel, VideoInfo, db  # models からインポート
 from services.create_overlay.movie_detector import annotate_video
+from src.services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -135,8 +136,6 @@ def get_image(video_title, member, filename):
     directory_path = f"photo/{video_title}/{member}"
     return send_from_directory(directory_path, filename)
 
-
-from src.services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
 
 training_status = {"status": "idle"}  # 初期状態はidle
 
