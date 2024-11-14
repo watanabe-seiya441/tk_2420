@@ -1,14 +1,16 @@
+import uuid
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import Mapped, mapped_column
-import uuid
 
 # DBインスタンスの作成
 db = SQLAlchemy()
 
+
 # VideoInfo モデルの定義
-class VideoInfo(db.Model):
+class VideoInfo(db.Model):  # type: ignore
     __tablename__ = "video_info"
-    
+
     id: Mapped[str] = mapped_column(primary_key=True, default=lambda: str(uuid.uuid4()))
     title: Mapped[str] = mapped_column(nullable=False)
     group_name: Mapped[str] = mapped_column(nullable=False)
@@ -17,9 +19,10 @@ class VideoInfo(db.Model):
     original_video_width: Mapped[int] = mapped_column(default=640)
     original_video_height: Mapped[int] = mapped_column(default=360)
 
+
 # Annotation モデルの定義
-class AnnotationLabel(db.Model):
-    __tablename__ = 'annotation_labels'
+class AnnotationLabel(db.Model):  # type: ignore
+    __tablename__ = "annotation_labels"
     id = db.Column(db.Integer, primary_key=True)
     label_id = db.Column(db.Integer, nullable=False)
     label_name = db.Column(db.String(50), nullable=False)

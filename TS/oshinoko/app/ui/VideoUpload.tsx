@@ -1,32 +1,54 @@
-// TODO: this is not integrated with backend.
 'use client';
 import { useState } from 'react';
+import axios from 'axios';
+import { backendUrl } from '@/app/lib/config';
 
 const VideoUpload = () => {
   const [message, setMessage] = useState<string>('');
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [videoData, setVideoData] = useState<{
+    title: string;
+    group_name: string;
+    video_url: string;
+  } | null>(null);
 
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData();
-    const file = (event.target as HTMLFormElement).video.files[0];
 
-    formData.append('video', file);
+    const formData = new FormData();
+    formData.append('title', 'Sample Video'); // 動画タイトルをここに追加
+    formData.append('group_name', 'Sample Group'); // グループ名をここに追加
+
+    const fileInput = (event.target as HTMLFormElement).elements.namedItem(
+      'video',
+    ) as HTMLInputElement;
+
+    if (fileInput?.files) {
+      formData.append('video', fileInput.files[0]);
+    } else {
+      setMessage('No video file selected.');
+      return;
+    }
 
     setMessage('Processing video, please wait...');
 
-    // Send file to the backend for processing
-    const response = await fetch('http://localhost:5000/upload', {
-      method: 'POST',
-      body: formData,
-    });
+    try {
+      // Send file to the backend for processing
+      const response = await axios.post(`${backendUrl}/api/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-    if (response.ok) {
-      const result = await response.json();
-      setVideoUrl(`http://localhost:5000/${result.filePath}`); // URL for the processed video
       setMessage('Video processed successfully!');
-    } else {
-      setMessage('Failed to upload the video. Please try again.');
+      setVideoData(response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        setMessage(
+          `Failed to upload the video. Error: ${error.response.status}`,
+        );
+      } else {
+        setMessage('An error occurred. Please try again.');
+      }
     }
   };
 
@@ -48,10 +70,10 @@ const VideoUpload = () => {
         </button>
       </form>
       <p>{message}</p>
-      {videoUrl && (
+      {videoData?.video_url && (
         <video
           controls
-          src={videoUrl}
+          src={videoData.video_url}
           className="mt-4 mx-auto"
           style={{ maxWidth: '100%' }}
         />

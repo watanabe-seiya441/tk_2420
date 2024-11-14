@@ -1,15 +1,18 @@
-import os
 import json
+import os
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "AdaFace"))
-from inference import load_pretrained_model, to_input
+
 from face_alignment import align
-import os
-import json
+from inference import load_pretrained_model, to_input
 
 
-def make_kpop_idle_embedding(kpop_idle_dir="propose_similar_kpop_idle/kpop_idle_dataset", model_path="propose_similar_kpop_idle/AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt", output_json_path="propose_similar_kpop_idle/idol_features.json"):
+def make_kpop_idle_embedding(
+    kpop_idle_dir="propose_similar_kpop_idle/kpop_idle_dataset",
+    model_path="propose_similar_kpop_idle/AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt",
+    output_json_path="propose_similar_kpop_idle/idol_features.json",
+):
     model = load_pretrained_model("ir_50", model_path)
 
     idle_features = {}
@@ -32,4 +35,3 @@ def make_kpop_idle_embedding(kpop_idle_dir="propose_similar_kpop_idle/kpop_idle_
 
 if __name__ == "__main__":
     make_kpop_idle_embedding()
-    
