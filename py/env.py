@@ -11,5 +11,3 @@ DATASETS_DIR = os.path.join(BASE_DIR, "datasets")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
 PROCESSED_DATA_DIR = os.path.join(BASE_DIR, "processed_data")
-
-DATABASE_URL = "sqlite:///" + os.path.join(BASE_DIR, 'instance', 'video_info.db')
