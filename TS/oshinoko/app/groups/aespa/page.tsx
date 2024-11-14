@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import EnhancedVideoPlayer from '@/app/ui/EnhancedVideoPlayer';
@@ -8,50 +8,12 @@ import Header from '@/app/ui/Header';
 import VideoList from '@/app/ui/VideoList';
 import VideoUpload from '@/app/ui/VideoUpload';
 import ListOshiImages from '@/app/ui/ListOshiImages';
+import ModelTraining from '@/app/ui/ModelTraining'; 
 import { Video } from '@/app/lib/types';
 import { backendUrl } from '@/app/lib/config';
 
 const AespaPage = () => {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
-  const [trainingMessage, setTrainingMessage] = useState<string | null>(null);
-  const [isTraining, setIsTraining] = useState<boolean>(false);
-  
-  // モデル学習のハンドラー
-  const handleModelTraining = async () => {
-    try {
-      setTrainingMessage("Model training is starting...");
-      setIsTraining(true);
-      const response = await axios.post(`${backendUrl}/api/train_model`, {
-        // groupName: selectedVideo.group_name,
-        groupName: "aespa",
-      });
-      setTrainingMessage(response.data.message || "Model training has started.");
-    } catch (error) {
-      setTrainingMessage("Failed to start model training.");
-      console.error("Error:", error);
-      setIsTraining(false);
-    }
-  };
-
-  // 学習ステータスのポーリング
-  useEffect(() => {
-    if (!isTraining) return;
-
-    const intervalId = setInterval(async () => {
-      try {
-        const response = await axios.get(`${backendUrl}/api/train_status`);
-        if (response.data.status === "completed") {
-          setTrainingMessage("Model training is completed.");
-          setIsTraining(false);
-          clearInterval(intervalId);
-        }
-      } catch (error) {
-        console.error("Error fetching training status:", error);
-      }
-    }, 5000); // 5秒ごとに確認
-
-    return () => clearInterval(intervalId); // クリーンアップ
-  }, [isTraining]);
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -76,15 +38,8 @@ const AespaPage = () => {
             <p className="mt-4 text-red-500">動画を選択してください</p>
           )}
 
-          {/* Model Training ボタン */}
-          <button
-            onClick={handleModelTraining}
-            className="mt-4 inline-block px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-          >
-            Start Model Training
-          </button>
-          {/* トレーニングのメッセージを表示 */}
-          {trainingMessage && <p className="mt-2 text-blue-500">{trainingMessage}</p>}
+          {/* Model Training コンポーネント */}
+          <ModelTraining groupName="aespa" />
 
           {/* Enhanced Video Player */}
           <div className="mt-8">
