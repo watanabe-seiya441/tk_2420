@@ -4,11 +4,11 @@ from env import PROCESSED_DATA_DIR
 from flask import Blueprint, jsonify, request, send_from_directory
 
 # Blueprintの初期化
-oshi_images_bp = Blueprint("oshi_images", __name__, url_prefix="/")
+oshi_photos_bp = Blueprint("oshi_photos", __name__, url_prefix="/")
 
 
-@oshi_images_bp.route("/api/list_oshi_images", methods=["POST"])
-def list_oshi_images():
+@oshi_photos_bp.route("/api/list_oshi_photos", methods=["POST"])
+def list_oshi_photos():
     # フロントエンドから送られる動画タイトルとメンバーに基づいてディレクトリパスを作成
     video_title = request.json.get("videoTitle")  # title を videoTitle に変更
     member = request.json.get("member")
@@ -36,7 +36,7 @@ def list_oshi_images():
 
 
 # 推し画像を取得するエンドポイント
-@oshi_images_bp.route("/processed_data/oshi_photos/<video_title>/<member>/<path:filename>", methods=["GET"])
+@oshi_photos_bp.route("/processed_data/oshi_photos/<video_title>/<member>/<path:filename>", methods=["GET"])
 def get_image(video_title, member, filename):
     # フルパスを指定
     directory_path = f"{PROCESSED_DATA_DIR}/oshi_photos/{video_title}/{member}"
