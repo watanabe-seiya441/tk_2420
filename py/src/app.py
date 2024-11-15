@@ -99,7 +99,6 @@ def get_video_dimensions(video_path: str):
     return (video_width, video_height)
 
 
-# TODO: FIXME
 @app.route("/api/list_oshi_images", methods=["POST"])
 def list_oshi_images():
     # フロントエンドから送られる動画タイトルとメンバーに基づいてディレクトリパスを作成
@@ -115,7 +114,7 @@ def list_oshi_images():
     if os.path.isdir(directory_path):
         # 画像のリンクを作成し、リストとして返す
         image_urls = [
-            f"{request.host_url}photo/{video_title}/{member}/{filename}"  # 画像URLを直接組み立てる
+            f"{request.host_url}processed_data/oshi_photos/{video_title}/{member}/{filename}"
             for filename in os.listdir(directory_path)
             if filename.endswith(".png")
         ]
@@ -127,13 +126,11 @@ def list_oshi_images():
         # ディレクトリが存在しない場合のエラーメッセージ
         return jsonify({"error": "指定されたディレクトリが存在しません"}), 404
 
-
-# TODO: FIXME
-# 画像を取得するためのエンドポイント
-@app.route("/photo/<video_title>/<member>/<path:filename>", methods=["GET"])
+# 推し画像を取得するエンドポイント
+@app.route("/processed_data/oshi_photos/<video_title>/<member>/<path:filename>", methods=["GET"])
 def get_image(video_title, member, filename):
     # フルパスを指定
-    directory_path = f"photo/{video_title}/{member}"
+    directory_path = f"{PROCESSED_DATA_DIR}/oshi_photos/{video_title}/{member}"
     return send_from_directory(directory_path, filename)
 
 
