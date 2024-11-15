@@ -20,11 +20,11 @@ class VideoInfo(db.Model):  # type: ignore
     original_video_height: Mapped[int] = mapped_column(default=360)
 
 
-# Annotation モデルの定義
-class AnnotationLabel(db.Model):  # type: ignore
-    __tablename__ = "annotation_labels"
+# MemberProfile モデルの定義
+class MemberProfile(db.Model):  # type: ignore
+    __tablename__ = "member_profile"
     id = db.Column(db.Integer, primary_key=True)
-    label_id = db.Column(db.Integer, nullable=False)
-    label_name = db.Column(db.String(50), nullable=False)
-    label_color = db.Column(db.String(20), nullable=False)
-    group_name = db.Column(db.String(50), nullable=False)  # グループ名を保持
+    group_member_id = db.Column(db.Integer, nullable=False)  # ID of the member in the group
+    name = db.Column(db.String(50), nullable=False)
+    associated_color = db.Column(db.String(20), nullable=False)
+    group_name = db.Column(db.String(50), nullable=False)

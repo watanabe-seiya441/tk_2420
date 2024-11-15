@@ -5,11 +5,17 @@ import Header from '@/app/ui/Header';
 import PreviewSnapshots from '@/app/ui/PreviewSnapshots';
 import AnnotationStudio from '@/app/ui/AnnotationStudio';
 import VideoList from '@/app/ui/VideoList';
-import { AnnotatedSnapshot, LabelInfo, Video } from '@/app/lib/types';
+import {
+  AnnotatedSnapshot,
+  LabelInfo,
+  MemberProfile,
+  Video,
+} from '@/app/lib/types';
 import { convertSnapshotToFiles } from '@/app/lib/snapshotUtils';
 import {
   annotationUrlPrefix,
   backendUrl,
+  memberProfileUrlPrefix,
   videoUrlPrefix,
 } from '@/app/lib/config';
 import axios from 'axios';
@@ -35,12 +41,19 @@ const AnnotationPage: React.FC = () => {
   const fetchLabelInfo = async () => {
     try {
       const response = await axios.get(
-        `${backendUrl}/${annotationUrlPrefix}/annotation_labels`,
+        `${backendUrl}/${memberProfileUrlPrefix}`,
         {
           params: { groupName },
         },
       );
-      setLabels(response.data);
+      const labels: LabelInfo[] = response.data.map(
+        (member: MemberProfile) => ({
+          label_id: member.group_member_id,
+          label_name: member.name,
+          label_color: member.associated_color,
+        }),
+      );
+      setLabels(labels);
       console.log('Labels fetched:', response.data);
     } catch (error) {
       console.error('Failed to fetch labels:', error);
@@ -71,15 +84,11 @@ const AnnotationPage: React.FC = () => {
         formData.append('groupName', groupName);
 
         // Send to backend
-        await axios.post(
-          `${backendUrl}/${annotationUrlPrefix}/upload/annotation`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
+        await axios.post(`${backendUrl}/${annotationUrlPrefix}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
           },
-        );
+        });
       }
       console.log('All snapshots uploaded successfully.');
       setAnnotatedSnapshots([]);

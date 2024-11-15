@@ -3,7 +3,6 @@ import uuid
 
 from env import ANNOTATION_URL_PREFIX, DATASETS_DIR
 from flask import Blueprint, jsonify, request
-from models import AnnotationLabel, db
 
 ANNOTATION_DIR = os.path.join(DATASETS_DIR, "additional_dataset")
 
@@ -11,7 +10,7 @@ ANNOTATION_DIR = os.path.join(DATASETS_DIR, "additional_dataset")
 annotations_bp = Blueprint("annotations", __name__, url_prefix=ANNOTATION_URL_PREFIX)
 
 
-@annotations_bp.route("/upload/annotation", methods=["POST"])
+@annotations_bp.route("/", methods=["POST"])
 def upload_annotation():
     """Upload new annotation data and save to the specified directory."""
     annotation_file = request.files.get("annotation")
@@ -41,30 +40,3 @@ def upload_annotation():
             "message": "Annotation and image uploaded successfully",
         }
     ), 201
-
-
-@annotations_bp.route("/annotation_labels", methods=["GET"])
-def get_annotation_labels():
-    """Get list of annotation labels"""
-    group_name = request.args.get("groupName")
-    print(f"group_name: {group_name}")
-
-    labels = (
-        db.session.execute(
-            db.select(AnnotationLabel).filter_by(group_name=group_name).order_by(AnnotationLabel.label_id)
-        )
-        .scalars()
-        .all()
-    )
-
-    # Convert to a list of dictionaries
-    labels_dict = [
-        {
-            "label_id": label.label_id,
-            "label_name": label.label_name,
-            "label_color": label.label_color,
-            "group_name": label.group_name,
-        }
-        for label in labels
-    ]
-    return jsonify(labels_dict)
