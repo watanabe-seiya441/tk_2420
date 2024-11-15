@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Video } from '@/app/lib/types';
 import axios from 'axios';
-import { backendUrl } from '@/app/lib/config';
+import { backendUrl, videoUrlPrefix } from '@/app/lib/config';
 import EnhancedVideoPlayer from '@/app/ui/EnhancedVideoPlayer';
 
 const VideoUpload = () => {
@@ -31,11 +31,15 @@ const VideoUpload = () => {
 
     try {
       // Send file to the backend for processing
-      const response = await axios.post(`${backendUrl}/api/upload`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      const response = await axios.post(
+        `${backendUrl}/${videoUrlPrefix}/upload/mp4`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      });
+      );
 
       setMessage('Video processed successfully!');
       setVideoData(response.data);

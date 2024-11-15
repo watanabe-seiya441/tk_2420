@@ -1,4 +1,5 @@
 from app import app
+from env import VIDEO_URL_PREFIX
 from models import AnnotationLabel, VideoInfo, db
 
 
@@ -9,7 +10,7 @@ def seed_data():
             id="1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
             title="Supernova",
             group_name="aespa",
-            video_url="/videos/Supernova.mp4",
+            video_url=f"{VIDEO_URL_PREFIX}/file/Supernova.mp4",
             overlay_url="/overlays/Supernova_overlay.json",
             original_video_width=640,
             original_video_height=360,
@@ -18,7 +19,7 @@ def seed_data():
             id="1q2w3e4r-5t6y-7u8i-9o0p-1a2s3d4f5g6h",
             title="Whiplash",
             group_name="aespa",
-            video_url="/videos/Whiplash.mp4",
+            video_url=f"{VIDEO_URL_PREFIX}/file/Whiplash.mp4",
             overlay_url="/overlays/Whiplash_overlay.json",
             original_video_width=640,
             original_video_height=360,
@@ -27,7 +28,7 @@ def seed_data():
             id="7g8h9i0j-1k2l-3m4n-5o6p-1q2w3e4r5t6y",
             title="裸足でSummer",
             group_name="nokizaka",
-            video_url="/videos/hadashidesummer_nise.mp4",
+            video_url=f"{VIDEO_URL_PREFIX}/file/hadashidesummer_nise.mp4",
             overlay_url="/overlays/hadashidesummer_nise_overlay.json",
             original_video_width=640,
             original_video_height=360,
