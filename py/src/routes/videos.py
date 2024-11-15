@@ -1,23 +1,23 @@
 import os
 
 from env import PROCESSED_DATA_DIR
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, send_from_directory
 from models import VideoInfo, db
 
 # Blueprintの初期化
-videos_bp = Blueprint("videos", __name__, url_prefix="/api/videos")
+videos_bp = Blueprint("videos", __name__, url_prefix="/")
 
 PROCESSED_VIDEO_DIR = os.path.join(PROCESSED_DATA_DIR, "videos")
 
 
 # TODO: FIX ME LATER with the same prefix.
-# @videos_bp.route("/<path:filename>", methods=["GET"])
-# def serve_video(filename):
-#     """動画ファイルを返す"""
-#     return send_from_directory(PROCESSED_VIDEO_DIR, filename)
+@videos_bp.route("/videos/<path:filename>", methods=["GET"])
+def serve_video(filename):
+    """動画ファイルを返す"""
+    return send_from_directory(PROCESSED_VIDEO_DIR, filename)
 
 
-@videos_bp.route("/", methods=["GET"], strict_slashes=False)
+@videos_bp.route("/api/videos", methods=["GET"], strict_slashes=False)
 def get_videos():
     """Get list of videos, optionally filtered by group_name"""
     group_name = request.args.get("group_name")

@@ -36,18 +36,6 @@ os.makedirs(OVERLAY_DIR, exist_ok=True)
 os.makedirs(ANNOTATION_DIR, exist_ok=True)
 
 
-# Serve static files.
-# Route to serve video files
-@app.route("/videos/<path:filename>")
-def serve_video(filename):
-    return send_from_directory(VIDEO_DIR, filename)
-
-
-# Route to serve overlay JSON files
-@app.route("/overlays/<path:filename>")
-def serve_overlay(filename):
-    return send_from_directory(OVERLAY_DIR, filename)
-
 
 def get_video_dimensions(video_path: str):
     """Get the width and height of the video file in pixels."""
