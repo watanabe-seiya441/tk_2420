@@ -10,6 +10,7 @@ from env import DATASETS_DIR, MODELS_DIR, PROCESSED_DATA_DIR
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import AnnotationLabel, VideoInfo, db  # models からインポート
+from routes import register_routes
 from services.create_overlay.movie_detector import annotate_video
 from services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
 from werkzeug.utils import secure_filename
@@ -20,6 +21,9 @@ CORS(app)  # Allow requests tentatively. TODO: tighten this up
 
 # dbの初期化
 db.init_app(app)
+
+# Register routes
+register_routes(app)
 
 # Base directories for video, overlay, and annotation files
 VIDEO_DIR = os.path.join(PROCESSED_DATA_DIR, "videos")
@@ -125,6 +129,7 @@ def list_oshi_images():
     else:
         # ディレクトリが存在しない場合のエラーメッセージ
         return jsonify({"error": "指定されたディレクトリが存在しません"}), 404
+
 
 # 推し画像を取得するエンドポイント
 @app.route("/processed_data/oshi_photos/<video_title>/<member>/<path:filename>", methods=["GET"])
