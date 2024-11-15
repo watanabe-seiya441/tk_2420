@@ -13,6 +13,10 @@ import { backendUrl } from '@/app/lib/config';
 
 const AespaPage = () => {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  console.log('selectedVideo:', selectedVideo);
+  console.log('originalVideoWidth:', selectedVideo?.original_video_width);
+  console.log('originalVideoHeight:', selectedVideo?.original_video_height);
+  console.log('backendUrl:', backendUrl);
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -26,6 +30,8 @@ const AespaPage = () => {
           <VideoUpload />
 
           {/* Annotate Button */}
+          {/* TODO: set currentTime dynamically. */}
+          {/* TODO: ボタンじゃなくてSidebarのほうが良い説? */}
           {selectedVideo ? (
             <Link
               href={`/annotation?videoUrl=${encodeURIComponent(selectedVideo.video_url)}&currentTime=10`}
@@ -54,6 +60,12 @@ const AespaPage = () => {
               />
             ) : (
               <p className="mt-4">Select a video from the list to play.</p>
+              // <EnhancedVideoPlayer
+              //   src={`${backendUrl}/videos/Supernova.mp4`}
+              //   overlayConfigUrl={`${backendUrl}/overlays/Supernova_overlay.json`}
+              //   originalVideoWidth={640}
+              //   originalVideoHeight={360}
+              // />
             )}
           </div>
           {/* List Oshi Image*/}

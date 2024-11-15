@@ -11,7 +11,7 @@ from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import AnnotationLabel, VideoInfo, db  # models からインポート
 from services.create_overlay.movie_detector import annotate_video
-from src.services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
+from services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)

@@ -20,8 +20,6 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
     # GPUが有効かチェック
     if torch.cuda.is_available():
         device = "cuda:0"
-    elif torch.backends.mps.is_available():
-        device = "mps"
     else:
         device = "cpu"
     print(f"{device} が有効です。")
