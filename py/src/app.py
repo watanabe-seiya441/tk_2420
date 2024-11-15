@@ -5,13 +5,11 @@ import uuid
 # Add path to the parent directory
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import cv2
 from env import DATASETS_DIR, MODELS_DIR, PROCESSED_DATA_DIR
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-from models import AnnotationLabel, VideoInfo, db  # models からインポート
+from models import AnnotationLabel, db  # models からインポート
 from routes import register_routes
-from services.create_overlay.movie_detector import annotate_video
 from services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
 from werkzeug.utils import secure_filename
 
@@ -34,18 +32,6 @@ ANNOTATION_DIR = os.path.join(DATASETS_DIR, "additional_dataset")
 os.makedirs(VIDEO_DIR, exist_ok=True)
 os.makedirs(OVERLAY_DIR, exist_ok=True)
 os.makedirs(ANNOTATION_DIR, exist_ok=True)
-
-
-
-def get_video_dimensions(video_path: str):
-    """Get the width and height of the video file in pixels."""
-    cap = cv2.VideoCapture(video_path)
-    if not cap.isOpened():
-        return jsonify({"error": "Could not open video file"}), 500
-    video_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    video_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    cap.release()
-    return (video_width, video_height)
 
 
 @app.route("/api/list_oshi_images", methods=["POST"])
@@ -114,58 +100,6 @@ def get_train_status():
 def upload_kpop_face_match():
     dummy_data = "Winter"
     return jsonify({"idol_name": dummy_data}), 201
-
-
-@app.route("/api/upload", methods=["POST"])
-def upload_video():
-    """When new video is uploaded, save the video file and create overlay data."""
-    title = request.form.get("title")
-    group_name = request.form.get("group_name")
-    video_file = request.files.get("video")
-
-    if not title or not group_name or not video_file:
-        return jsonify({"error": "Missing required fields"}), 400
-
-    video_id = str(uuid.uuid4())
-    # Save the uploaded video file
-    clean_title = secure_filename(title) or "video"
-
-    video_filename = f"{clean_title}_{video_id}.mp4"
-    video_path = os.path.join(VIDEO_DIR, video_filename)
-    video_file.save(video_path)
-
-    video_width, video_height = get_video_dimensions(video_path)
-
-    # Annotate the video (add bounding boxes and overlay data)
-    overlay_path = f"{OVERLAY_DIR}/overlay_{video_id}.json"
-    output_path = f"{PROCESSED_DATA_DIR}/videos_with_nametags/{video_filename}.mp4"
-    model_path = f"{MODELS_DIR}/{group_name}/hackv4i.pt"
-    annotate_video(video_path, output_path, overlay_path, model_path)
-
-    # NOTE: 実際にファイルを保存するパスとリクエストを投げるパスは違う.
-    new_video = VideoInfo(
-        id=video_id,
-        title=title,
-        group_name=group_name,
-        video_url=f"/videos/{video_filename}",
-        overlay_url=f"/overlays/overlay_{video_id}.json",
-        original_video_width=video_width,
-        original_video_height=video_height,
-    )
-    db.session.add(new_video)
-    db.session.commit()
-
-    return jsonify(
-        {
-            "id": video_id,
-            "title": title,
-            "group_name": group_name,
-            "video_url": f"/videos/{video_filename}",
-            "overlay_url": f"/overlays/overlay_{video_id}.json",
-            "original_video_width": video_width,
-            "original_video_height": video_height,
-        }
-    ), 201
 
 
 @app.route("/api/upload_annotation", methods=["POST"])
