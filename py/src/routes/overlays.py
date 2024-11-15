@@ -8,8 +8,6 @@ overlays_bp = Blueprint("overlays", __name__, url_prefix=OVERLAY_URL_PREFIX)
 
 PROCESSED_OVERLAY_DIR = os.path.join(PROCESSED_DATA_DIR, "overlays")
 
-
-# TODO: FIXME LATER WITH samw prefix.
 # Route to serve overlay JSON files
 @overlays_bp.route("/file/<path:filename>")
 def serve_overlay(filename):

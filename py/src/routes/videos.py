@@ -20,7 +20,6 @@ PROCESSED_VIDEO_DIR = os.path.join(PROCESSED_DATA_DIR, "videos")
 PROCESSED_OVERLAY_DIR = os.path.join(PROCESSED_DATA_DIR, "overlays")
 
 
-# TODO: FIX ME LATER with the same prefix.
 @videos_bp.route("/file/<path:filename>", methods=["GET"], strict_slashes=False)
 def serve_video(filename):
     logger.info("Serve video file.")
