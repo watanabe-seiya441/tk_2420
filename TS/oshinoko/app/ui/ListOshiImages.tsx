@@ -40,14 +40,14 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
           },
         );
         const data = response.data;
-        console.log('Fetched data:', data);
+        // console.log('Fetched data:', data);
 
         // `name` をメンバーとして抽出
         const extractedMembers = data.map(
           (profile: { name: string }) => profile.name,
         );
 
-        console.log('Fetched members:', extractedMembers);
+        // console.log('Fetched members:', extractedMembers);
         setMembers(extractedMembers);
 
         // デフォルトで1番目のメンバーを選択
@@ -89,11 +89,10 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
 
   // メンバー選択・解除の切り替え
   const toggleMemberSelection = (member: string) => {
-    setSelectedMembers(
-      (prevSelected) =>
-        prevSelected.includes(member)
-          ? prevSelected.filter((m) => m !== member) // 既に選択されていれば解除
-          : [...prevSelected, member], // 選択されていなければ追加
+    setSelectedMembers((prevSelected) =>
+      prevSelected.includes(member)
+        ? prevSelected.filter((m) => m !== member)
+        : [...prevSelected, member],
     );
   };
 
@@ -103,16 +102,18 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
 
   return (
     <div className="space-y-8">
-      {/* メンバー選択ボタン */}
-      <div className="flex gap-4 mb-4">
+      <h2 className="text-2xl font-bold text-center mb-4">
+        推しメンバーを選択
+      </h2>
+      <div className="flex flex-wrap gap-4 justify-center mb-6">
         {members.map((member) => (
           <button
             key={member}
             onClick={() => toggleMemberSelection(member)}
-            className={`px-4 py-2 rounded-lg shadow ${
+            className={`px-4 py-2 rounded-lg shadow transition-colors duration-200 ${
               selectedMembers.includes(member)
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-300 text-black'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-300 text-gray-700 hover:bg-blue-400 hover:text-white'
             }`}
           >
             {member}
@@ -120,22 +121,28 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
         ))}
       </div>
 
-      {/* 選択されたメンバーの画像を表示 */}
       {selectedMembers.map((member) => (
-        <div key={member}>
-          <h3 className="text-xl font-semibold mb-2">{member}</h3>
-          <div className="overflow-x-auto" style={{ width: '100%' }}>
+        <div key={member} className="bg-gray-100 p-4 rounded-lg shadow-lg">
+          <h3 className="text-xl font-semibold text-center text-blue-600 mb-4">
+            {member} の画像
+          </h3>
+          <div className="overflow-x-auto">
             <div className="flex gap-4">
               {(imagesByMember[member] || []).map((url, index) => (
                 <img
                   key={index}
                   src={url}
                   alt={`${member} Image ${index + 1}`}
-                  className="h-48 w-auto rounded-lg shadow-md"
+                  className="h-48 w-auto rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105"
                 />
               ))}
             </div>
           </div>
+          {(imagesByMember[member] || []).length === 0 && (
+            <p className="text-center text-gray-500 mt-4">
+              画像が見つかりませんでした
+            </p>
+          )}
         </div>
       ))}
     </div>
