@@ -70,13 +70,14 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
         console.log(`Fetched images for ${member}:`, response.data);
         setImagesByMember((prev) => ({ ...prev, [member]: response.data }));
       } catch (err) {
-        console.error(`Failed to fetch images for ${member}:`, err);
-        setError('画像を取得できませんでした。');
+        // 画像が存在しない場合には空の配列を設定する
+        console.log(`No images found for ${member}, setting empty list.`);
+        setImagesByMember((prev) => ({ ...prev, [member]: [] }));
       }
     };
 
     members.forEach((member) => fetchImagesForMember(member));
-  }, [members]);
+  }, [members, videoTitle]);
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
