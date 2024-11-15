@@ -43,7 +43,7 @@ def upload_annotation():
     ), 201
 
 
-@annotations_bp.route("/api/annotation_labels", methods=["GET"])
+@annotations_bp.route("/annotation_labels", methods=["GET"])
 def get_annotation_labels():
     """Get list of annotation labels"""
     group_name = request.args.get("groupName")

@@ -12,3 +12,4 @@ runs_old/
 *.DS_Store
 py/additional_dataset/
 py/processed_data/overlays/
+py/datasets/
