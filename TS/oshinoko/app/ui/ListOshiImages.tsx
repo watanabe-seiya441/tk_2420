@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { backendUrl } from '@/app/lib/config';
+import { backendUrl, memberProfileUrlPrefix } from '@/app/lib/config';
 import axios from 'axios';
 
 interface ListOshiImageProps {
@@ -32,7 +32,7 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
     const fetchMembers = async () => {
       try {
         const response = await axios.get(
-          `${backendUrl}/api/v1/member_profiles`,
+          `${backendUrl}/${memberProfileUrlPrefix}`,
           {
             params: { groupName }, // groupNameをリクエストパラメータとして使用
           },
