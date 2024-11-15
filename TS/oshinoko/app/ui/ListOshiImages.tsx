@@ -17,6 +17,7 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
   const [imagesByMember, setImagesByMember] = useState<{
     [member: string]: string[];
   }>({});
+  const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   // 動画タイトルやグループ名が変わるたびにメンバー情報と画像をリセット
@@ -26,9 +27,10 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
     );
     setMembers([]);
     setImagesByMember({});
+    setSelectedMembers([]);
     setError(null); // エラーもリセット
 
-    // `/api/annotation_labels` からメンバー情報を取得
+    // メンバー情報を取得
     const fetchMembers = async () => {
       try {
         const response = await axios.get(
@@ -80,13 +82,41 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
     members.forEach((member) => fetchImagesForMember(member));
   }, [members, videoTitle]);
 
+  // メンバー選択・解除の切り替え
+  const toggleMemberSelection = (member: string) => {
+    setSelectedMembers(
+      (prevSelected) =>
+        prevSelected.includes(member)
+          ? prevSelected.filter((m) => m !== member) // 既に選択されていれば解除
+          : [...prevSelected, member], // 選択されていなければ追加
+    );
+  };
+
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
 
   return (
     <div className="space-y-8">
-      {members.map((member) => (
+      {/* メンバー選択ボタン */}
+      <div className="flex gap-4 mb-4">
+        {members.map((member) => (
+          <button
+            key={member}
+            onClick={() => toggleMemberSelection(member)}
+            className={`px-4 py-2 rounded-lg shadow ${
+              selectedMembers.includes(member)
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-300 text-black'
+            }`}
+          >
+            {member}
+          </button>
+        ))}
+      </div>
+
+      {/* 選択されたメンバーの画像を表示 */}
+      {selectedMembers.map((member) => (
         <div key={member}>
           <h3 className="text-xl font-semibold mb-2">{member}</h3>
           <div className="overflow-x-auto" style={{ width: '100%' }}>
