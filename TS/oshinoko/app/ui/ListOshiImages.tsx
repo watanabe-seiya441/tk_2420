@@ -75,11 +75,11 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
             member,
           },
         );
-        console.log(`Fetched images for ${member}:`, response.data);
+        // console.log(`Fetched images for ${member}:`, response.data);
         setImagesByMember((prev) => ({ ...prev, [member]: response.data }));
       } catch (err) {
         // 画像が存在しない場合には空の配列を設定する
-        console.log(`No images found for ${member}, setting empty list.`);
+        // console.log(`No images found for ${member}, setting empty list.`);
         setImagesByMember((prev) => ({ ...prev, [member]: [] }));
       }
     };
