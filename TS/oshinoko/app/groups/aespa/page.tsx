@@ -7,6 +7,7 @@ import Header from '@/app/ui/Header';
 import VideoList from '@/app/ui/VideoList';
 import VideoUpload from '@/app/ui/VideoUpload';
 import ListOshiImages from '@/app/ui/ListOshiImages';
+import ModelTraining from '@/app/ui/ModelTraining';
 import { Video } from '@/app/lib/types';
 import { backendUrl } from '@/app/lib/config';
 
@@ -26,7 +27,8 @@ const AespaPage = () => {
           <p className="mt-4 text-lg text-gray-700">
             A K-pop girl group from SM Entertainment.
           </p>
-          <VideoUpload /> {/* TODO: THIS IS NOT WORKING YET.*/}
+          <VideoUpload />
+
           {/* Annotate Button */}
           {/* TODO: set currentTime dynamically. */}
           {/* TODO: ボタンじゃなくてSidebarのほうが良い説? */}
@@ -40,6 +42,10 @@ const AespaPage = () => {
           ) : (
             <p className="mt-4 text-red-500">動画を選択してください</p>
           )}
+
+          {/* Model Training コンポーネント */}
+          <ModelTraining groupName="aespa" />
+
           {/* Enhanced Video Player */}
           <div className="mt-8">
             <h2 className="text-2xl font-semibold">

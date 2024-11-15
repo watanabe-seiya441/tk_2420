@@ -7,18 +7,18 @@
 
 読み取り専用の元データセットが以下のようなディレクトリ構造で保存されていることを想定しています。
 ```
-py/dataset/aespa/test/  
-py/dataset/aespa/train/  
-py/dataset/aespa/valid/  
-py/dataset/aespa/data.yaml  
+py/datasets/predefined_dataset/{group}/test/  
+py/datasets/predefined_dataset/{group}/train/  
+py/datasets/predefined_dataset/{group}/valid/  
+py/datasets/predefined_dataset/{group}/data.yaml  
 ```
 
 - 追加データ
 
 追加データは、以下のような構造で保存されている必要があります。
 ```
-py/additional_dataset/aespa/\*.txt  
-py/additional_dataset/aespa/\*.jpg  
+py/datasets/additional_dataset/{group}/\*.txt  
+py/datasets/additional_dataset/{group}/\*.jpg  
 ```
 
 
@@ -28,17 +28,17 @@ py/additional_dataset/aespa/\*.jpg
 
 1. **元のデータセットをコピー**  
  読み取り専用の元データセットを、新たなディレクトリにコピーして「コピーデータセット」として使用します。このディレクトリは追加データの保存や編集が可能です。  
- - 例: `py/dataset/aespa/` → `py/dataset_copy/aespa/`
+ - 例: `py/datasets/predefined_dataset/{group}/` → `py/datasets/tmp/dataset_copy/{group}/`
 
 2. **追加データをコピーデータセットに追加**  
  追加データの `.txt` と `.jpg` ファイルを、それぞれ以下のディレクトリにコピーします。
- - `.txt` ファイル → `py/dataset_copy/aespa/train/labels/`
- - `.jpg` ファイル → `py/dataset_copy/aespa/train/images/`
+ - `.txt` ファイル → `py/datasets/tmp/dataset_copy/{group}/train/labels/`
+ - `.jpeg` ファイル → `py/datasets/tmp/dataset_copy/{group}/train/images/`
 
 3. **モデルのファインチューニング**  
- コピーデータセットを用いて、`yolo11n` モデルをファインチューニングします。
+ コピーデータセットを用いて、`py/models/YOLOv11/yolo11n` をファインチューニングします。
 
 4. **学習済みモデルの保存**  
- 学習後の最良モデル (`best.pt`) を `py/train/best.pt` に保存します。
+ 学習後の最良モデル (`best.pt`) を `py/models/YOLOv11/{group}/best.pt` として保存します。
 
 

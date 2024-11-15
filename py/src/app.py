@@ -11,6 +11,7 @@ from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from models import AnnotationLabel, VideoInfo, db  # models からインポート
 from services.create_overlay.movie_detector import annotate_video
+from services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -131,6 +132,32 @@ def get_image(video_title, member, filename):
     # フルパスを指定
     directory_path = f"{PROCESSED_DATA_DIR}/oshi_photos/{video_title}/{member}"
     return send_from_directory(directory_path, filename)
+
+
+training_status = {"status": "idle"}  # 初期状態はidle
+
+
+@app.route("/api/train_model", methods=["POST"])
+def train_model():
+    group_name = request.json.get("groupName")
+    if not group_name:
+        return jsonify({"error": "Group name is required"}), 400
+
+    # 学習開始
+    training_status["status"] = "training"
+    update_model_with_additional_dataset(
+        DATASETS_DIR=DATASETS_DIR,
+        MODELS_DIR=MODELS_DIR,
+        group=group_name,
+    )
+    training_status["status"] = "completed"
+
+    return jsonify({"message": "Model training started"}), 200
+
+
+@app.route("/api/train_status", methods=["GET"])
+def get_train_status():
+    return jsonify(training_status)
 
 
 @app.route("/api/upload_kpop_face_match", methods=["POST"])
