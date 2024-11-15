@@ -1,14 +1,14 @@
-from env import DATASETS_DIR, MODELS_DIR
+from env import DATASETS_DIR, ML_MODEL_URL_PREFIX, MODELS_DIR
 from flask import Blueprint, jsonify, request
 from services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
 
 # Blueprintの初期化
-ml_models_bp = Blueprint("ml_models", __name__, url_prefix="/")
+ml_models_bp = Blueprint("ml_models", __name__, url_prefix=ML_MODEL_URL_PREFIX)
 
 training_status = {"status": "idle"}  # 初期状態はidle
 
 
-@ml_models_bp.route("/api/train_model", methods=["POST"])
+@ml_models_bp.route("/train_start", methods=["POST"])
 def train_model():
     group_name = request.json.get("groupName")
     if not group_name:
@@ -26,6 +26,6 @@ def train_model():
     return jsonify({"message": "Model training started"}), 200
 
 
-@ml_models_bp.route("/api/train_status", methods=["GET"])
+@ml_models_bp.route("/train_status", methods=["GET"])
 def get_train_status():
     return jsonify(training_status)

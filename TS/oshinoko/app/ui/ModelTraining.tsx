@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { backendUrl } from '@/app/lib/config';
+import { backendUrl, mlModelUrlPrefix } from '@/app/lib/config';
 
 interface ModelTrainingProps {
   groupName: string;
@@ -17,9 +17,12 @@ const ModelTraining: React.FC<ModelTrainingProps> = ({ groupName }) => {
     try {
       setTrainingMessage('Model training is starting...');
       setIsTraining(true);
-      const response = await axios.post(`${backendUrl}/api/train_model`, {
-        groupName,
-      });
+      const response = await axios.post(
+        `${backendUrl}/${mlModelUrlPrefix}/train_start`,
+        {
+          groupName,
+        },
+      );
       setTrainingMessage(
         response.data.message || 'Model training is in progress...',
       );
@@ -36,7 +39,9 @@ const ModelTraining: React.FC<ModelTrainingProps> = ({ groupName }) => {
 
     const intervalId = setInterval(async () => {
       try {
-        const response = await axios.get(`${backendUrl}/api/train_status`);
+        const response = await axios.get(
+          `${backendUrl}/${mlModelUrlPrefix}/train_status`,
+        );
         if (response.data.status === 'completed') {
           setTrainingMessage('Model training is completed.');
           setIsTraining(false); // トレーニング終了後にボタンを再度有効化
