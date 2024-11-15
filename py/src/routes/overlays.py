@@ -1,7 +1,7 @@
 import os
 
-from env import OVERLAY_URL_PREFIX, PROCESSED_DATA_DIR, MODELS_DIR
-from flask import Blueprint, jsonify, send_from_directory, request
+from env import MODELS_DIR, OVERLAY_URL_PREFIX, PROCESSED_DATA_DIR
+from flask import Blueprint, jsonify, request, send_from_directory
 from services.create_overlay.movie_detector import annotate_video
 
 # Blueprintの初期化
@@ -68,5 +68,6 @@ def update_overlay():
             os.remove(temp_video_path)
         if os.path.exists(temp_overlay_path):
             os.remove(temp_overlay_path)
-
         return jsonify({"error": str(e)}), 500
+    finally:
+        os.rmdir(TEMP_DIR)
