@@ -49,6 +49,11 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
 
         console.log('Fetched members:', extractedMembers);
         setMembers(extractedMembers);
+
+        // デフォルトで1番目のメンバーを選択
+        if (extractedMembers.length > 0) {
+          setSelectedMembers([extractedMembers[0]]);
+        }
       } catch (err) {
         console.error('Failed to fetch members:', err);
         setError('メンバー情報を取得できませんでした。');
