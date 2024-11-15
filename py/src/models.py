@@ -24,7 +24,7 @@ class VideoInfo(db.Model):  # type: ignore
 class MemberProfile(db.Model):  # type: ignore
     __tablename__ = "member_profile"
     id = db.Column(db.Integer, primary_key=True)
-    group_member_id = db.Column(db.Integer, nullable=False) # ID of the member in the group
+    group_member_id = db.Column(db.Integer, nullable=False)  # ID of the member in the group
     name = db.Column(db.String(50), nullable=False)
     associated_color = db.Column(db.String(20), nullable=False)
-    group_name = db.Column(db.String(50), nullable=False) 
+    group_name = db.Column(db.String(50), nullable=False)
