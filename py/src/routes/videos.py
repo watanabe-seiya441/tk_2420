@@ -4,7 +4,7 @@ import shutil
 import uuid
 
 import cv2
-from env import MODELS_DIR, PROCESSED_DATA_DIR, UPLOADS_DIR, VIDEO_URL_PREFIX
+from env import MODELS_DIR, OVERLAY_URL_PREFIX, PROCESSED_DATA_DIR, UPLOADS_DIR, VIDEO_URL_PREFIX
 from flask import Blueprint, jsonify, request, send_from_directory
 from models import VideoInfo, db
 from services.create_overlay.movie_detector import annotate_video
@@ -123,7 +123,7 @@ def upload_video():
         title=title,
         group_name=group_name,
         video_url=f"{VIDEO_URL_PREFIX}/file/{video_filename}",
-        overlay_url=f"/overlays/overlay_{video_id}.json",
+        overlay_url=f"{OVERLAY_URL_PREFIX}/file/overlay_{video_id}.json",
         original_video_width=video_width,
         original_video_height=video_height,
     )
