@@ -50,7 +50,6 @@ const UpdateOverlay: React.FC<UpdateOverlayProps> = ({
 
   return (
     <div>
-      <h1>Update Overlay</h1>
       <button
         onClick={handleUpdateOverlay}
         disabled={loading}

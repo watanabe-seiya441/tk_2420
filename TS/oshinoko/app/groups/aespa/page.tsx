@@ -44,6 +44,7 @@ const AespaPage = () => {
             <p className="mt-4 text-red-500">動画を選択してください</p>
           )}
 
+          {/* TODO: model training とupdateOverlayを同時に行ったら壊れる? */}
           {/* Model Training コンポーネント */}
           <ModelTraining groupName="aespa" />
 
