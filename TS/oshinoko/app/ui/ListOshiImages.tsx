@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { backendUrl } from '@/app/lib/config';
+import { backendUrl, memberProfileUrlPrefix } from '@/app/lib/config';
 import axios from 'axios';
 
 interface ListOshiImageProps {
@@ -32,7 +32,7 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
     const fetchMembers = async () => {
       try {
         const response = await axios.get(
-          `${backendUrl}/api/annotation_labels`,
+          `${backendUrl}/${memberProfileUrlPrefix}`,
           {
             params: { groupName }, // groupNameをリクエストパラメータとして使用
           },
@@ -40,10 +40,11 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
         const data = response.data;
         console.log('Fetched data:', data);
 
-        // `label_name` をメンバーとして抽出
+        // `name` をメンバーとして抽出
         const extractedMembers = data.map(
-          (label: { label_name: string }) => label.label_name,
+          (profile: { name: string }) => profile.name,
         );
+
         console.log('Fetched members:', extractedMembers);
         setMembers(extractedMembers);
       } catch (err) {
@@ -61,7 +62,7 @@ const ListOshiImages: React.FC<ListOshiImageProps> = ({
     const fetchImagesForMember = async (member: string) => {
       try {
         const response = await axios.post<string[]>(
-          `${backendUrl}/api/list_oshi_images`,
+          `${backendUrl}/api/list_oshi_photos`,
           {
             videoTitle,
             member,
