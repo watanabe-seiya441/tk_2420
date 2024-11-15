@@ -1,7 +1,7 @@
 import os
 
 from env import PROCESSED_DATA_DIR
-from flask import Blueprint, send_from_directory
+from flask import Blueprint
 
 # Blueprintの初期化
 overlays_bp = Blueprint("overlays", __name__, url_prefix="/overlays")
