@@ -7,12 +7,16 @@ import AnnotationStudio from '@/app/ui/AnnotationStudio';
 import VideoList from '@/app/ui/VideoList';
 import { AnnotatedSnapshot, LabelInfo, Video } from '@/app/lib/types';
 import { convertSnapshotToFiles } from '@/app/lib/snapshotUtils';
-import { backendUrl } from '@/app/lib/config';
+import {
+  annotationUrlPrefix,
+  backendUrl,
+  videoUrlPrefix,
+} from '@/app/lib/config';
 import axios from 'axios';
 
 // TODO: set group name dynamically.
 const GROUP_NAME = 'aespa';
-const DEFAULT_VIDEO_URL = '/videos/Supernova.mp4';
+const DEFAULT_VIDEO_URL = `${videoUrlPrefix}/file/Supernova.mp4`;
 
 const AnnotationPage: React.FC = () => {
   const [isAnnotationMode, setIsAnnotationMode] = useState(false);
@@ -30,9 +34,12 @@ const AnnotationPage: React.FC = () => {
 
   const fetchLabelInfo = async () => {
     try {
-      const response = await axios.get(`${backendUrl}/api/annotation_labels`, {
-        params: { groupName },
-      });
+      const response = await axios.get(
+        `${backendUrl}/${annotationUrlPrefix}/annotation_labels`,
+        {
+          params: { groupName },
+        },
+      );
       setLabels(response.data);
       console.log('Labels fetched:', response.data);
     } catch (error) {
@@ -64,11 +71,15 @@ const AnnotationPage: React.FC = () => {
         formData.append('groupName', groupName);
 
         // Send to backend
-        await axios.post(`${backendUrl}/api/upload_annotation`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
+        await axios.post(
+          `${backendUrl}/${annotationUrlPrefix}/upload/annotation`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
           },
-        });
+        );
       }
       console.log('All snapshots uploaded successfully.');
       setAnnotatedSnapshots([]);
@@ -133,7 +144,10 @@ const AnnotationPage: React.FC = () => {
               />
             </>
           ) : (
-            <VideoList onSelectVideo={handleVideoSelect} groupName="aespa" />
+            <VideoList
+              onSelectVideo={handleVideoSelect}
+              groupName={GROUP_NAME}
+            />
           )}
         </div>
       </div>

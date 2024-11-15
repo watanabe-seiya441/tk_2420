@@ -14,5 +14,6 @@ PROCESSED_DATA_DIR = os.path.join(BASE_DIR, "processed_data")
 
 
 # URL Prefix
-VIDEO_URL_PREFIX = "/api/v1/videos"
+ANNOTATION_URL_PREFIX = "/api/v1/annotations"
 OVERLAY_URL_PREFIX = "/api/v1/overlays"
+VIDEO_URL_PREFIX = "/api/v1/videos"
