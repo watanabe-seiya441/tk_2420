@@ -8,6 +8,7 @@ import VideoList from '@/app/ui/VideoList';
 import VideoUpload from '@/app/ui/VideoUpload';
 import ListOshiImages from '@/app/ui/ListOshiImages';
 import ModelTraining from '@/app/ui/ModelTraining';
+import UpdateOverlay from '@/app/ui/UpdateOverlay';
 import { Video } from '@/app/lib/types';
 import { backendUrl } from '@/app/lib/config';
 
@@ -43,8 +44,21 @@ const AespaPage = () => {
             <p className="mt-4 text-red-500">動画を選択してください</p>
           )}
 
+          {/* TODO: model training とupdateOverlayを同時に行ったら壊れる? */}
           {/* Model Training コンポーネント */}
           <ModelTraining groupName="aespa" />
+
+          {/* Update Overlay Button */}
+          {/* TODO:URLを渡すときに, backendUrlを含めて渡しているのと、含めていないのが混ざっていて気持ち悪い. */}
+          {/* TODO: DBを使えば, videoIdだけ渡せば処理は実現できる. */}
+          {selectedVideo && (
+            <UpdateOverlay
+              videoId={selectedVideo.id}
+              overlayUrl={selectedVideo.overlay_url}
+              videoUrl={selectedVideo.video_url}
+              groupName={selectedVideo.group_name}
+            />
+          )}
 
           {/* Enhanced Video Player */}
           <div className="mt-8">
@@ -54,6 +68,7 @@ const AespaPage = () => {
             {selectedVideo ? (
               <EnhancedVideoPlayer
                 src={`${backendUrl}${selectedVideo.video_url}`}
+                // TODO: rename overlayConfigUrl to overlayUrl
                 overlayConfigUrl={`${backendUrl}${selectedVideo.overlay_url}`}
                 originalVideoWidth={selectedVideo.original_video_width}
                 originalVideoHeight={selectedVideo.original_video_height}

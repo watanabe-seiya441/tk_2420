@@ -2,7 +2,7 @@
 1. Move to project root.
 2. Install python dependencies with `uv sync`.
 3. Activate a virtual environment with `source .venv/bin/activate`.
-5. Place `Whiplash.mp4` and `Supernova.mp4` in `/py/processed_data/videos/` directory if you want to work with frontend.
+5. Place `Whiplash.mp4` and `Supernova.mp4` in `/py/processed_data/videos/` and `py/processed_data/videos_with_nametags/` directory if you want to work with frontend.
 6. Set data in SQLite database. `cd py/src` and then `python3 seed_db.py`
 7. setup PYTHONPATH. `source setup_pythonpath.sh` 
 8. Run `python3 app.py` or `flask run --host=0.0.0.0 --port 5000` 
