@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, request
 from services.train_yolo_model.incremental_learning import update_model_with_additional_dataset
 
 # Blueprintの初期化
-models_bp = Blueprint("models", __name__, url_prefix="/")
+models_bp = Blueprint("ml_models", __name__, url_prefix="/")
 
 training_status = {"status": "idle"}  # 初期状態はidle
 
