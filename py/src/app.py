@@ -14,6 +14,9 @@ db.init_app(app)
 register_routes(app)
 
 
+for rule in app.url_map.iter_rules():
+    print(rule)
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

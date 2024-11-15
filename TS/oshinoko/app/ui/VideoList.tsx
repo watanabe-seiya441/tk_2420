@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Video } from '@/app/lib/types';
-import { backendUrl } from '@/app/lib/config';
+import { backendUrl, videoUrlPrefix } from '@/app/lib/config';
 
 interface VideoListProps {
   onSelectVideo: (video: Video) => void;
@@ -13,7 +13,7 @@ const VideoList: React.FC<VideoListProps> = ({ onSelectVideo, groupName }) => {
 
   useEffect(() => {
     // Fetch the list of videos for the selected group
-    fetch(`${backendUrl}/api/videos?group_name=${groupName}`)
+    fetch(`${backendUrl}/${videoUrlPrefix}/list?group_name=${groupName}`)
       .then((res) => res.json())
       .then((data) => setVideos(data))
       .catch((error) => console.error('Error fetching videos:', error));

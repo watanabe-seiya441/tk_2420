@@ -11,3 +11,7 @@ DATASETS_DIR = os.path.join(BASE_DIR, "datasets")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
 PROCESSED_DATA_DIR = os.path.join(BASE_DIR, "processed_data")
+
+
+# URL Prefix
+VIDEO_URL_PREFIX = "/api/v1/videos"
