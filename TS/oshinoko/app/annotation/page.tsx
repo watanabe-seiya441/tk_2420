@@ -7,7 +7,7 @@ import AnnotationStudio from '@/app/ui/AnnotationStudio';
 import VideoList from '@/app/ui/VideoList';
 import { AnnotatedSnapshot, LabelInfo, Video } from '@/app/lib/types';
 import { convertSnapshotToFiles } from '@/app/lib/snapshotUtils';
-import { backendUrl } from '@/app/lib/config';
+import { annotationUrlPrefix, backendUrl } from '@/app/lib/config';
 import axios from 'axios';
 
 // TODO: set group name dynamically.
@@ -64,11 +64,15 @@ const AnnotationPage: React.FC = () => {
         formData.append('groupName', groupName);
 
         // Send to backend
-        await axios.post(`${backendUrl}/api/upload_annotation`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
+        await axios.post(
+          `${backendUrl}/${annotationUrlPrefix}/upload/annotation`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
           },
-        });
+        );
       }
       console.log('All snapshots uploaded successfully.');
       setAnnotatedSnapshots([]);

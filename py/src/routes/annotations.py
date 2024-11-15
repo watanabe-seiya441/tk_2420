@@ -1,17 +1,17 @@
 import os
 import uuid
 
-from env import DATASETS_DIR
+from env import ANNOTATION_URL_PREFIX, DATASETS_DIR
 from flask import Blueprint, jsonify, request
 from models import AnnotationLabel, db
 
 ANNOTATION_DIR = os.path.join(DATASETS_DIR, "additional_dataset")
 
 # Blueprintの初期化
-annotations_bp = Blueprint("annotations", __name__, url_prefix="/")
+annotations_bp = Blueprint("annotations", __name__, url_prefix=ANNOTATION_URL_PREFIX)
 
 
-@annotations_bp.route("/api/upload_annotation", methods=["POST"])
+@annotations_bp.route("/upload/annotation", methods=["POST"])
 def upload_annotation():
     """Upload new annotation data and save to the specified directory."""
     annotation_file = request.files.get("annotation")
