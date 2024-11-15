@@ -10,7 +10,7 @@ ANNOTATION_DIR = os.path.join(DATASETS_DIR, "additional_dataset")
 annotations_bp = Blueprint("annotations", __name__, url_prefix=ANNOTATION_URL_PREFIX)
 
 
-@annotations_bp.route("/upload/annotation", methods=["POST"])
+@annotations_bp.route("/", methods=["POST"])
 def upload_annotation():
     """Upload new annotation data and save to the specified directory."""
     annotation_file = request.files.get("annotation")
