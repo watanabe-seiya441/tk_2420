@@ -175,7 +175,7 @@ def annotate_video(
                     if y1_smooth - 5 < 0:
                         adjusted_y1_smooth += 15
                     # バウンディングボックスを描画
-                    cv2.line(frame, (x1_smooth, adjusted_y1_smooth), (x2_smooth, y2_smooth), color, 2)
+                    cv2.line(frame, (x1_smooth, adjusted_y1_smooth), (x2_smooth, adjusted_y1_smooth), color, 2)
 
                     # ラベルを描画
                     label_text = f"{class_name}"
