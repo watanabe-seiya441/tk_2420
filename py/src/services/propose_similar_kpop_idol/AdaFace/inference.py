@@ -1,9 +1,9 @@
 import os
 
-import AdaFace.net as net
+import net
 import numpy as np
 import torch
-from AdaFace.face_alignment import align
+from face_alignment import align
 
 
 def load_pretrained_model(architecture="ir_50", model_path="AdaFace/pretrained/adaface_ir50_ms1mv2.ckpt"):
