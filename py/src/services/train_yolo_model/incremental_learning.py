@@ -6,6 +6,8 @@ from ultralytics import YOLO
 
 
 def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
+    # Epoch数の指定
+    EPOCHS = 100
     # パスの設定
     source_dir = os.path.join(DATASETS_DIR, "predefined_dataset", group)
     tmp_dir = os.path.join(DATASETS_DIR, "tmp")
@@ -22,6 +24,9 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
     models_dir = os.path.join(MODELS_DIR, "YOLOv11", group)
     runs_dir = os.path.join(tmp_dir, "train", "runs", "detect")
 
+    # modelを書き込む先のディレクトリの作成
+    os.makedirs(models_dir, exist_ok=True)
+
     # GPUが有効かチェック
     if torch.cuda.is_available():
         device = "cuda:0"
@@ -30,7 +35,8 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
     print(f"{device} が有効です。")
 
     # データセットのコピー 
-    # 注: source_dir = datasets/additional_dataset/{group}がないとうまくいかない(<- ここをos.makedirs必要があるかどうか)
+    # 注: additional_dataset_dir = datasets/additional_dataset/{group}がないとうまくいかない(<- ここをos.makedirsで作る)
+    os.makedirs(additional_dataset_dir, exist_ok=True)
     os.makedirs(destination_dir, exist_ok=True)
     shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
 
@@ -59,7 +65,7 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
 
     # モデルのトレーニング
     model = YOLO(f"{MODELS_DIR}/YOLOv11/yolo11n.pt").to(device)
-    model.train(data=data_yaml_path, epochs=100, imgsz=640, device=device, project=runs_dir)
+    model.train(data=data_yaml_path, epochs=EPOCHS, imgsz=640, device=device, project=runs_dir)
 
     # best.ptのコピー
     latest_train_dir = max(
