@@ -51,12 +51,10 @@ const RecommendationPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="w-full bg-blue-500 text-white py-4 px-6 shadow-md flex justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-semibold">Oshi no Ko</h1>
-          <h2 className="text-lg">K-Pop Celebrity Matcher</h2>
-        </div>
-      </header>
+      <Header />
+      <h1 className="text-2xl font-semibold text-center mt-4">
+        K-Pop Celebrity Matcher
+      </h1>
 
       <div className="flex flex-col items-center py-10">
         <div className="text-lg text-gray-700 mt-5">
@@ -81,6 +79,7 @@ const RecommendationPage = () => {
 
         {previewSrc && (
           <div className="mt-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={previewSrc}
               alt="Selected Preview"
@@ -107,6 +106,7 @@ const RecommendationPage = () => {
               Your K-Pop Look-alike: {celebrityName}
             </div>
             {celebrityPhoto && (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={`${backendUrl}/${celebrityPhoto}`}
                 alt={`Image of ${celebrityName}`}
