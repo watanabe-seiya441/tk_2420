@@ -12,8 +12,9 @@ import UpdateOverlay from '@/app/ui/UpdateOverlay';
 import { Video } from '@/app/lib/types';
 import { backendUrl } from '@/app/lib/config';
 
-const AespaPage = () => {
+const GroupPage = () => {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const GROUP_NAME = 'aespa';
   console.log('selectedVideo:', selectedVideo);
   console.log('originalVideoWidth:', selectedVideo?.original_video_width);
   console.log('originalVideoHeight:', selectedVideo?.original_video_height);
@@ -24,11 +25,11 @@ const AespaPage = () => {
       <Header />
       <div className="container mx-auto py-10 text-center flex">
         <div className="flex-1 text-left">
-          <h1 className="text-4xl font-bold">Aespa</h1>
+          <h1 className="text-4xl font-bold">{GROUP_NAME}</h1>
           <p className="mt-4 text-lg text-gray-700">
             A K-pop girl group from SM Entertainment.
           </p>
-          <VideoUpload group="aespa" />
+          <VideoUpload group={GROUP_NAME} />
 
           {/* Annotate Button */}
           {/* TODO: set currentTime dynamically. */}
@@ -46,7 +47,7 @@ const AespaPage = () => {
 
           {/* TODO: model training とupdateOverlayを同時に行ったら壊れる? */}
           {/* Model Training コンポーネント */}
-          <ModelTraining groupName="aespa" />
+          <ModelTraining groupName={GROUP_NAME} />
 
           {/* Update Overlay Button */}
           {/* TODO:URLを渡すときに, backendUrlを含めて渡しているのと、含めていないのが混ざっていて気持ち悪い. */}
@@ -63,7 +64,7 @@ const AespaPage = () => {
           {/* Enhanced Video Player */}
           <div className="mt-8">
             <h2 className="text-2xl font-semibold">
-              Watch Aespa’s Latest Video
+              Watch {GROUP_NAME}’s Latest Video
             </h2>
             {selectedVideo ? (
               <EnhancedVideoPlayer
@@ -93,10 +94,10 @@ const AespaPage = () => {
         </div>
 
         {/* Video List on the right */}
-        <VideoList onSelectVideo={setSelectedVideo} groupName="aespa" />
+        <VideoList onSelectVideo={setSelectedVideo} groupName={GROUP_NAME} />
       </div>
     </main>
   );
 };
 
-export default AespaPage;
+export default GroupPage;
