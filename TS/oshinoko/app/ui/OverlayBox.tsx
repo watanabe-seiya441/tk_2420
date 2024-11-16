@@ -27,7 +27,6 @@ const OverlayBox: React.FC<OverlayBoxProps> = ({
 
   // Calculate midpoint for text positioning
   const midX = (startX + endX) / 2;
-  const midY = (startY + endY) / 2;
 
   return (
     <>
@@ -37,8 +36,7 @@ const OverlayBox: React.FC<OverlayBoxProps> = ({
         style={{
           top: `${startY}px`,
           left: `${startX}px`,
-          width: `${Math.hypot(endX - startX, endY - startY)}px`, // Line length
-          // transform: `rotate(${Math.atan2(endY - startY, endX - startX)}rad)`,
+          width: `${endX - startX}px`, // Line length
           backgroundColor: lineColor,
           height: `${lineWidth}px`,
         }}
@@ -50,7 +48,7 @@ const OverlayBox: React.FC<OverlayBoxProps> = ({
         style={{
           color,
           fontSize,
-          top: `${midY - 24}px`, // Position above the line
+          top: `${startY - 24}px`, // Position above the line
           left: `${midX}px`,
           transform: 'translate(-50%, 0%)', // Center horizontally, position above
           whiteSpace: 'nowrap',
