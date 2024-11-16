@@ -11,6 +11,7 @@ import ModelTraining from '@/app/ui/ModelTraining';
 import UpdateOverlay from '@/app/ui/UpdateOverlay';
 import { Video } from '@/app/lib/types';
 import { backendUrl } from '@/app/lib/config';
+import VideoUploadFromYoutube from '@/app/ui/VideoUploadFromYoutube';
 
 const GroupPage = () => {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
@@ -30,6 +31,7 @@ const GroupPage = () => {
             A K-pop girl group from SM Entertainment.
           </p>
           <VideoUpload group={GROUP_NAME} />
+          <VideoUploadFromYoutube group={GROUP_NAME} />
 
           {/* Annotate Button */}
           {/* TODO: set currentTime dynamically. */}
