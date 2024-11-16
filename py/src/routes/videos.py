@@ -118,7 +118,7 @@ def download_from_youtube():
         overlay_path = f"{PROCESSED_OVERLAY_DIR}/overlay_{video_id}.json"
         output_path = f"{PROCESSED_DATA_DIR}/videos_with_nametags/{video_filename}"
         model_path = f"{MODELS_DIR}/YOLOv11/{group_name}/hackv11i.pt"
-        annotate_video(uploaded_video_path, output_path, overlay_path, model_path)
+        annotate_video(uploaded_video_path, output_path, overlay_path, model_path, title)
 
         # 成功したら処理済みフォルダに移動
         annotation_successful = True  # TODO: 実際の処理でエラー確認
