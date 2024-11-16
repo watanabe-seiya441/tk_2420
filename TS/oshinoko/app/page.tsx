@@ -1,7 +1,7 @@
 import Header from '@/app/ui/Header';
 import Link from 'next/link';
 import Image from 'next/image';
-import { categories } from '@/app/lib/categoriies';
+import { categories } from '@/app/lib/categories';
 
 const HomePage = () => {
   return (
