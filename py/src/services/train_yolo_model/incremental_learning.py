@@ -11,8 +11,13 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
     tmp_dir = os.path.join(DATASETS_DIR, "tmp")
     destination_dir = os.path.join(DATASETS_DIR, "tmp", "copy_dataset", group)
     additional_dataset_dir = os.path.join(DATASETS_DIR, "additional_dataset", group)
-    txt_destination = os.path.join(destination_dir, "train", "labels")
-    jpg_destination = os.path.join(destination_dir, "train", "images")
+    txt_destination_train = os.path.join(destination_dir, "train", "labels")
+    jpg_destination_train = os.path.join(destination_dir, "train", "images")
+    txt_destination_test = os.path.join(destination_dir, "test", "labels")
+    jpg_destination_test = os.path.join(destination_dir, "test", "images")
+    txt_destination_val = os.path.join(destination_dir, "valid", "labels")
+    jpg_destination_val = os.path.join(destination_dir, "valid", "images")
+
     data_yaml_path = os.path.join(destination_dir, "data.yaml")
     models_dir = os.path.join(MODELS_DIR, "YOLOv11", group)
     runs_dir = os.path.join(tmp_dir, "train", "runs", "detect")
@@ -29,15 +34,28 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
     os.makedirs(destination_dir, exist_ok=True)
     shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
 
-    # 追加データのコピー
-    for filename in os.listdir(additional_dataset_dir):
-        file_path = os.path.join(additional_dataset_dir, filename)
-        if filename.endswith(".txt"):
-            shutil.copy(file_path, txt_destination)
-            print(f"{filename} を {txt_destination} にコピーしました。")
-        elif filename.endswith(".jpeg"):
-            shutil.copy(file_path, jpg_destination)
-            print(f"{filename} を {jpg_destination} にコピーしました。")
+    # 追加データのコピー - valに1枚、testに1枚、残りはtrainにコピー
+    additional_files = os.listdir(additional_dataset_dir)
+    txt_files = [f for f in additional_files if f.endswith(".txt")]
+    jpg_files = [f for f in additional_files if f.endswith(".jpeg")]
+
+    # 1枚目をvalに、2枚目をtestに、残りをtrainにコピー
+    for i, (txt_file, jpg_file) in enumerate(zip(txt_files, jpg_files)):
+        txt_path = os.path.join(additional_dataset_dir, txt_file)
+        jpg_path = os.path.join(additional_dataset_dir, jpg_file)
+
+        if i == 0:
+            shutil.copy(txt_path, txt_destination_val)
+            shutil.copy(jpg_path, jpg_destination_val)
+            print(f"{txt_file} と {jpg_file} を val ディレクトリにコピーしました。")
+        elif i == 1:
+            shutil.copy(txt_path, txt_destination_test)
+            shutil.copy(jpg_path, jpg_destination_test)
+            print(f"{txt_file} と {jpg_file} を test ディレクトリにコピーしました。")
+        else:
+            shutil.copy(txt_path, txt_destination_train)
+            shutil.copy(jpg_path, jpg_destination_train)
+            print(f"{txt_file} と {jpg_file} を train ディレクトリにコピーしました。")
 
     # モデルのトレーニング
     model = YOLO(f"{MODELS_DIR}/YOLOv11/yolo11n.pt").to(device)
