@@ -36,7 +36,7 @@ const GroupPage = () => {
           {/* TODO: ボタンじゃなくてSidebarのほうが良い説? */}
           {selectedVideo ? (
             <Link
-              href={`/annotation?videoUrl=${encodeURIComponent(selectedVideo.video_url)}&currentTime=10`}
+              href={`/annotation?videoId=${selectedVideo.id}&currentTime=10`}
               className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               Annotate
