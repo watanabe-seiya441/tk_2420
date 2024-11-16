@@ -19,9 +19,8 @@ import {
   videoUrlPrefix,
 } from '@/app/lib/config';
 import axios from 'axios';
+import { categories, CategoryItem } from '@/app/lib/categories';
 
-// TODO: set group name dynamically.
-const GROUP_NAME = 'aespa';
 const DEFAULT_VIDEO_URL = `${videoUrlPrefix}/file/Supernova.mp4`;
 
 const AnnotationPage: React.FC = () => {
@@ -30,8 +29,7 @@ const AnnotationPage: React.FC = () => {
     AnnotatedSnapshot[]
   >([]);
   const [labels, setLabels] = useState<LabelInfo[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [groupName, setGroupName] = useState<string>(GROUP_NAME);
+  const [groupName, setGroupName] = useState<string>(categories[0].id);
   const [videoUrl, setVideoUrl] = useState<string>(DEFAULT_VIDEO_URL);
 
   const addAnnotatedSnapshot = (snapshot: AnnotatedSnapshot) => {
@@ -103,13 +101,18 @@ const AnnotationPage: React.FC = () => {
       alert('No snapshots to clear.');
       return;
     }
-    window.confirm('Are you sure you want to clear all snapshots?');
-    setAnnotatedSnapshots([]);
+    if (window.confirm('Are you sure you want to clear all snapshots?')) {
+      setAnnotatedSnapshots([]);
+    }
   };
 
   const handleVideoSelect = (video: Video) => {
     setVideoUrl(video.video_url);
     console.log('Selected video:', videoUrl);
+  };
+
+  const handleGroupChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setGroupName(event.target.value);
   };
 
   return (
@@ -130,8 +133,27 @@ const AnnotationPage: React.FC = () => {
           />
         </div>
 
-        {/* Right Side: Video List or Snapshot Preview */}
+        {/* Right Side: Group Selection, Video List or Snapshot Preview */}
         <div className="w-1/4 p-4 bg-gray-50">
+          {/* Group Selector */}
+          <div className="mb-4">
+            <label htmlFor="groupSelector" className="block mb-2 text-gray-700">
+              Select Group:
+            </label>
+            <select
+              id="groupSelector"
+              value={groupName}
+              onChange={handleGroupChange}
+              className="w-full p-2 border border-gray-300 rounded"
+            >
+              {categories.map((category: CategoryItem) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {isAnnotationMode || annotatedSnapshots.length !== 0 ? (
             <>
               <button
@@ -155,7 +177,7 @@ const AnnotationPage: React.FC = () => {
           ) : (
             <VideoList
               onSelectVideo={handleVideoSelect}
-              groupName={GROUP_NAME}
+              groupName={groupName}
             />
           )}
         </div>

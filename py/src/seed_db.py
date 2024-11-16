@@ -26,10 +26,10 @@ def seed_data():
         ),
         VideoInfo(
             id="7g8h9i0j-1k2l-3m4n-5o6p-1q2w3e4r5t6y",
-            title="裸足でSummer",
-            group_name="nokizaka",
-            video_url=f"{VIDEO_URL_PREFIX}/file/hadashidesummer_nise.mp4",
-            overlay_url=f"{OVERLAY_URL_PREFIX}/file/hadashidesummer_nise_overlay.json",
+            title="takarazuka_song",
+            group_name="takarazuka",
+            video_url=f"{VIDEO_URL_PREFIX}/file/Whiplash.mp4",
+            overlay_url=f"{OVERLAY_URL_PREFIX}/file/Whiplash_overlay.json",
             original_video_width=640,
             original_video_height=360,
         ),
@@ -40,6 +40,7 @@ def seed_data():
         MemberProfile(group_member_id=1, name="karina", associated_color="blue", group_name="aespa"),
         MemberProfile(group_member_id=2, name="ningning", associated_color="purple", group_name="aespa"),
         MemberProfile(group_member_id=3, name="winter", associated_color="lightgreen", group_name="aespa"),
+        MemberProfile(group_member_id=0, name="天海祐希", associated_color="red", group_name="takarazuka"),
     ]
 
     # データベースをクリアしてからデータを挿入
