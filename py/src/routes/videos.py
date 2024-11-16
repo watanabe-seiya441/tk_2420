@@ -27,7 +27,6 @@ def serve_video(filename):
     return send_from_directory(PROCESSED_VIDEO_DIR, filename)
 
 
-# TODO: FIXME
 @videos_bp.route("/list", methods=["GET"], strict_slashes=False)
 def get_videos():
     """Get list of videos, optionally filtered by group_name"""
@@ -53,8 +52,6 @@ def get_videos():
     )
 
 
-# TODO: FIX ME
-# NOTE: This is not used by the frontend now. Consider removing this endpoint.
 @videos_bp.route("/<video_id>", methods=["GET"])
 def get_video_data(video_id: str):
     """Get specific video data including overlay"""
