@@ -37,7 +37,10 @@ def propose_similar_kpop_idol(
         print(idol_name, similarity_score)
 
     most_similar_idol_name, _ = sorted_similarity_scores[0]
-    return most_similar_idol_name, f"{DATASETS_DIR}/kpop_idol_faces/{most_similar_idol_name}/{most_similar_idol_name}.jpg"
+    return (
+        most_similar_idol_name,
+        f"{DATASETS_DIR}/kpop_idol_faces/{most_similar_idol_name}/{most_similar_idol_name}.jpg",
+    )
 
 
 if __name__ == "__main__":

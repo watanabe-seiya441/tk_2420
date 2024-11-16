@@ -59,7 +59,9 @@ const RecommendationPage = () => {
       </header>
 
       <div className="flex flex-col items-center py-10">
-        <div className="text-lg text-gray-700 mt-5">Upload a photo to see your K-pop match!</div>
+        <div className="text-lg text-gray-700 mt-5">
+          Upload a photo to see your K-pop match!
+        </div>
 
         <div className="mt-6">
           <input
@@ -91,7 +93,9 @@ const RecommendationPage = () => {
           onClick={handleUpload}
           disabled={!selectedFile || loading}
           className={`mt-6 px-6 py-2 rounded-lg text-white shadow-lg ${
-            loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600'
+            loading
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-green-500 hover:bg-green-600'
           } transition duration-200`}
         >
           {loading ? 'Uploading...' : 'Find Match'}
@@ -99,7 +103,9 @@ const RecommendationPage = () => {
 
         {celebrityName && (
           <div className="mt-10 text-center">
-            <div className="text-xl font-medium text-gray-800">Your K-Pop Look-alike: {celebrityName}</div>
+            <div className="text-xl font-medium text-gray-800">
+              Your K-Pop Look-alike: {celebrityName}
+            </div>
             {celebrityPhoto && (
               <img
                 src={`${backendUrl}/${celebrityPhoto}`}
