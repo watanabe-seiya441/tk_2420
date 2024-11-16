@@ -4,10 +4,10 @@ import os
 import subprocess
 import time
 from collections import Counter
-from env import PROCESSED_DATA_DIR
 
 import cv2
 import numpy as np
+from env import PROCESSED_DATA_DIR
 from ultralytics import YOLO
 
 input_video_path = "Whiplash.mp4"
@@ -20,12 +20,24 @@ mp4_with_overlay_output_path = f"{file_name}_overlay.mp4"
 logger = logging.getLogger(__name__)
 
 
+def generate_colors(n):
+    import colorsys
+
+    HSV_tuples = [(x * 1.0 / n, 0.5, 0.5) for x in range(n)]
+    hex_colors = []
+    for hsv in HSV_tuples:
+        rgb = colorsys.hsv_to_rgb(*hsv)
+        hex_color = "#" + "".join("%02x" % int(c * 255) for c in rgb)
+        hex_colors.append(hex_color)
+    return hex_colors
+
+
 def annotate_video(
     input_video_path: str,
     mp4_with_overlay_output_path: str,
     json_output_path: str,
     model_path: str,
-    title: str 
+    title: str,
 ) -> None:
     model = YOLO(model_path)
     cap = cv2.VideoCapture(input_video_path)
@@ -40,36 +52,21 @@ def annotate_video(
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     out = cv2.VideoWriter(tmp_movie_output_path, fourcc, fps, (frame_width, frame_height))
 
-    # 過去のバウンディングボックスとクラス情報を保存する辞書を初期化
-    past_info: dict[int, dict] = {}
-    # 前のフレームを保存する変数を初期化（シーン切り替え検出用）
-    prev_frame_gray = None
-    # シーン切り替えのしきい値
-    scene_change_threshold = 30.0
-    # Confidenceスコアのしきい値
-    confidence_threshold = 0.40
-    # 平滑化に使用するフレーム数
-    smoothing_frames = 30
-    fix_threshold = 0.85
-    photo_info_counter = {
-        "giselle": {"count": 0, "time": 0},
-        "karina": {"count": 0, "time": 0},
-        "ningning": {"count": 0, "time": 0},
-        "winter": {"count": 0, "time": 0},
-    }
+    # モデルからクラス名を取得
+    class_id_to_name = model.names  # dict mapping class_id to class_name
+    class_names = list(class_id_to_name.values())
+    class_names_dict = {class_name: i for i, class_name in enumerate(class_names)}  # mapping class_name to index
 
-    frame_count = 0
+    # photo_info_counterを初期化
+    photo_info_counter = {class_name: {"count": 0, "time": 0} for class_name in class_names}
+
+    # クラスごとの色を生成
+    colors = generate_colors(len(class_names))
+    class_colors = {class_name: colors[i] for i, class_name in enumerate(class_names)}
 
     # オーバーレイデータの初期化
     overlay_data: dict[str, list] = {"overlays": []}
-    class_colors = {
-        "karina": "#0000FF",  # ブルー
-        "giselle": "#FF69B4",  # ピンク
-        "winter": "#00FF00",  # グリーン
-        "ningning": "#800080",  # パープル
-    }
-    class_names_dict = {"karina": 0, "giselle": 1, "winter": 2, "ningning": 3}
-    for class_name in class_names_dict.keys():
+    for class_name in class_names:
         overlay_data["overlays"].append(
             {
                 "id": class_name,
@@ -81,6 +78,20 @@ def annotate_video(
                 "positions": [],
             }
         )
+
+    # 過去のバウンディングボックスとクラス情報を保存する辞書を初期化
+    past_info: dict[int, dict] = {}
+    # 前のフレームを保存する変数を初期化（シーン切り替え検出用）
+    prev_frame_gray = None
+    # シーン切り替えのしきい値
+    scene_change_threshold = 30.0
+    # Confidenceスコアのしきい値
+    confidence_threshold = 0.40
+    # 平滑化に使用するフレーム数
+    smoothing_frames = 30
+    fix_threshold = 0.85
+
+    frame_count = 0
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -168,7 +179,16 @@ def annotate_video(
 
                 # 画像を保存
                 save_photo(
-                    frame_copy_for_photo, frame_width, frame_height, x1, y1, x2, y2, class_name, photo_info_counter, title
+                    frame_copy_for_photo,
+                    frame_width,
+                    frame_height,
+                    x1,
+                    y1,
+                    x2,
+                    y2,
+                    class_name,
+                    photo_info_counter,
+                    title,
                 )
 
                 if not confidence_low_flag and tracking_id is not None:
@@ -177,7 +197,13 @@ def annotate_video(
                     if y1_smooth - 5 < 0:
                         adjusted_y1_smooth += 15
                     # バウンディングボックスを描画
-                    cv2.line(frame, (x1_smooth, adjusted_y1_smooth), (x2_smooth, adjusted_y1_smooth), color, 2)
+                    cv2.line(
+                        frame,
+                        (x1_smooth, adjusted_y1_smooth),
+                        (x2_smooth, adjusted_y1_smooth),
+                        color,
+                        2,
+                    )
 
                     # ラベルを描画
                     label_text = f"{class_name}"
@@ -202,14 +228,23 @@ def annotate_video(
                             "endY": y2_smooth,
                             "visible": True,
                         }
-                        overlay_data["overlays"][class_names_dict[class_name]]["positions"].append(position)
+                        overlay_index = class_names_dict[class_name]
+                        overlay_data["overlays"][overlay_index]["positions"].append(position)
                         detected_classes.add(class_name)
 
         # 検出されなかったクラスのvisibleをfalseに設定
-        for class_name in class_names_dict:
+        for class_name in class_names:
             if class_name not in detected_classes:
-                position = {"time": current_time, "startX": 0, "startY": 0, "endX": 0, "endY": 0, "visible": False}
-                overlay_data["overlays"][class_names_dict[class_name]]["positions"].append(position)
+                position = {
+                    "time": current_time,
+                    "startX": 0,
+                    "startY": 0,
+                    "endX": 0,
+                    "endY": 0,
+                    "visible": False,
+                }
+                overlay_index = class_names_dict[class_name]
+                overlay_data["overlays"][overlay_index]["positions"].append(position)
 
         # フレームを書き込み
         out.write(frame)
@@ -252,7 +287,18 @@ def annotate_video(
     os.remove(tmp_movie_output_path)
 
 
-def save_photo(frame, frame_width, frame_height, x1, y1, x2, y2, class_name, photo_info_counter, video_title):
+def save_photo(
+    frame,
+    frame_width,
+    frame_height,
+    x1,
+    y1,
+    x2,
+    y2,
+    class_name,
+    photo_info_counter,
+    video_title,
+):
     os.makedirs(f"{PROCESSED_DATA_DIR}/oshi_photos/{video_title}", exist_ok=True)
     os.makedirs(f"{PROCESSED_DATA_DIR}/oshi_photos/{video_title}/{class_name}", exist_ok=True)
     frame_area = frame_width * frame_height
@@ -267,9 +313,24 @@ def save_photo(frame, frame_width, frame_height, x1, y1, x2, y2, class_name, pho
             return
         photo_info_counter[class_name]["count"] += 1
         photo_info_counter[class_name]["time"] = time.time()
-        output_path = f"{PROCESSED_DATA_DIR}/oshi_photos/{video_title}/{class_name}/{photo_info_counter[class_name]['count']}.png"
+        output_path = (
+            f"{PROCESSED_DATA_DIR}/oshi_photos/{video_title}/{class_name}/{photo_info_counter[class_name]['count']}.png"
+        )
         cv2.imwrite(output_path, frame)
 
 
 if __name__ == "__main__":
-    annotate_video(input_video_path, mp4_with_overlay_output_path, json_output_path)
+    model_path = "/Users/yagiryo/Desktop/hack/jphack/tk_2420/py/models/YOLOv11/aespa/best_aespa.pt" 
+    title = "aespa"  # または任意のタイトルを指定
+    input_video_path = (
+        "/Users/yagiryo/Desktop/hack/jphack/tk_2420/Whiplash_short.mp4"  # 入力動画のパスを指定してください
+    )
+    mp4_with_overlay_output_path = f"/Users/yagiryo/Desktop/hack/jphack/tk_2420/{title}_overlay.mp4"
+    json_output_path = f"/Users/yagiryo/Desktop/hack/jphack/tk_2420/py/processed_data/overlays/{title}_overlay.json"
+    annotate_video(
+        input_video_path,
+        mp4_with_overlay_output_path,
+        json_output_path,
+        model_path,
+        title,
+    )
