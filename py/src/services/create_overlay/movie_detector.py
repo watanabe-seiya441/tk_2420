@@ -17,6 +17,7 @@ json_output_path = f"py/overlays/{file_name}_overlay.json"
 mp4_with_overlay_output_path = f"{file_name}_overlay.mp4"
 
 
+
 logger = logging.getLogger(__name__)
 
 
