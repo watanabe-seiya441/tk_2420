@@ -80,6 +80,7 @@ def get_video_dimensions(video_path: str):
     cap.release()
     return (video_width, video_height)
 
+
 @videos_bp.route("/upload/youtube", methods=["POST"])
 def download_from_youtube():
     youtube_url = request.json.get("youtubeUrl")
@@ -96,6 +97,7 @@ def download_from_youtube():
     uploaded_video_path = os.path.join(UPLOADS_DIR, "videos", video_filename)
 
     from pytubefix import YouTube
+
     try:
         # YouTube動画のダウンロード
         yt = YouTube(youtube_url)
@@ -108,7 +110,9 @@ def download_from_youtube():
 
     try:
         # 動画の幅と高さを取得
-        video_width, video_height = get_video_dimensions(uploaded_video_path)  # uploaded_video_pathに拡張子も含まれるようになったので、これで正しく動作するはずです
+        video_width, video_height = get_video_dimensions(
+            uploaded_video_path
+        )  # uploaded_video_pathに拡張子も含まれるようになったので、これで正しく動作するはずです
 
         # アノテーション処理
         overlay_path = f"{PROCESSED_OVERLAY_DIR}/overlay_{video_id}.json"
@@ -150,7 +154,6 @@ def download_from_youtube():
     except Exception as e:
         logger.error(f"Failed to annotate video: {str(e)}")
         return jsonify({"error": f"Failed to annotate video: {str(e)}"}), 500
-
 
 
 @videos_bp.route("/upload/mp4", methods=["POST"], strict_slashes=False)

@@ -34,7 +34,7 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
         device = "cpu"
     print(f"{device} が有効です。")
 
-    # データセットのコピー 
+    # データセットのコピー
     # 注: additional_dataset_dir = datasets/additional_dataset/{group}がないとうまくいかない(<- ここをos.makedirsで作る)
     os.makedirs(additional_dataset_dir, exist_ok=True)
     os.makedirs(destination_dir, exist_ok=True)
