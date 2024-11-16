@@ -27,7 +27,7 @@ const GroupPage = () => {
         <div className="flex-1 text-left">
           <h1 className="text-4xl font-bold">{GROUP_NAME}</h1>
           <p className="mt-4 text-lg text-gray-700">
-            A K-pop girl group from SM Entertainment.
+            A globally renowned South Korean boy band.
           </p>
           <VideoUpload group={GROUP_NAME} />
 
