@@ -24,7 +24,8 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
         device = "cpu"
     print(f"{device} が有効です。")
 
-    # データセットのコピー
+    # データセットのコピー 
+    # 注: source_dir = datasets/additional_dataset/{group}がないとうまくいかない(<- ここをos.makedirs必要があるかどうか)
     os.makedirs(destination_dir, exist_ok=True)
     shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
 
@@ -48,10 +49,13 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
         key=lambda x: os.path.getctime(os.path.join(runs_dir, x)),
     )
     best_pt_path = os.path.join(runs_dir, latest_train_dir, "weights", "best.pt")
+    new_pt_path = os.path.join(models_dir, "hackv11i.pt")
 
     if os.path.exists(best_pt_path):
-        shutil.copy(best_pt_path, models_dir)
-        print(f"best.pt を {best_pt_path} から {models_dir} にコピーしました。")
+        shutil.copy(best_pt_path, new_pt_path)
+        print(f"best.pt を {best_pt_path} からhackv11i.ptに名前を変え {new_pt_path} にコピーしました。")
+        # shutil.copy(best_pt_path, models_dir)
+        # print(f"best.pt を {best_pt_path} から {models_dir} にコピーしました。")
     else:
         print("best.pt ファイルが見つかりませんでした。")
 
