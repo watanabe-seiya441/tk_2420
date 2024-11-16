@@ -1,5 +1,5 @@
 'use client';
-import { backendUrl } from '@/app/lib/config';
+import { backendUrl, recommendationUrlPrefix } from '@/app/lib/config';
 import { useState } from 'react';
 import axios from 'axios';
 import Header from '@/app/ui/Header';
@@ -31,7 +31,7 @@ const RecommendationPage = () => {
 
     try {
       const response = await axios.post(
-        `${backendUrl}/api/v1/recommendations/upload_kpop_face_match`,
+        `${backendUrl}/${recommendationUrlPrefix}/upload_kpop_face_match`,
         formData,
         {
           headers: {
@@ -102,7 +102,7 @@ const RecommendationPage = () => {
             <div className="text-xl font-medium text-gray-800">Your K-Pop Look-alike: {celebrityName}</div>
             {celebrityPhoto && (
               <img
-                src={celebrityPhoto}
+                src={`${backendUrl}/${celebrityPhoto}`}
                 alt={`Image of ${celebrityName}`}
                 className="w-48 h-48 mt-4 rounded-lg shadow-md object-cover"
               />

@@ -15,6 +15,7 @@ PROCESSED_OVERLAY_DIR = os.path.join(PROCESSED_DATA_DIR, "overlays")
 
 @idol_suggestion_bp.route('/idol_photo/<idol>/<filename>')
 def serve_photo(idol, filename):
+    print(f"received request, {idol}, {filename}")
     return send_from_directory(f'{DATASETS_DIR}/kpop_idol_faces/{idol}', filename)
 
 
@@ -40,6 +41,7 @@ def upload_kpop_face_match():
 
         # フルパスを作成
         full_photo_url = url_for('idol_suggestion.serve_photo', idol=idol_name, filename=f"{idol_name}.jpg", _external=False)
+        print(full_photo_url)
 
         # 一時ファイルを削除
         os.remove(temp_filepath)
