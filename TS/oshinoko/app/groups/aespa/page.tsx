@@ -28,7 +28,7 @@ const AespaPage = () => {
           <p className="mt-4 text-lg text-gray-700">
             A K-pop girl group from SM Entertainment.
           </p>
-          <VideoUpload />
+          <VideoUpload group="aespa" />
 
           {/* Annotate Button */}
           {/* TODO: set currentTime dynamically. */}

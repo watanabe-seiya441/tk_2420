@@ -5,7 +5,11 @@ import axios from 'axios';
 import { backendUrl, videoUrlPrefix } from '@/app/lib/config';
 import EnhancedVideoPlayer from '@/app/ui/EnhancedVideoPlayer';
 
-const VideoUpload = () => {
+interface VideoUploadProps {
+  group: string;
+}
+
+const VideoUpload: React.FC<VideoUploadProps> = ({ group }) => {
   const [message, setMessage] = useState<string>('');
   const [videoData, setVideoData] = useState<Video | null>(null);
 
@@ -13,15 +17,19 @@ const VideoUpload = () => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', 'Sample Video'); // TODO:  動画タイトルをここに追加
-    formData.append('group_name', 'aespa'); // TODO: グループ名をここに追加
 
     const fileInput = (event.target as HTMLFormElement).elements.namedItem(
       'video',
     ) as HTMLInputElement;
 
     if (fileInput?.files) {
-      formData.append('video', fileInput.files[0]);
+      const selectedFile = fileInput.files[0];
+
+      const fullFileName = selectedFile.name;
+      const fileName = fullFileName.slice(0, fullFileName.lastIndexOf('.'));
+      formData.append('video', selectedFile);
+      formData.append('title', fileName);
+      formData.append('group_name', group);
     } else {
       setMessage('No video file selected.');
       return;
@@ -31,7 +39,7 @@ const VideoUpload = () => {
 
     try {
       // Send file to the backend for processing
-      const response = await axios.post(
+      const response = await axios.post<Video>(
         `${backendUrl}/${videoUrlPrefix}/upload/mp4`,
         formData,
         {
@@ -71,7 +79,13 @@ const VideoUpload = () => {
           Upload Video
         </button>
       </form>
-      <p>{message}</p>
+      <p
+        className={`mt-4 ${
+          message.includes('successfully') ? 'text-green-500' : 'text-red-500'
+        }`}
+      >
+        {message}
+      </p>
       {videoData ? (
         <EnhancedVideoPlayer
           src={`${backendUrl}${videoData.video_url}`}
