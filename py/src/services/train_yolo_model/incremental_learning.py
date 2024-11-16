@@ -40,7 +40,7 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
     jpg_files = [f for f in additional_files if f.endswith(".jpeg")]
 
     # 1枚目をvalに、2枚目をtestに、残りをtrainにコピー
-    for i, (txt_file, jpg_file) in enumerate(zip(txt_files, jpg_files)):
+    for i, (txt_file, jpg_file) in enumerate(zip(txt_files, jpg_files, strict=True)):
         txt_path = os.path.join(additional_dataset_dir, txt_file)
         jpg_path = os.path.join(additional_dataset_dir, jpg_file)
 
@@ -59,7 +59,7 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
 
     # モデルのトレーニング
     model = YOLO(f"{MODELS_DIR}/YOLOv11/yolo11n.pt").to(device)
-    model.train(data=data_yaml_path, epochs=2, imgsz=640, device=device, project=runs_dir)
+    model.train(data=data_yaml_path, epochs=100, imgsz=640, device=device, project=runs_dir)
 
     # best.ptのコピー
     latest_train_dir = max(
