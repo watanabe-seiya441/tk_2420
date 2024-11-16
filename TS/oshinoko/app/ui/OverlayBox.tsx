@@ -50,7 +50,7 @@ const OverlayBox: React.FC<OverlayBoxProps> = ({
         style={{
           color,
           fontSize,
-          top: `${midY - 24}px`, // Position above the line
+          top: `${startY - 24}px`, // Position above the line
           left: `${midX}px`,
           transform: 'translate(-50%, 0%)', // Center horizontally, position above
           whiteSpace: 'nowrap',
