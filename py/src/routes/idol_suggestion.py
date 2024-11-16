@@ -39,9 +39,7 @@ def upload_kpop_face_match():
         idol_name, photo_path = propose_similar_kpop_idol(temp_filepath)
 
         # フルパスを作成
-        full_photo_url = url_for('idol_suggestion.serve_photo', idol=idol_name, filename=f"{idol_name}.jpg", _external=True)
-        print(full_photo_url)   
-
+        full_photo_url = url_for('idol_suggestion.serve_photo', idol=idol_name, filename=f"{idol_name}.jpg", _external=False)
 
         # 一時ファイルを削除
         os.remove(temp_filepath)
