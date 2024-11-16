@@ -6,6 +6,8 @@ from ultralytics import YOLO
 
 
 def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
+    # Epoch数の指定
+    EPOCHS = 100
     # パスの設定
     source_dir = os.path.join(DATASETS_DIR, "predefined_dataset", group)
     tmp_dir = os.path.join(DATASETS_DIR, "tmp")
@@ -63,7 +65,7 @@ def update_model_with_additional_dataset(DATASETS_DIR, MODELS_DIR, group):
 
     # モデルのトレーニング
     model = YOLO(f"{MODELS_DIR}/YOLOv11/yolo11n.pt").to(device)
-    model.train(data=data_yaml_path, epochs=2, imgsz=640, device=device, project=runs_dir)
+    model.train(data=data_yaml_path, epochs=EPOCHS, imgsz=640, device=device, project=runs_dir)
 
     # best.ptのコピー
     latest_train_dir = max(
