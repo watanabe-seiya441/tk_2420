@@ -19,3 +19,5 @@ MEMBER_PROFILE_URL_PREFIX = "/api/v1/member_profiles"
 ML_MODEL_URL_PREFIX = "/api/v1/ml_models"
 OVERLAY_URL_PREFIX = "/api/v1/overlays"
 VIDEO_URL_PREFIX = "/api/v1/videos"
+
+RECOMMENDATION_URL_PREFIX = "/api/v1/recommendations"

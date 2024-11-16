@@ -3,7 +3,7 @@ import os
 import sys
 
 import numpy as np
-from env import MODELS_DIR, PROCESSED_DATA_DIR
+from env import DATASETS_DIR, MODELS_DIR, PROCESSED_DATA_DIR
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "AdaFace"))
 from face_alignment import align
@@ -35,6 +35,9 @@ def propose_similar_kpop_idol(
     # 類似度の高い順に出力
     for idol_name, similarity_score in sorted_similarity_scores:
         print(idol_name, similarity_score)
+
+    most_similar_idol_name, _ = sorted_similarity_scores[0]
+    return most_similar_idol_name, f"{DATASETS_DIR}/kpop_idol_faces/{most_similar_idol_name}/{most_similar_idol_name}.jpg"
 
 
 if __name__ == "__main__":
