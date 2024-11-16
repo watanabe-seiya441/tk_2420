@@ -29,7 +29,7 @@ const GroupPage = () => {
           <p className="mt-4 text-lg text-gray-700">
             A K-pop girl group from SM Entertainment.
           </p>
-          <VideoUpload group="aespa" />
+          <VideoUpload group={GROUP_NAME} />
 
           {/* Annotate Button */}
           {/* TODO: set currentTime dynamically. */}
