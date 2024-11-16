@@ -36,6 +36,22 @@ const AnnotationPage: React.FC = () => {
     setAnnotatedSnapshots((prev) => [...prev, snapshot]);
   };
 
+  // Fetch video data based on videoId from URL parameter
+  const fetchVideoData = async (videoId: string) => {
+    try {
+      const response = await axios.get(
+        `${backendUrl}/${videoUrlPrefix}/${videoId}`,
+      );
+      const videoData = response.data;
+      console.log('Video data fetched:', videoData);
+      setVideoUrl(videoData.video_url);
+      setGroupName(videoData.group_name);
+      console.log('Video data fetched:', videoData);
+    } catch (error) {
+      console.error('Failed to fetch video data:', error);
+    }
+  };
+
   const fetchLabelInfo = async () => {
     try {
       const response = await axios.get(
@@ -57,6 +73,16 @@ const AnnotationPage: React.FC = () => {
       console.error('Failed to fetch labels:', error);
     }
   };
+
+  useEffect(() => {
+    // URLSearchParamsを使ってvideoIdパラメータを取得
+    const params = new URLSearchParams(window.location.search);
+    const videoId = params.get('videoId');
+    console.log('videoId:', videoId);
+    if (videoId) {
+      fetchVideoData(videoId);
+    }
+  }, []);
 
   useEffect(() => {
     if (groupName) {
