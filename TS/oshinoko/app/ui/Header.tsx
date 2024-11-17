@@ -13,7 +13,9 @@ const Header: React.FC = () => {
         </Link>
 
         {/* タイトルを中央に配置 */}
-        <h1 className="text-white text-3xl font-bold mx-auto">Oshi no Ko</h1>
+        <h1 className="text-white text-3xl font-bold mx-auto">
+          Where is your chugyeog?
+        </h1>
       </div>
     </header>
   );
