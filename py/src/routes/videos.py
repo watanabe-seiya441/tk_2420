@@ -7,6 +7,7 @@ import cv2
 from env import MODELS_DIR, OVERLAY_URL_PREFIX, PROCESSED_DATA_DIR, UPLOADS_DIR, VIDEO_URL_PREFIX
 from flask import Blueprint, jsonify, request, send_from_directory
 from models import VideoInfo, db
+from pytubefix import YouTube
 from services.create_overlay.movie_detector import annotate_video
 from werkzeug.utils import secure_filename
 
@@ -96,14 +97,14 @@ def download_from_youtube():
     video_filename = f"{video_id}.mp4"  # 拡張子.mp4を追加
     uploaded_video_path = os.path.join(UPLOADS_DIR, "videos", video_filename)
 
-    from pytubefix import YouTube
-
     try:
         # YouTube動画のダウンロード
         yt = YouTube(youtube_url)
         ys = yt.streams.filter(res="480p").first()
         ys.download(output_path=os.path.join(UPLOADS_DIR, "videos"), filename=video_id)
         logger.info(f"Downloaded YouTube video to {uploaded_video_path}")
+        # QUICK FIX
+        title = secure_filename(yt.title)
     except Exception as e:
         logger.error(f"Failed to download video: {str(e)}")
         return jsonify({"error": f"Failed to download video: {str(e)}"}), 500

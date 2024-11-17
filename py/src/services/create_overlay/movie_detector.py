@@ -17,7 +17,6 @@ json_output_path = f"py/overlays/{file_name}_overlay.json"
 mp4_with_overlay_output_path = f"{file_name}_overlay.mp4"
 
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -321,7 +320,7 @@ def save_photo(
 
 
 if __name__ == "__main__":
-    model_path = "/Users/yagiryo/Desktop/hack/jphack/tk_2420/py/models/YOLOv11/aespa/best_aespa.pt" 
+    model_path = "/Users/yagiryo/Desktop/hack/jphack/tk_2420/py/models/YOLOv11/aespa/best_aespa.pt"
     title = "aespa"  # または任意のタイトルを指定
     input_video_path = (
         "/Users/yagiryo/Desktop/hack/jphack/tk_2420/Whiplash_short.mp4"  # 入力動画のパスを指定してください
