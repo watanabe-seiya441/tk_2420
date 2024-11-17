@@ -7,9 +7,9 @@ import cv2
 from env import MODELS_DIR, OVERLAY_URL_PREFIX, PROCESSED_DATA_DIR, UPLOADS_DIR, VIDEO_URL_PREFIX
 from flask import Blueprint, jsonify, request, send_from_directory
 from models import VideoInfo, db
+from pytubefix import YouTube
 from services.create_overlay.movie_detector import annotate_video
 from werkzeug.utils import secure_filename
-from pytubefix import YouTube
 
 logger = logging.getLogger(__name__)
 
@@ -96,7 +96,6 @@ def download_from_youtube():
     video_id = str(uuid.uuid4())
     video_filename = f"{video_id}.mp4"  # 拡張子.mp4を追加
     uploaded_video_path = os.path.join(UPLOADS_DIR, "videos", video_filename)
-
 
     try:
         # YouTube動画のダウンロード
