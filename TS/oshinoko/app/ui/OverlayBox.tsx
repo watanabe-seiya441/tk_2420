@@ -38,7 +38,7 @@ const OverlayBox: React.FC<OverlayBoxProps> = ({
           left: `${startX}px`,
           width: `${endX - startX}px`, // Line length
           backgroundColor: lineColor,
-          height: `${lineWidth}px`,
+          height: `${lineWidth + 3}px`,
         }}
       />
 
@@ -47,8 +47,8 @@ const OverlayBox: React.FC<OverlayBoxProps> = ({
         className="absolute pointer-events-none"
         style={{
           color,
-          fontSize,
-          top: `${startY - 24}px`, // Position above the line
+          fontSize: '34px',
+          top: `${startY - 40}px`, // Position above the line
           left: `${midX}px`,
           transform: 'translate(-50%, 0%)', // Center horizontally, position above
           whiteSpace: 'nowrap',
